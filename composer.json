@@ -1,0 +1,21 @@
+{
+    "name": "mkebza/sonata-ext-bundle",
+    "description": "Sonata Admin extensions and goodies bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marek Kebza",
+            "email": "marek@kebza.cz"
+        }
+    ],
+    "autoload": {
+      "psr-4": { "MKebza\\SonataExt\\": "" },
+      "exclude-from-classmap": [
+        "/Tests/"
+      ]
+    },
+    "require": {
+       "php": "^7.1.3"
+    }
+}
