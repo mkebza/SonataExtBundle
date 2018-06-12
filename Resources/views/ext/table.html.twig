@@ -1,0 +1,30 @@
+{% trans_default_domain translation_domain|default('backend') %}
+
+{% block table %}
+    {% if rows is empty %}
+        <div class="empty">
+            No data
+        </div>
+    {% else %}
+        <table class="table table-border table-striped">
+            {% block header %}
+                {% if header %}
+                    <tr>
+                        {% for name in header %}
+                            <th>{{ name|trans }}</th>
+                        {% endfor %}
+                    </tr>
+                {% endif %}
+            {% endblock %}
+            {% for row in rows %}
+                {% block row_outer %}
+                    <tr class="{% block row_class %}{% endblock %}">
+                        {% block row %}
+                            <td>Row content, should be replaced</td>
+                        {% endblock %}
+                    </tr>
+                {% endblock %}
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,92 @@
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin-ext');*/
+
+body {
+    /*font-family: "Open Sans";*/
+    font-size: 14px;
+}
+
+.content-wrapper, .right-side {
+    background-color: #fafafa;
+}
+
+.content-header {
+    padding-top: 0px;
+}
+
+.content-header > .navbar {
+    margin-top: 15px;
+}
+
+.content-header > .navbar-default {
+    background: #eee;
+}
+
+.content-header, .content-header a {
+    color: #333 !important;
+}
+
+.content-header a:hover {
+    color: #000 !important;
+}
+
+.sonata-ba-form-actions {
+    text-align: right !important;
+}
+
+.sonata-ba-form-actions.well {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+    height: auto;
+}
+
+
+/* Datagrid */
+table.table td {
+    vertical-align: middle !important;
+    height: 47px;
+}
+
+table.table td .btn-group {
+    white-space: nowrap;
+}
+
+table.sonata-ba-list td {
+    overflow: inherit !important;
+}
+.sonata-ba-list-field-header-batch {
+    width: 39px;
+}
+
+/* Data range filters, hide labels and fix width */
+.sonata-filter-form .col-sm-4 > div > div > label {
+    display: none;
+}
+.sonata-filter-form .col-sm-4 > div > div > div {
+    width: 100%;
+}
+
+/* Form goodies */
+.form-control[readonly] {
+    border: none;
+    background: none;
+}
+
+.ui-tooltip {
+    font-size: 11px;
+    background: #333;
+    color: #eee;
+}
+
+/* Login page override */
+body.login-page {
+    background: white;
+}
+
+body.login-page .login-box-body {
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+}

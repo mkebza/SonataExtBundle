@@ -1,0 +1,25 @@
+{% extends "@SonataAdmin/layout.html.twig" %}
+
+{% block body_attributes %}class="sonata-bc login-page"{% endblock %}
+{% block sonata_header %}{% endblock %}
+{% trans_default_domain 'unud' %}
+
+{% block sonata_wrapper %}
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{ path('fos_user_security_login') }}">
+                <img src="{{ asset('assets/image/logo.png') }}" alt="">
+            </a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            {#{% if error %}#}
+                {#<div class="alert alert-danger alert-error">{{ error.messageKey }}</div>#}
+            {#{% endif %}#}
+
+            {% include 'backend/sonata/flashbag.html.twig' %}
+
+            {% block content_open %}{% endblock %}
+        </div>
+    </div>
+{% endblock sonata_wrapper %}

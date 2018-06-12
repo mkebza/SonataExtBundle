@@ -1,0 +1,114 @@
+{% extends "SonataAdminBundle::standard_layout.html.twig" %}
+
+{% block sonata_head_title %}
+    {% if _title is not empty %}
+        {#{{ _title|raw }} - {{ appConfig.name }}#}
+    {% else %}
+        {{ 'Admin'|trans({}, 'SonataAdminBundle') }}
+        {% if action is defined %}
+            -
+            {% for menu in breadcrumbs_builder.breadcrumbs(admin, action) %}
+                {% if not loop.first %}
+                    {%  if loop.index != 2 %}
+                        &gt;
+                    {% endif %}
+
+                    {%- set translation_domain = menu.extra('translation_domain', 'messages') -%}
+                    {%- set label = menu.label -%}
+                    {%- if translation_domain is not same as(false) -%}
+                        {%- set label = label|trans(menu.extra('translation_params', {}), translation_domain) -%}
+                    {%- endif -%}
+
+                    {{ label }}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {#- {{ g_app_name }}#}
+    {% endif%}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#<link rel="stylesheet" href="path_to_bootstrap.min.css" />#}
+    <link rel="stylesheet" href="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="{{ asset('/bundles/mkebzasonataext/css/admin.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#<script type="text/javascript" src="path_to_jquery.min.js"></script>#}
+    <script type="text/javascript" src="/bundles/sonatacore/vendor/moment/min/moment-with-locales.min.js"></script>
+    {#<script type="text/javascript" src="path_to_bootstrap.min.js"></script>#}
+    <script type="text/javascript" src="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ asset('/admin/main.js') }}"></script>
+
+    {# Stick to current tab on basic forms when saved #}
+    {% if admin is defined %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // show active tab on reload
+                if (location.hash !== '' && location.hash.substring(1, 5) == 'tab_') {
+                    var currentTabNumber = location.hash.substring(5);
+                    var adminUniqid      = '{{ admin.uniqid }}';
+
+                    $('a[href="#tab_' + adminUniqid + '_' + currentTabNumber + '"]').tab('show');
+                }
+
+                // remember the hash in the URL without jumping
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                    var tabName     = $(e.target).attr('href').substring(1);
+                    var tabParts    = tabName.match(/tab_\w+_(\d)/);
+                    var tabHashName = '#tab_' + tabParts[1];
+
+                    if (history.pushState) {
+                        history.pushState(null, null, tabHashName);
+                    } else {
+                        location.hash = tabHashName;
+                    }
+                });
+
+                // add the hash in action form when submit
+                $('form').on('submit', function () {
+                    if (location.hash.substring(1, 5) == 'tab_') {
+                        $(this).attr('action', $(this).attr('action') + location.hash)
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block side_bar_after_nav %}
+    <p class="text-center small" style="padding-top: 10px">
+        {% block side_bar_after_nav_content %}
+            <a href="http://kebza.cz/">Created by <a href="http://www.kebza.cz/">Marek Kebza</a></a>
+        {% endblock %}
+    </p>
+{% endblock %}
+
+{% block tab_menu_navbar_header %}
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">{{ _navbar_title|raw }}</a>
+    </div>
+{% endblock %}
+
+{% block sonata_admin_content %}
+    {% include 'backend/sonata/flashbag.html.twig' %}
+    {{ parent() }}
+
+    <div class="modal fade" id="sonata-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# Remove app wide search #}
+{% block sonata_sidebar_search %}{% endblock %}
+
+{# Remove top adding stuff #}
+{% block sonata_top_nav_menu_add_block %}{% endblock %}
+

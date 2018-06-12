@@ -1,0 +1,4 @@
+services:
+    MKebza\SonataExt\Form\Type\TemplateType:
+        tags:
+            - { name: form.type }
