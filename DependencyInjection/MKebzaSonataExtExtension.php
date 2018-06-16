@@ -19,8 +19,15 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
     {
         $container->loadFromExtension('twig', [
             'paths' => [
+
+            ]
+        ]);
+
+        $container->loadFromExtension('twig', [
+            'paths' => [
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' =>  'SonataAdmin',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
+                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/fos-user' =>  'FOSUser',
             ]
         ]);
     }
@@ -33,13 +40,19 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-//        $config = $this->processConfiguration(new Configuration(), $configs);
-
+        $config = $this->processConfiguration(new Configuration(), $configs);
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
 
         $loader->load('services.yaml');
+
+        // Include registered admins
+        foreach ($config['admin'] as $name => $enabled) {
+            if ($enabled) {
+                $loader->load('admin/'.$name.'.yaml');
+            }
+        }
     }
 }

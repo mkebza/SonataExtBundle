@@ -1,0 +1,9 @@
+{% trans_default_domain 'sonata_ext' %}
+
+{% if is_granted('ROLE_ALLOW_IMPERSONATE') %}
+    <a class="btn btn-sm btn-default" href="{{ path('sonata_admin_dashboard', {'__impersonate': object.email }) }}" title="Impersonate this user">
+        <i class="fa fa-user-circle"></i>
+    </a>
+{% endif %}
+
+

@@ -7,6 +7,7 @@
 
 namespace MKebza\SonataExt;
 
+use MKebza\SonataExt\DependencyInjection\CompilerPass\ActionLogAddUserRoutePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -1,0 +1,6 @@
+services:
+    backend.action_log:
+        class: MKebza\SonataExt\Admin\ActionLogAdmin
+        arguments: [~, MKebza\SonataExt\Entity\ActionLog, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Log', label: 'System', on_top: true}

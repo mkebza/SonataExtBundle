@@ -16,6 +16,8 @@
       ]
     },
     "require": {
-       "php": "^7.1.3"
+       "php": "^7.1.3",
+       "friendsofsymfony/user-bundle": "^2.1",
+       "jmose/command-scheduler-bundle": "^2.0"
     }
 }

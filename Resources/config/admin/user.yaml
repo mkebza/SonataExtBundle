@@ -1,0 +1,8 @@
+services:
+    backend.user:
+        class: MKebza\SonataExt\Admin\UserAdmin
+        arguments: [~, App\Entity\User, ~]
+        calls:
+            - ['setUserManager', ['@fos_user.user_manager']]
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Users' }

@@ -1,0 +1,39 @@
+{% trans_default_domain 'unud' %}
+<li class="user-header">
+    <p>
+        {#{{ app.user.fullName }}#}
+        <small>
+            {{ app.user.email }}<br>
+            Last login {{ app.user.lastLogin|date('d.m.Y H:i:s') }}
+        </small>
+    </p>
+</li>
+
+{#<li class="user-body">#}
+    {#<div class="row">#}
+        {#<div class="col-xs-4 text-center">#}
+            {#<a href="#">Followers</a>#}
+        {#</div>#}
+        {#<div class="col-xs-4 text-center">#}
+            {#<a href="#">Sales</a>#}
+        {#</div>#}
+        {#<div class="col-xs-4 text-center">#}
+            {#<a href="#">Friends</a>#}
+        {#</div>#}
+    {#</div>#}
+    {#<!-- /.row -->#}
+{#</li>#}
+
+<li class="user-footer">
+    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+        <a href="{{ path('sonata_admin_dashboard', {'__impersonate': '_exit' }) }}" class="btn btn-danger btn-block" style="color:#fff; margin-bottom: 10px">
+            Exit impersonalisation
+        </a>
+    {% endif %}
+    <div class="pull-left">
+        <a href="{{ path('fos_user_change_password') }}" class="btn btn-primary btn-flat">Change password</a>
+    </div>
+    <div class="pull-right">
+        <a href="{{ path('fos_user_security_logout') }}" class="btn btn-primary btn-flat">Logout</a>
+    </div>
+</li>

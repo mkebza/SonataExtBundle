@@ -1,0 +1,8 @@
+action_log:
+    admin_tab:
+        label: History
+        message: Message
+        level: Level
+        createdAt: Created at
+        user: User
+        messageCount: Showing last :count messages

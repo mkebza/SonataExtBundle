@@ -1,0 +1,16 @@
+{% embed '@SonataExt/table.html.twig' with {
+    rows: entries,
+    translation_domain: 'sonata_ext',
+    header: ['action_log.admin_tab.message', 'action_log.admin_tab.level', 'action_log.admin_tab.user', 'action_log.admin_tab.createdAt']}
+only %}
+    {% block row %}
+        <td>{{ row.message }}</td>
+        <td>{% include '@SonataExt/action_log/_level.html.twig' with {level: row.level} only %}</td>
+        <td>{{ row.user }}</td>
+        <td>{{ row.createdAt|date }}</td>
+    {% endblock %}
+{% endembed %}
+
+<p class="text-right text-muted">
+    {{ 'action_log.admin_tab.messageCount'|trans({':count': entries.count }, 'sonata_ext') }}
+</p>

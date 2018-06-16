@@ -1,0 +1,7 @@
+services:
+    # Admin definitions
+    backend.action_log:
+        class: MKebza\SonataExt\Admin\UserGroupAdmin
+        arguments: [~, App\Entity\UserGroup, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Groups'}

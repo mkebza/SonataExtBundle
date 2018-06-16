@@ -1,0 +1,3 @@
+{% set map = {'success': 'success', 'message': 'default', 'warning': 'warning', 'error': 'danger'} %}
+
+<span class="label label-{{ map[level]|default('default') }}">{{ level }}</span>
