@@ -26,7 +26,7 @@ class ActionLogAdmin extends AbstractAdmin
         '_sort_by' => 'createdAt',
     ];
 
-    protected $userDetailRouteName;
+    protected $userDetailRouteName = null;
 
     /**
      * @param mixed $userDetailRouteName
@@ -34,6 +34,11 @@ class ActionLogAdmin extends AbstractAdmin
     public function setUserDetailRouteName(string $userDetailRouteName): void
     {
         $this->userDetailRouteName = $userDetailRouteName;
+    }
+
+    public function getUserDetailRouteName(): ?string
+    {
+        return $this->userDetailRouteName;
     }
 
 
@@ -59,8 +64,8 @@ class ActionLogAdmin extends AbstractAdmin
     {
         $list
             ->add('message')
-            ->add('level', null, ['template' => '@MKebzaEntityHistory/admin/_list_level.html.twig'])
-            ->add('user')
+            ->add('level', null, ['template' => '@SonataExt/action_log/_list_level.html.twig'])
+            ->add('user', null, ['template' => '@SonataExt/action_log/_list_user.html.twig'])
             ->add('createdAt');
     }
 }

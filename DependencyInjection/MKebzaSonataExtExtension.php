@@ -19,12 +19,6 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
     {
         $container->loadFromExtension('twig', [
             'paths' => [
-
-            ]
-        ]);
-
-        $container->loadFromExtension('twig', [
-            'paths' => [
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' =>  'SonataAdmin',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/fos-user' =>  'FOSUser',
@@ -53,6 +47,10 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             if ($enabled) {
                 $loader->load('admin/'.$name.'.yaml');
             }
+        }
+
+        if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('backend.action_log')) {
+            $container->getDefinition('backend.action_log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
         }
     }
 }
