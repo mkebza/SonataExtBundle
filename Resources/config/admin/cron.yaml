@@ -1,0 +1,6 @@
+services:
+    backend.cron:
+        class: MKebza\SonataExt\Admin\CronAdmin
+        arguments: [~, JMose\CommandSchedulerBundle\Entity\ScheduledCommand, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'System', label: 'Cron'}

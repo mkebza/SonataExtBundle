@@ -21,7 +21,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             'paths' => [
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' =>  'SonataAdmin',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/fos-user' =>  'FOSUser',
+                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/fos-user' => 'FOSUser',
             ]
         ]);
     }

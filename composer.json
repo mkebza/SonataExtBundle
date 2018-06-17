@@ -18,6 +18,12 @@
     "require": {
        "php": "^7.1.3",
        "friendsofsymfony/user-bundle": "^2.1",
-       "jmose/command-scheduler-bundle": "^2.0"
-    }
+       "jmose/command-scheduler-bundle": "dev-master"
+    },
+    "repositories": [
+      {
+        "type": "vcs",
+        "url": "https://github.com/mkebza/CommandSchedulerBundle.git"
+      }
+    ]
 }
