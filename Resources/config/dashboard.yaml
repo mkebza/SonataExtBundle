@@ -1,0 +1,33 @@
+services:
+    # Blocks
+    MKebza\SonataExt\Dashboard\Block\Type\CurrentUserInfoBlock:
+        calls:
+            - ['setTemplating', ['@templating']]
+            - ['setAuthorizationChecker', ['@security.authorization_checker']]
+        tags:
+            - { name: 'dashboard.block' }
+
+    MKebza\SonataExt\Dashboard\Block\Type\AppInfoBlock:
+        calls:
+            - ['setTemplating', ['@templating']]
+            - ['setAuthorizationChecker', ['@security.authorization_checker']]
+            - ['setContainer', ['@service_container']]
+        tags:
+            - { name: 'dashboard.block' }
+
+    MKebza\SonataExt\Dashboard\Block\BlockRegistry:
+        arguments:
+            $blocks: !tagged dashboard.block
+
+    MKebza\SonataExt\Dashboard\AdminDashboard: ~
+
+    MKebza\SonataExt\Dashboard\DashboardRenderer:
+        arguments:
+            $registry: '@MKebza\SonataExt\Dashboard\Block\BlockRegistry'
+
+    MKebza\SonataExt\Controller\DashboardController:
+        tags:
+            - { name: 'controller.service_arguments' }
+        arguments:
+            $renderer: '@MKebza\SonataExt\Dashboard\DashboardRenderer'
+            $dashboard: '@MKebza\SonataExt\Dashboard\AdminDashboard'

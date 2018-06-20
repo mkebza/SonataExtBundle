@@ -5,13 +5,14 @@
 
 namespace MKebza\SonataExt\Command;
 
+use MKebza\SonataExt\Utils\CommandInfoInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class RoleExportCommand extends ContainerAwareCommand
+class RoleExportCommand extends ContainerAwareCommand implements CommandInfoInterface
 {
     /**
      * @var SymfonyStyle

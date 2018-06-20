@@ -15,13 +15,15 @@ use MKebza\EntityHistory\ORM\EntityHistoryUserInterface;
 use MKebza\SonataExt\ActionLog\ActionLogUserInterface;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggable;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\MappedSuperclass()
  */
-class User extends \FOS\UserBundle\Model\User implements ActionLoggableInterface, ActionLogUserInterface
+class User extends \FOS\UserBundle\Model\User implements ActionLoggableInterface, ActionLogUserInterface, EquatableInterface
 {
     use ActionLoggable;
 
@@ -95,5 +97,10 @@ class User extends \FOS\UserBundle\Model\User implements ActionLoggableInterface
     public function getActionLogName(): string
     {
         return (string)$this;
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return true;
     }
 }

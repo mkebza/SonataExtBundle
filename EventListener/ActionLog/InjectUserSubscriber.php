@@ -42,6 +42,5 @@ class InjectUserSubscriber
         $property = $refl->getProperty('userObject');
         $property->setAccessible(true);
         $property->setValue($object, $this->userProvider->getUser());
-
     }
 }

@@ -1,0 +1,19 @@
+<div class="{{ _blockOptions.block_size }}">
+    <div class="box box-{{ _blockOptions.block_type }}">
+        {% if block('header') is defined or block('header_title') is defined %}
+            <div class="box-header">
+                {% if block('header') is defined %}
+                    {{ block('header')|raw }}
+                {% else %}
+                    <h4 class="box-title">{{ block('header_title') }}</h4>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if block('body') is defined %}
+            <div class="box-body {{ block('boxy_class') is defined ? block('body_class') }}">
+                {{ block('body') }}
+            </div>
+        {% endif %}
+    </div>
+</div>

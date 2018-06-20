@@ -1,0 +1,7 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block sonata_admin_content %}
+    <div id="sonata-ext-dashboard" class="row">
+        {{ renderer.render(dashboard)|raw }}
+    </div>
+{% endblock %}

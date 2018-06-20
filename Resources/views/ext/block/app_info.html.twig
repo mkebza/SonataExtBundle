@@ -1,0 +1,37 @@
+{% extends '@SonataExt/block/layout_box.html.twig' %}
+
+{% block header_title %}
+    App Info
+{% endblock %}
+
+{% block body %}
+    <table class="table table-condensed table-striped">
+        <tr>
+            <td>Enviroment</td>
+            <th>{{ app.environment }}</th>
+        </tr>
+        <tr>
+            <td>Version</td>
+            <th>{{ git }}</th>
+        </tr>
+        <tr>
+            <td>Project dir</td>
+            <th>{{ project_dir }}</th>
+        </tr>
+        <tr>
+            <td>Doctrine connections</td>
+            <th>
+                {% for connection in database_connections %}
+                    {{ connection.name }} - {{ connection.host }}/{{ connection.database }}
+                {% else %}
+                    None
+                {% endfor %}
+            </th>
+        </tr>
+        <tr>
+            <td>PHP Version</td>
+            <th>{{ php }}</th>
+        </tr>
+
+    </table>
+{% endblock %}

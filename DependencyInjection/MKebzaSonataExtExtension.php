@@ -42,6 +42,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+
         $config = $this->processConfiguration(new Configuration(), $configs);
         $loader = new YamlFileLoader(
             $container,
@@ -49,6 +50,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
         );
 
         $loader->load('services.yaml');
+        $loader->load('dashboard.yaml');
 
         // Include registered admins
         foreach ($config['admin'] as $name => $enabled) {

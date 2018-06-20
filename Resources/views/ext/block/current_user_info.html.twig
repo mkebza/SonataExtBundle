@@ -1,0 +1,5 @@
+{% extends '@SonataExt/block/layout_box.html.twig' %}
+
+{% block header_title %}
+    Hi <strong>{{ app.user }}</strong> <small>last login on <strong>{{ app.user.lastLogin|date('d.m.Y H:i') }}</strong></small>
+{% endblock %}

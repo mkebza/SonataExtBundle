@@ -10,6 +10,10 @@ services:
         arguments:
             $tokenStorage: '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
 
+    MKebza\SonataExt\Block\CronMonitorBlock:
+        tags:
+            - { name: 'sonata.block' }
+
     ####################################################################################################################
     # Commands
     MKebza\SonataExt\Command\RoleExportCommand:
@@ -38,6 +42,12 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener }
 
+    # Others
+    MKebza\SonataExt\EventListener\CommandInfoSubscriber:
+        arguments:
+            $stopwatch: '@Symfony\Component\Stopwatch\Stopwatch'
+        tags:
+            - { name: kernel.event_subscriber }
 
     ####################################################################################################################
     # Forms
