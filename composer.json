@@ -18,7 +18,7 @@
     "require": {
        "php": "^7.1.3",
        "friendsofsymfony/user-bundle": "^2.1",
-       "jmose/command-scheduler-bundle": "dev-master"
+       "jmose/command-scheduler-bundle": "dev-sonata-ext"
     },
     "repositories": [
       {

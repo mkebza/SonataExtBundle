@@ -1,8 +1,20 @@
 services:
 
+    MKebza\SonataExt\Sonata\RoleSecurityHandler:
+        arguments:
+            $authorizationChecker: "@security.authorization_checker"
+            $superAdminRoles:
+                - ROLE_SUPER_ADMIN
+
     MKebza\SonataExt\ActionLog\CurrentUserProvider:
         arguments:
             $tokenStorage: '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
+
+    ####################################################################################################################
+    # Commands
+    MKebza\SonataExt\Command\RoleExportCommand:
+        tags:
+            - { name: 'console.command' }
 
     ####################################################################################################################
     # Events

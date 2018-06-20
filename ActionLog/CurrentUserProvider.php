@@ -26,7 +26,7 @@ class CurrentUserProvider implements CurrentUserProviderInterface
     public function getUser(): ?UserInterface
     {
         $token = $this->token->getToken();
-        if (null === $token->getUser()) {
+        if (null === $token ||  null === $token->getUser()) {
             return null;
 
         }

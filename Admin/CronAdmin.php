@@ -7,7 +7,10 @@
 
 namespace MKebza\SonataExt\Admin;
 
+use JMose\CommandSchedulerBundle\Entity\ScheduledCommand;
 use JMose\CommandSchedulerBundle\Form\Type\CommandChoiceType;
+use MKebza\SonataExt\ActionLog\AdminActionLogTab;
+use MKebza\SonataExt\Form\Type\TemplateType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -18,9 +21,12 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Process\Process;
 
 class CronAdmin extends AbstractAdmin
 {
+    use AdminActionLogTab;
+
     protected $baseRoutePattern = 'cron';
     protected $baseRouteName = 'be_cron';
 
@@ -30,29 +36,48 @@ class CronAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
-//        $filter
-//            ->add('message', null, ['show_filter' => true])
-//            ->add('user')
-//
-//            ->add('createdAt', 'doctrine_orm_date_range', [], DateRangePickerType::class)
-//        ;
+        $filter
+            ->add('name')
+            ->add('lastReturnCode')
+            ->add('locked')
+            ->add('disabled')
+        ;
     }
 
     protected function configureFormFields(FormMapper $form)
     {
+        /** @var ScheduledCommand $command */
+        $command = $this->getSubject();
 
         $form
-            ->add('name')
-            ->add('command', CommandChoiceType::class)
-            ->add('arguments', TextType::class)
-            ->add('cronExpression', TextType::class)
-            ->add('logFile', TextType::class)
-            ->add('priority', IntegerType::class, ['empty_data' => 100,])
-            ->add('executeImmediately', CheckboxType::class)
-            ->add('disabled', CheckboxType::class)
+            ->tab('General')
+                ->with(null)
+                    ->add('name')
+                    ->add('command', CommandChoiceType::class)
+                    ->add('arguments', TextType::class)
+                    ->add('cronExpression', TextType::class)
+                    ->add('logFile', TextType::class)
+                    ->add('priority', IntegerType::class, ['empty_data' => 100,])
+                    ->add('executeImmediately', CheckboxType::class)
+                    ->add('disabled', CheckboxType::class)
+                ->end()
+            ->end()
+            ->tab('Execution log')
+                ->with(sprintf("Log file '%s' (last 200 lines)", $command->getLogFile()))
+                    ->add('_execution_log', TemplateType::class, [
+                        'template' => '@SonataExt/cron/edit/_tab_execution_log.html.twig',
+                        'vars' => [
+                            'fileName' => $command->getLogFile(),
+                            'content' => $this->getLogFileContent($command->getLogFile())
+                        ]
+                    ])
+                ->end()
+            ->end()
         ;
-    }
 
+
+        $this->addActionLogTab($form);
+    }
 
     protected function configureListFields(ListMapper $list)
     {
@@ -70,5 +95,22 @@ class CronAdmin extends AbstractAdmin
                 'delete' => [],
             ]])
         ;
+    }
+
+    protected function getLogFileContent($fileName): ?string
+    {
+        $fileName = $this->getConfigurationPool()->getContainer()->getParameter('kernel.logs_dir').'/'.basename($fileName);
+
+        if (!file_exists($fileName)) {
+            return "--- Log file doesn't exists ---";
+        }
+
+        if (!is_readable($fileName)) {
+            return "--- Log file isn't readable ---";
+        }
+
+        $tail = new Process(['tail', '-n 200', $fileName]);
+        $tail->run();
+        return $tail->getOutput();
     }
 }

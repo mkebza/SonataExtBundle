@@ -1,6 +1,6 @@
 services:
     # Admin definitions
-    backend.userGroup:
+    sonata.admin.user_group:
         class: MKebza\SonataExt\Admin\UserGroupAdmin
         arguments: [~, App\Entity\UserGroup, ~]
         tags:

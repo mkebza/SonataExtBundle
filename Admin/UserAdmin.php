@@ -64,7 +64,7 @@ class UserAdmin extends AbstractAdmin
                     ->add('plainPassword', PasswordType::class)
                 ->end();
 
-        if ($this->isGranted('ROLE_GRANT')) {
+        if ($this->isGranted('ROLE_ADMIN_GRANT_PERMISSION')) {
             $form
                 ->with('Groups')
                     ->add('groups', null, [

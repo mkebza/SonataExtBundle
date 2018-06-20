@@ -1,5 +1,5 @@
 services:
-    backend.user:
+    sonata.admin.user:
         class: MKebza\SonataExt\Admin\UserAdmin
         arguments: [~, App\Entity\User, ~]
         calls:

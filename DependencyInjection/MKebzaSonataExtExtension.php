@@ -17,6 +17,14 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
 {
     public function prepend(ContainerBuilder $container)
     {
+        // Load custom security handler
+        $container->loadFromExtension('sonata_admin', [
+            'security' => [
+                'handler' =>  'MKebza\SonataExt\Sonata\RoleSecurityHandler'
+            ]
+        ]);
+
+        // Add paths to namespaces so we can override some bundles paths
         $container->loadFromExtension('twig', [
             'paths' => [
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' =>  'SonataAdmin',
@@ -49,8 +57,8 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             }
         }
 
-        if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('backend.action_log')) {
-            $container->getDefinition('backend.action_log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
+        if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('sonata.admin.action_log')) {
+            $container->getDefinition('sonata.admin.action_log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
         }
     }
 }

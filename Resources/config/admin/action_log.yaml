@@ -1,5 +1,5 @@
 services:
-    backend.action_log:
+    sonata.admin.action_log:
         class: MKebza\SonataExt\Admin\ActionLogAdmin
         arguments: [~, MKebza\SonataExt\Entity\ActionLog, ~]
         tags:

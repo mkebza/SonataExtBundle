@@ -93,6 +93,11 @@ class ActionLog
         return self::create(self::SUCCESS, $message, $user, $extra);
     }
 
+    public static function error(string $message, string $user = null, string $extra = null) {
+        return self::create(self::ERROR, $message, $user, $extra);
+    }
+
+
     /**
      * @return int
      */
