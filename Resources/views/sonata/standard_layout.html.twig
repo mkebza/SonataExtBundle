@@ -1,5 +1,13 @@
 {% extends "SonataAdminBundle::standard_layout.html.twig" %}
 
+{% block body_attributes -%}
+    class="sonata-bc skin-black-light fixed sidebar-mini sidebar-collapse"
+{%- endblock -%}
+
+{% block side_bar_nav %}
+    {{ knp_menu_render('sonata_admin_sidebar', {template: get_global_template('knp_menu_template'), allow_safe_labels: true}) }}
+{% endblock %}
+
 {% block sonata_head_title %}
     {% if _title is not empty %}
         {#{{ _title|raw }} - {{ appConfig.name }}#}
@@ -29,8 +37,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {#<link rel="stylesheet" href="path_to_bootstrap.min.css" />#}
-    <link rel="stylesheet" href="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="{{ asset('/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black-light.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/bundles/mkebzasonataext/css/admin.css') }}">
 {% endblock %}
 
@@ -80,9 +88,9 @@
 {% endblock %}
 
 {% block side_bar_after_nav %}
-    <p class="text-center small" style="padding-top: 10px">
+    <p class="text-center small created-by" style="padding-top: 10px">
         {% block side_bar_after_nav_content %}
-            <a href="http://kebza.cz/">Created by <a href="http://www.kebza.cz/">Marek Kebza</a></a>
+            <a href="http://kebza.cz/">Created by <strong>Marek Kebza</strong></a>
         {% endblock %}
     </p>
 {% endblock %}
@@ -110,5 +118,5 @@
 {% block sonata_sidebar_search %}{% endblock %}
 
 {# Remove top adding stuff #}
-{% block sonata_top_nav_menu_add_block %}{% endblock %}
+{#{% block sonata_top_nav_menu_add_block %}{% endblock %}#}
 

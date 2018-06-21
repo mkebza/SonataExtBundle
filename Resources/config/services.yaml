@@ -48,12 +48,19 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener }
 
+    # Sonata
+    MKebza\SonataExt\EventListener\Sonata\MenuDashboardSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
+
     # Others
     MKebza\SonataExt\EventListener\CommandInfoSubscriber:
         arguments:
             $stopwatch: '@Symfony\Component\Stopwatch\Stopwatch'
         tags:
             - { name: kernel.event_subscriber }
+
+
 
     ####################################################################################################################
     # Forms

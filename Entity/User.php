@@ -47,7 +47,7 @@ class User extends \FOS\UserBundle\Model\User implements ActionLoggableInterface
     {
         parent::__construct();
         $this->groups = new ArrayCollection();
-        $this->historyEntries = new ArrayCollection();
+        $this->loggedActions = new ArrayCollection();
     }
 
     /**

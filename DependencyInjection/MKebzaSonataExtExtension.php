@@ -45,7 +45,6 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-
         $config = $this->processConfiguration(new Configuration(), $configs);
         $loader = new YamlFileLoader(
             $container,
@@ -62,6 +61,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             }
         }
 
+        // User route for action log
         if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('sonata.admin.action_log')) {
             $container->getDefinition('sonata.admin.action_log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
         }
@@ -71,6 +71,8 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             $container->getDefinition(DashboardController::class)
                 ->setArgument('$dashboard', new Reference($config['dashboard']['admin_homepage']));
         }
+
+        // Chnage of skin
 
     }
 }

@@ -3,4 +3,4 @@ services:
         class: MKebza\SonataExt\Admin\ActionLogAdmin
         arguments: [~, MKebza\SonataExt\Entity\ActionLog, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'System', label: 'Log'}
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'System', label: 'Log', icon: '<i class="fa fa-gears"></i>'}

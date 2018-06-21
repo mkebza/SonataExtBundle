@@ -5,4 +5,4 @@ services:
         calls:
             - ['setUserManager', ['@fos_user.user_manager']]
         tags:
-            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Users' }
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Users', icon: '<i class="fa fa-users"></i>' }
