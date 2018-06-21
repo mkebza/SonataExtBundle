@@ -96,8 +96,6 @@ class UserAdmin extends AbstractAdmin
      */
     public function preUpdate($object)
     {
-        $object->logAction(ActionLog::success('Logged hahaa'));
-
         $this->userManager->updateCanonicalFields($object);
         $this->userManager->updatePassword($object);
     }

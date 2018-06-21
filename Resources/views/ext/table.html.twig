@@ -6,9 +6,9 @@
             No data
         </div>
     {% else %}
-        <table class="table table-border table-striped">
+        <table class="table {% block table_class %}table-border table-striped{% endblock %}">
             {% block header %}
-                {% if header %}
+                {% if header is defined %}
                     <tr>
                         {% for name in header %}
                             <th>{{ name|trans }}</th>

@@ -1,14 +1,19 @@
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-aqua">
+<div class="{{ _block.block_size }}">
+    <div class="small-box bg-{{ _block.color }}">
         <div class="inner">
-            <h3>150</h3>
+            <h3>{{ number }}</h3>
 
-            <p>New Orders</p>
+            {% if _block.label is not empty %}
+                <p>{{ _block.label }}</p>
+            {% endif %}
         </div>
-        <div class="icon">
-            <i class="ion ion-bag"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        {% if _block.icon is not empty %}
+            <div class="icon">
+                <i class="{{ _block.icon }}"></i>
+            </div>
+        {% endif %}
+        {% if _block.target is not empty %}
+            <a href="{{ _block.target }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        {% endif %}
     </div>
 </div>

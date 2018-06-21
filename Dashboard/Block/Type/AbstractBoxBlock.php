@@ -16,6 +16,7 @@ abstract class AbstractBoxBlock extends AbstractBlock
     {
         $resolver->setDefaults([
             'block_type' => 'primary',
+            'block_size' => 'col-xs-12 col-md-6',
         ]);
 
         parent::options($resolver);

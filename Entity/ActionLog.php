@@ -13,7 +13,7 @@ use MKebza\SonataExt\ActionLog\ActionLogUserInterface;
 /**
  * Class HistoryEntry
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="MKebza\SonataExt\Repository\ActionLogRepository", readOnly=true)
  * @ORM\Table(
  *     indexes={
  *          @ORM\Index(name="created_at", columns={"created_at"})

@@ -53,7 +53,7 @@ abstract class AbstractBlock implements BlockInterface
     public function options(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'block_size' => 'col-xs-12 col-md-6',
+            
         ]);
 
         $this->configure($resolver);
@@ -66,12 +66,12 @@ abstract class AbstractBlock implements BlockInterface
 
     protected function render($template, array $vars, array $options): string
     {
-        if (empty($options) || !is_array($options)) {
-            throw new \LogicException('You have to provide options if using abstract block');
+        if (!is_array($options)) {
+            throw new \LogicException('You have to provide options for rendering if using abstract block');
         }
 
         return $this->templating->render($template,
-            $vars + ['_blockOptions' => $options]
+            $vars + ['_block' => $options]
         );
     }
 

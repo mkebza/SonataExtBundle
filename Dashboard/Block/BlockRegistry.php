@@ -8,6 +8,8 @@
 namespace MKebza\SonataExt\Dashboard\Block;
 
 
+use MKebza\SonataExt\Exception\BlockNotFoundException;
+
 class BlockRegistry implements BlockRegistryInterface
 {
     /**
@@ -38,6 +40,9 @@ class BlockRegistry implements BlockRegistryInterface
 
     public function get(string $alias): BlockInterface
     {
+        if (!$this->has($alias)) {
+            throw BlockNotFoundException::create($alias);
+        }
         return $this->blocks[$alias];
     }
 

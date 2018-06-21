@@ -57,7 +57,7 @@ class AppInfoBlock extends AbstractBoxBlock implements ContainerAwareInterface
         $versionProcess->run();
         $version = trim($versionProcess->getOutput());
 
-        return sprintf('%s/%s', $branch, $branch);
+        return sprintf('%s/%s', $branch ?: '?', $version ?: '?');
     }
 
 

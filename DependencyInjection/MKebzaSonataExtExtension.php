@@ -7,11 +7,14 @@
 
 namespace MKebza\SonataExt\DependencyInjection;
 
+use MKebza\SonataExt\Controller\DashboardController;
+use MKebza\SonataExt\Dashboard\DashboardRenderer;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 class MKebzaSonataExtExtension extends Extension implements PrependExtensionInterface
 {
@@ -62,5 +65,12 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
         if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('sonata.admin.action_log')) {
             $container->getDefinition('sonata.admin.action_log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
         }
+
+        // Set default builder for dashboard
+        if ($container->hasDefinition(DashboardController::class)) {
+            $container->getDefinition(DashboardController::class)
+                ->setArgument('$dashboard', new Reference($config['dashboard']['admin_homepage']));
+        }
+
     }
 }

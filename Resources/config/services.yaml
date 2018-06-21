@@ -14,6 +14,12 @@ services:
         tags:
             - { name: 'sonata.block' }
 
+    MKebza\SonataExt\Repository\ActionLogRepository:
+        arguments:
+            $registry: '@Symfony\Bridge\Doctrine\RegistryInterface'
+        tags:
+            - { name: 'doctrine.repository_service' }
+
     ####################################################################################################################
     # Commands
     MKebza\SonataExt\Command\RoleExportCommand:

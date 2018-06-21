@@ -1,0 +1,20 @@
+{% extends '@SonataExt/block/layout_box.html.twig' %}
+
+{% block header_title %}<i class="fa fa-bars"></i> {{ _block.label }}{% endblock %}
+{% block body_style %}max-height: 200px; overflow: auto;{% endblock %}
+
+{% block body %}
+    {% embed '@SonataExt/table.html.twig' with {rows: records} only %}
+        {% block table_class %}{{ parent() }} table-condensed{% endblock %}
+        {% block row %}
+            <td>{{ row.message }}</td>
+            <td class="text-right">{% include '@SonataExt/action_log/_level.html.twig' with {level: row.level } only %}</td>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block footer %}
+    <div class="text-right">
+        <a href="{{ path('be_action_log_list') }}">Show more</a>
+    </div>
+{% endblock %}

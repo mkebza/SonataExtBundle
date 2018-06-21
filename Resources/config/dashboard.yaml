@@ -15,11 +15,38 @@ services:
         tags:
             - { name: 'dashboard.block' }
 
+    MKebza\SonataExt\Dashboard\Block\Type\StatsNumberBlock:
+        calls:
+            - ['setTemplating', ['@templating']]
+            - ['setAuthorizationChecker', ['@security.authorization_checker']]
+        tags:
+            - { name: 'dashboard.block' }
+
+    MKebza\SonataExt\Dashboard\Block\Type\SeparatorBlock:
+        calls:
+            - ['setTemplating', ['@templating']]
+            - ['setAuthorizationChecker', ['@security.authorization_checker']]
+        tags:
+            - { name: 'dashboard.block' }
+
+    MKebza\SonataExt\Dashboard\Block\Type\ActionLogBlock:
+        arguments:
+            $repository: '@MKebza\SonataExt\Repository\ActionLogRepository'
+        calls:
+            - ['setTemplating', ['@templating']]
+            - ['setAuthorizationChecker', ['@security.authorization_checker']]
+        tags:
+            - { name: 'dashboard.block' }
+
+    # Service
     MKebza\SonataExt\Dashboard\Block\BlockRegistry:
         arguments:
             $blocks: !tagged dashboard.block
 
-    MKebza\SonataExt\Dashboard\AdminDashboard: ~
+    MKebza\SonataExt\Dashboard\AdminDashboard:
+        arguments:
+            $em: '@doctrine.orm.entity_manager'
+            $router: '@router'
 
     MKebza\SonataExt\Dashboard\DashboardRenderer:
         arguments:
@@ -30,4 +57,4 @@ services:
             - { name: 'controller.service_arguments' }
         arguments:
             $renderer: '@MKebza\SonataExt\Dashboard\DashboardRenderer'
-            $dashboard: '@MKebza\SonataExt\Dashboard\AdminDashboard'
+            # $dashboard: '@MKebza\SonataExt\Dashboard\AdminDashboard'

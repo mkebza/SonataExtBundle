@@ -19,6 +19,12 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->arrayNode('dashboard')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('admin_homepage')->defaultValue('MKebza\SonataExt\Dashboard\AdminDashboard')->end()
+                    ->end()
+                ->end()
                 ->arrayNode('admin')
                     ->addDefaultsIfNotSet()
                     ->children()
