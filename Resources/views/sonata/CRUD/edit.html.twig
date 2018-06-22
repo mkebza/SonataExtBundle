@@ -15,6 +15,6 @@ file that was distributed with this source code.
     {% if admin.id(object) is not null %}
         {{ "title_edit"|trans({'%name%': admin.toString(object)|truncate(40) }, 'SonataAdminBundle') }}
     {% else %}
-        {{ "title_create"|trans({}, 'SonataAdminBundle') }}
+        {{ "title_create"|trans({}, 'SonataAdminBundle') }} '{{ admin.labelTranslatorStrategy.label(admin.classnameLabel, 'breadcrumb', 'link') }}'
     {% endif %}
 {% endblock %}

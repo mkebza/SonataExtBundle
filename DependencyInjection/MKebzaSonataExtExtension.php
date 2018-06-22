@@ -22,6 +22,14 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
     {
         // Load custom security handler
         $container->loadFromExtension('sonata_admin', [
+            'show_mosaic_button' => false,
+            'search' => false,
+            'options' => [
+                'use_stickyforms' => true,
+                'html5_validate' => false,
+                'form_type' => 'horizontal',
+                'title_mode' => 'both',
+            ],
             'security' => [
                 'handler' =>  'MKebza\SonataExt\Sonata\RoleSecurityHandler'
             ]

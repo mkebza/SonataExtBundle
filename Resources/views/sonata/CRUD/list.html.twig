@@ -12,6 +12,6 @@ file that was distributed with this source code.
 {% extends '@SonataAdmin/CRUD/base_list.html.twig' %}
 
 {% block title %}
-    List
+    {{ admin.labelTranslatorStrategy.label(admin.classnameLabel, 'breadcrumb', 'link') }} List
     {{ parent() }}
 {% endblock %}

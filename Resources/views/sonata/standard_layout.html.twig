@@ -1,7 +1,10 @@
 {% extends "SonataAdminBundle::standard_layout.html.twig" %}
 
 {% block body_attributes -%}
-    class="sonata-bc skin-black-light fixed sidebar-mini sidebar-collapse"
+    class="sonata-bc skin-black-light fixed sidebar-mini
+    {% if app.request.cookies.get('sonata_sidebar_hide') -%}
+        sidebar-collapse
+    {%- endif -%}"
 {%- endblock -%}
 
 {% block side_bar_nav %}
@@ -10,7 +13,7 @@
 
 {% block sonata_head_title %}
     {% if _title is not empty %}
-        {#{{ _title|raw }} - {{ appConfig.name }}#}
+        {{ _title|raw }} {#- {{ appConfig.name }}#}
     {% else %}
         {{ 'Admin'|trans({}, 'SonataAdminBundle') }}
         {% if action is defined %}
@@ -115,7 +118,7 @@
 {% endblock %}
 
 {# Remove app wide search #}
-{% block sonata_sidebar_search %}{% endblock %}
+{#{% block sonata_sidebar_search %}{% endblock %}#}
 
 {# Remove top adding stuff #}
 {#{% block sonata_top_nav_menu_add_block %}{% endblock %}#}

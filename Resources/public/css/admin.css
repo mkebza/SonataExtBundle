@@ -35,19 +35,64 @@ body {
 
 .sonata-ba-form-actions.well {
     padding: 0;
+    padding-bottom: 20px;
     border: none;
     background: transparent;
+    box-shadow: none;
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
     height: auto;
 }
 
+.sidebar-mini.sidebar-collapse .created-by {
+    display: none;
+}
+
+.content-header .navbar {
+    position: fixed !important;
+    top: auto;
+    width: 100%;
+    margin-left: -15px;
+    z-index: 5;
+    border-radius: 0;
+}
+
+.dropdown-add {
+    min-width: auto;
+}
+
+
+.box-title .fa {
+    margin-right: 5px;
+}
+
+.main-sidebar, .left-side {
+    transition: transform .2s ease-in-out,width .2s ease-in-out;
+}
+
+/* Logo handling */
+.logo img {
+    display: inline;
+    max-height: 95%;
+    max-width: 95%;
+}
+
+.sidebar-expanded-on-hover .main-header .logo span {
+    display: none;
+}
+
+.sidebar-collapse .main-header .logo img {
+    display: none;
+}
+.sidebar-collapse .main-header .logo span {
+    display: inline;
+}
+
 
 /* Datagrid */
 table.table td {
     vertical-align: middle !important;
-    height: 47px;
 }
 
 table.table td .btn-group {
@@ -59,6 +104,11 @@ table.sonata-ba-list td {
 }
 .sonata-ba-list-field-header-batch {
     width: 39px;
+}
+
+.table > tbody > tr > td.sonata-ba-list-actions {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 /* Data range filters, hide labels and fix width */
