@@ -61,6 +61,10 @@ body {
 .dropdown-add {
     min-width: auto;
 }
+.dropdown-add .dropdown-header {
+    color: #333;
+    font-weight: bold;
+}
 
 
 .box-title .fa {
@@ -69,6 +73,10 @@ body {
 
 .main-sidebar, .left-side {
     transition: transform .2s ease-in-out,width .2s ease-in-out;
+}
+
+.breadcrumb > .active {
+    color: #333;
 }
 
 /* Logo handling */
@@ -139,4 +147,8 @@ body.login-page {
 body.login-page .login-box-body {
     background: #fafafa;
     border: 1px solid #eaeaea;
+}
+
+.login-logo img {
+    max-width: 100%;
 }

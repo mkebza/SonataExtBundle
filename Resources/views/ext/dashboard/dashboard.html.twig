@@ -1,12 +1,8 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 {% block breadcrumb %}
-    <ol class="nav navbar-top-links breadcrumb">
-        <li>
-            <a href="/admin/dashboard">
-                <i class="fa fa-home"></i>                                                                    </a>
-        </li>
-        <li class="active"><span>Dashboard</span></li>
-    </ol>
+    {% include '@SonataExt/breadcrumbs.html.twig' with {items: [
+        {url: path('sonata_admin_dashboard'), label: 'Dashboard'}
+    ]} only %}
 {% endblock %}
 
 {% block sonata_admin_content %}
