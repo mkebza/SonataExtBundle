@@ -1,5 +1,4 @@
 services:
-
     MKebza\SonataExt\Sonata\RoleSecurityHandler:
         arguments:
             $authorizationChecker: "@security.authorization_checker"
@@ -19,6 +18,11 @@ services:
             $registry: '@Symfony\Bridge\Doctrine\RegistryInterface'
         tags:
             - { name: 'doctrine.repository_service' }
+
+    ####################################################################################################################
+#    MKebza\SonataExt\DataFixture\Processor\UserProcessor:
+#        tags:
+#            - { name: 'the' }
 
     ####################################################################################################################
     # Commands

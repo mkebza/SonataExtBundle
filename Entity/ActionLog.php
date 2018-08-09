@@ -154,8 +154,6 @@ class ActionLog
         return $this->userObject;
     }
 
-
-
     public const MESSAGE = 'message';
     public const SUCCESS = 'success';
     public const WARNING = 'warning';

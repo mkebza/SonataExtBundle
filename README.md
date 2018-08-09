@@ -1,6 +1,13 @@
 # Instalation
 
 - Composer
+
+          {
+            "type": "vcs",
+            "url": "https://github.com/mkebza/CommandSchedulerBundle.git"
+          }
+ "jmose/command-scheduler-bundle": "dev-sonata-ext"no
+
 - Odstranit routing z scheduler bundle
 - zeregistrovat form theme
 - zaregistrovat bundle pro orm
