@@ -1,0 +1,40 @@
+{% extends "@SonataAdmin/standard_layout.html.twig" %}
+
+{% block body_attributes %}class="sonata-bc login-page"{% endblock %}
+{% block sonata_header %}{% endblock %}
+{% trans_default_domain 'admin' %}
+
+{% block sonata_wrapper %}
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{ path('admin_login') }}">
+                {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                    <img src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                {% endif %}
+            </a>
+        </div>
+
+        {% block layout_open %}
+            <div class="login-box-body">
+                {#{% if error %}#}
+                {#<div class="alert alert-danger alert-error">{{ error.messageKey }}</div>#}
+                {#{% endif %}#}
+
+                {% include 'backend/sonata/flashbag.html.twig' %}
+
+
+                {#{% if app.request.hasPreviousSession %}#}
+                    {#{% for type, messages in app.session.flashbag.all() %}#}
+                        {#{% for message in messages %}#}
+                            {#<div class="flash-{{ type }}">#}
+                                {#{{ message }}#}
+                            {#</div>#}
+                        {#{% endfor %}#}
+                    {#{% endfor %}#}
+                {#{% endif %}#}
+
+                {% block content_public %}{% endblock content_public %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock sonata_wrapper %}

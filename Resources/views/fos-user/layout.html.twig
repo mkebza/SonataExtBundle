@@ -1,4 +1,4 @@
-{% extends "@SonataAdmin/standard_layout.html.twig" %}
+{% extends "@SonataExt/layout_public.html.twig" %}
 
 {% block body_attributes %}class="sonata-bc login-page"{% endblock %}
 {% block sonata_header %}{% endblock %}
@@ -7,7 +7,7 @@
 {% block sonata_wrapper %}
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ path('fos_user_security_login') }}">
+            <a href="{{ path('admin_login') }}">
                 {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
                     <img src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
                 {% endif %}

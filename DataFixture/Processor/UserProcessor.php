@@ -6,41 +6,39 @@
 namespace MKebza\SonataExt\DataFixture\Processor;
 
 use Fidry\AliceDataFixtures\ProcessorInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
+use MKebza\SonataExt\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserProcessor implements ProcessorInterface
 {
     /**
-     * @var UserManager
+     * @var UserPasswordEncoderInterface
      */
-    private $userManager;
+    private $encoder;
 
     /**
      * UserProcessor constructor.
-     *
-     * @param UserManagerInterface $userManager
+     * @param UserPasswordEncoderInterface $encoder
      */
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(UserPasswordEncoderInterface $encoder)
     {
-        $this->userManager = $userManager;
+        $this->encoder = $encoder;
     }
+
 
     /**
      * Processes an object before it is persisted to DB.
      *
      * @param string           $id     Fixture ID
-     * @param \App\Entity\User $object
+     * @param User $object
      */
     public function preProcess(string $id, $object): void
     {
-        if (!$object instanceof \App\Entity\User) {
+        if (!$object instanceof User) {
             return;
         }
 
-        $object->setUsername($object->getEmail());
-
-        $this->userManager->updateCanonicalFields($object);
-        $this->userManager->updatePassword($object);
+        $object->setPassword($this->encoder->encodePassword($object, $object->getPassword()));
     }
 
     /**

@@ -1,0 +1,46 @@
+########################################################################################################################
+# Entities
+UserGroup:
+    field:
+        name: Name
+        key: Key
+
+    tab:
+        general: General
+
+    panel:
+        general: General
+        roles: Roles
+
+    action:
+
+
+User:
+    field:
+        email: E-mail
+
+########################################################################################################################
+# Actions
+action:
+    resetPasswordRequest:
+        title: 'Please enter your email to reset password'
+        email: E-mail
+        back: 'Back'
+        buttonResetPassword: 'Reset password'
+    login:
+        login: Please log in
+        email: E-mail
+        password: Password
+        rememberMe: 'Remember Me'
+        buttonLogin: 'Sign in'
+        continue: 'Continue'
+        logout: 'Logout'
+        loggedAs: Logged as :username
+        resetPassword: 'Reset password'
+    changePassword:
+        currentPassword: Current password
+        newPassword: New password
+        newPasswordRepeat: Repeat password
+        changePassword: Change password
+        flashPasswordChanged: Your password has been changed
+

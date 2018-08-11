@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block sonata_admin_content %}
+    {{ parent() }}
+
     <div id="sonata-ext-dashboard" class="row">
         {{ renderer.render(dashboard)|raw }}
     </div>

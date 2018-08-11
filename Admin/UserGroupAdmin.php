@@ -15,22 +15,22 @@ use Sonata\AdminBundle\Form\FormMapper;
 class UserGroupAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'user-group';
-    protected $baseRouteName = 'be_user_group';
-
+    protected $baseRouteName = 'admin_user_group';
+    protected $translationDomain = 'admin';
 
     protected function configureFormFields(FormMapper $form)
     {
         parent::configureFormFields($form);
 
         $form
-            ->tab('Group')
-                ->with('General')
+            ->tab('UserGroup.tab.general')
+                ->with(null)
                     ->add('name')
                 ->end();
 
         if ($this->isGranted('ROLE_GRANT')) {
             $form
-                ->with('Roles')
+                ->with('UserGroup.panel.roles')
                     ->add('roles', UserGroupSecurityRolesType::class, ['group' => $this->getSubject()])
                 ->end();
         }
@@ -41,8 +41,17 @@ class UserGroupAdmin extends AbstractAdmin
     {
         parent::configureListFields($list);
 
-        $list
-            ->addIdentifier('name', 'string', ['label' => 'Name'])
-            ->add('_action', null, ['actions' => ['edit' => [], 'delete' => []]]);
+        $list->addIdentifier('name', 'string', ['label' => 'UserGroup.field.name']);
+
+        if ($this->isGranted('ROLE_DEVELOPER')) {
+            $list->add('key', null, ['label' => 'UserGroup.field.key']);
+        }
+
+        $list->add('_action', null, [
+            'actions' => [
+                'edit' => [],
+                'delete' => []
+            ]
+        ]);
     }
 }

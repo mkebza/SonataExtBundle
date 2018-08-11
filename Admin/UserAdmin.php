@@ -22,22 +22,9 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 class UserAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'user';
-    protected $baseRouteName = 'be_user';
+    protected $baseRouteName = 'admin_user';
 
     use AdminActionLogTab;
-
-    /**
-     * @var UserManagerInterface
-     */
-    protected $userManager;
-
-    /**
-     * @param mixed $userManager
-     */
-    public function setUserManager(UserManagerInterface $userManager)
-    {
-        $this->userManager = $userManager;
-    }
 
     public function getFormBuilder()
     {
@@ -54,14 +41,12 @@ class UserAdmin extends AbstractAdmin
             ->tab('User')
                 ->with('General')
                     ->add('email')
-                    // Hack to go through validation instead of changing default groups
-                    ->add('username', HiddenType::class, ['data' => uniqid('username_', true)])
                 ->end()
             ->end()
             ->tab('Security')
                 ->with('Status')
-                    ->add('enabled')
-                    ->add('plainPassword', PasswordType::class)
+                    ->add('active')
+//                    ->add('plainPassword', PasswordType::class)
                 ->end();
 
         if ($this->isGranted('ROLE_ADMIN_GRANT_PERMISSION')) {
@@ -72,32 +57,12 @@ class UserAdmin extends AbstractAdmin
                         'expanded' => true,
                     ])
                 ->end()
-                ->with('Roles')
-                    ->add('roles', UserSecurityRolesType::class, ['user' => $this->getSubject()])
-                ->end();
+            ;
         }
 
         $form->end();
 
         $this->addActionLogTab($form);
-    }
-
-    /**
-     * @param User $object
-     */
-    public function preValidate($object)
-    {
-        parent::preValidate($object);
-        $object->preSaveUpdateUsername();
-    }
-
-    /**
-     * @param $object User
-     */
-    public function preUpdate($object)
-    {
-        $this->userManager->updateCanonicalFields($object);
-        $this->userManager->updatePassword($object);
     }
 
     protected function configureListFields(ListMapper $list)
@@ -114,9 +79,9 @@ class UserAdmin extends AbstractAdmin
 
         $list
             ->addIdentifier('email', 'string', ['label' => 'E-mail'])
-            ->add('enabled', 'boolean', ['label' => 'Active', 'editable' => true])
+            ->add('active', 'boolean', ['label' => 'Active', 'editable' => true])
             ->add('lastLogin', 'datetime', ['label' => 'Last login'])
-            ->add('createdAt', 'date', ['label' => 'Created at'])
+            ->add('created', 'date', ['label' => 'Created at'])
             ->add('_action', null, ['actions' => $actions]);
     }
 }

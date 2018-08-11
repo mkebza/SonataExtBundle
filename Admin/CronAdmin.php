@@ -28,7 +28,7 @@ class CronAdmin extends AbstractAdmin
     use AdminActionLogTab;
 
     protected $baseRoutePattern = 'cron';
-    protected $baseRouteName = 'be_cron';
+    protected $baseRouteName = 'admin_cron';
 
     protected function configureRoutes(RouteCollection $collection)
     {

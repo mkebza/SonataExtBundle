@@ -52,13 +52,13 @@ class AdminDashboard implements DashboardInterface
                 'number' => $this->getTotalUsers(),
                 'label' => 'Total users',
                 'icon' => 'fa fa-users',
-                'target' => $this->router->generate('be_user_list')
+                'target' => $this->router->generate('admin_user_list')
             ])
             ->add('log_event_count_count', StatsNumberBlock::class, [
                 'number' => $this->getTotalLogEvents(),
                 'label' => 'Total log events',
                 'icon' => 'fa fa-bars',
-                'target' => $this->router->generate('be_action_log_list')
+                'target' => $this->router->generate('admin_action_log_list')
             ])
 
             ->add('locked_crons_count', StatsNumberBlock::class, [
@@ -66,7 +66,7 @@ class AdminDashboard implements DashboardInterface
                 'label' => 'Locked crons',
                 'icon' => 'fa fa-clock-o',
                 'color' => $this->getTotalLockedCrons() == 0 ? 'green' : 'red',
-                'target' => $this->router->generate('be_cron_list')
+                'target' => $this->router->generate('admin_cron_list')
             ])
 
             ->add('_separator_1', SeparatorBlock::class)

@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class ActionLogAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'action-log';
-    protected $baseRouteName = 'be_action_log';
+    protected $baseRouteName = 'admin_action_log';
 
     protected $datagridValues = [
         '_sort_order' => 'DESC',
