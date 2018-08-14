@@ -27,6 +27,7 @@ action:
         email: E-mail
         back: 'Back'
         buttonResetPassword: 'Reset password'
+        flashResetPasswordRequested: If you have provided valid e-mail, then instructions for resseting password has been send
     login:
         login: Please log in
         email: E-mail

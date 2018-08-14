@@ -1,4 +1,8 @@
 services:
+    _defaults:
+        bind:
+            $userEntityName: '%sonata_ext.user_entity%'
+
     MKebza\SonataExt\Controller\:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
@@ -13,9 +17,9 @@ services:
         arguments:
             $tokenStorage: '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
 
-    MKebza\SonataExt\Block\CronMonitorBlock:
-        tags:
-            - { name: 'sonata.block' }
+#    MKebza\SonataExt\Block\CronMonitorBlock:
+#        tags:
+#            - { name: 'sonata.block' }
 
     MKebza\SonataExt\Repository\ActionLogRepository:
         arguments:
@@ -31,6 +35,8 @@ services:
             $mailer: '@mailer'
             $translator: '@translator'
             $templating: '@templating'
+
+    MKebza\SonataExt\Utils\TokenGenerator:
 
 
     ####################################################################################################################
@@ -56,6 +62,13 @@ services:
             $encoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
             $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
             $em: '@Doctrine\ORM\EntityManagerInterface'
+
+    MKebza\SonataExt\Security\UserResetPasswordRequest:
+        arguments:
+            $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
+            $em: '@Doctrine\ORM\EntityManagerInterface'
+            $mailer: '@MKebza\SonataExt\Service\AppMailer'
+            $tokenGenerator: '@MKebza\SonataExt\Utils\TokenGenerator'
 
 
     ####################################################################################################################

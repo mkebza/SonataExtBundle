@@ -37,9 +37,11 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('action_log')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('user_detail_route')->defaultValue('be_user_edit')->end()
+                        ->scalarNode('user_detail_route')->defaultValue('admin_user_edit')->end()
                     ->end()
                 ->end()
+                ->scalarNode('user_entity')->defaultValue('App\Entity\User')->end()
+                ->scalarNode('user_group_entity')->defaultValue('App\Entity\UserGroup')->end()
             ->end()
         ;
 

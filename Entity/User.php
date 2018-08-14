@@ -65,6 +65,20 @@ class User implements UserInterface, \Serializable, ActionLoggableInterface, Act
     protected $lastLogin;
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $passwordResetRequested;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true, length=20, unique=true)
+     */
+    protected $passwordResetToken;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\UserGroup")
      * @ORM\JoinTable(name="user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -166,6 +180,16 @@ class User implements UserInterface, \Serializable, ActionLoggableInterface, Act
         $this->lastLogin = $lastLogin;
 
         return $this;
+    }
+
+    public function setPassworResetRequest(string $token, \DateTime $created = null)
+    {
+        if (null === $created) {
+            $created = new \DateTime();
+        }
+
+        $this->passwordResetToken = $token;
+        $this->passwordResetRequested = $created;
     }
 
 

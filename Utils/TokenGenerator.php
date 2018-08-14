@@ -9,10 +9,13 @@
 namespace MKebza\SonataExt\Utils;
 
 
+use RandomLib\Generator;
+
 class TokenGenerator implements TokenGeneratorInterface
 {
-    public function generate(int $length, string $allowed): string
+    public function generate(int $length): string
     {
-        // TODO: Implement generate() method.
+        $factory = new \RandomLib\Factory();
+        return $factory->getLowStrengthGenerator()->generateString($length, Generator::CHAR_ALNUM);
     }
 }

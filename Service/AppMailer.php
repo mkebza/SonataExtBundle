@@ -18,7 +18,7 @@ class AppMailer
     /**
      * @var string
      */
-    protected $from;
+    protected $fromName;
 
     /**
      * @var string
@@ -62,7 +62,7 @@ class AppMailer
         EngineInterface $templating,
         string $translationDomain = 'email'
     ) {
-        $this->from = $from;
+        $this->from = $fromName;
         $this->fromEmail = $fromEmail;
         $this->mailer = $mailer;
         $this->translator = $translator;
@@ -96,7 +96,7 @@ class AppMailer
         $this->mailer->send($message);
     }
 
-    public function prepareAndSend(string $to, string $subject, string $template, array $templateVars = [], array $subjectVars = [], string $contentType = 'text/html'): void
+    public function createAndSend(string $to, string $subject, string $template, array $templateVars = [], array $subjectVars = [], string $contentType = 'text/html'): void
     {
         $this->send($this->prepare($to, $subject, $template, $templateVars, $subjectVars, $contentType));
     }

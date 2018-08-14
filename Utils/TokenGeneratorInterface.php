@@ -11,5 +11,5 @@ namespace MKebza\SonataExt\Utils;
 
 interface TokenGeneratorInterface
 {
-    public function generate(int $length, string $allowed): string;
+    public function generate(int $length): string;
 }

@@ -59,6 +59,9 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             new FileLocator(__DIR__.'/../Resources/config')
         );
 
+        $container->setParameter('sonata_ext.user_entity', $config['user_entity']);
+        $container->setParameter('sonata_ext.user_group_entity', $config['user_group_entity']);
+
         $loader->load('services.yaml');
         $loader->load('dashboard.yaml');
 
