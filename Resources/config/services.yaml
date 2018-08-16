@@ -1,6 +1,8 @@
 services:
     _defaults:
         bind:
+            $templating: '@templating'
+            $translator: '@translator'
             $userEntityName: '%sonata_ext.user_entity%'
 
     MKebza\SonataExt\Controller\:
@@ -28,14 +30,6 @@ services:
             - { name: 'doctrine.repository_service' }
 
 
-    MKebza\SonataExt\Service\AppMailer:
-        arguments:
-            $fromName: 'Test'
-            $fromEmail: 'info@test.com'
-            $mailer: '@mailer'
-            $translator: '@translator'
-            $templating: '@templating'
-
     MKebza\SonataExt\Utils\TokenGenerator:
 
 
@@ -43,6 +37,10 @@ services:
 #    MKebza\SonataExt\DataFixture\Processor\UserProcessor:
 #        tags:
 #            - { name: 'the' }
+
+    # Notification
+    MKebza\SonataExt\Notification\Security\ResetPasswordRequestNotification:
+        tags: ['mkebza_notificator.notification']
 
     # Timestampable
     MKebza\SonataExt\EventListener\Timestampable\TimestampableSubscriber:
@@ -67,7 +65,7 @@ services:
         arguments:
             $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
             $em: '@Doctrine\ORM\EntityManagerInterface'
-            $mailer: '@MKebza\SonataExt\Service\AppMailer'
+            $notificator: '@MKebza\Notificator\Notificator'
             $tokenGenerator: '@MKebza\SonataExt\Utils\TokenGenerator'
 
 
@@ -101,7 +99,10 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-
+    NotFloran\MjmlBundle\SwiftMailer\MjmlPlugin:
+        arguments:
+            $mjml: '@NotFloran\MjmlBundle\Mjml'
+        tags: [swiftmailer.default.plugin]
 
     ####################################################################################################################
     # Forms

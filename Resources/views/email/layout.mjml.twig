@@ -1,0 +1,44 @@
+<mjml>
+    <mj-head>
+        <mj-title>{% block title %}{% endblock %}</mj-title>
+        <mj-preview>{% block preview %}{% endblock %}</mj-preview>
+        <mj-attributes>
+            {% block header_attributes %}
+                <mj-text line-height="23px" font-family="Helvetica, Arial, sans-serif" font-size="14px" />
+                <mj-button font-size="18px" background-color="#28a745" border-radius="0px" />
+                <mj-divider border-color="#EDEFF2" border-width="1px" />
+            {% endblock %}
+        </mj-attributes>
+    </mj-head>
+    <mj-body>
+        {% block header_wrapper %}
+            <mj-section background-color="#f4f4f4" full-width="full-width">
+                <mj-column>
+                    {% block header %}
+                        <mj-image width="100" href="" src="/assets/img/logo-small.png"></mj-image>
+                    {% endblock %}
+                </mj-column>
+            </mj-section>
+        {% endblock %}
+
+        {% block body_wrapper %}
+            <mj-section>
+                <mj-column>
+                    {% block body %}{% endblock %}
+                </mj-column>
+            </mj-section>
+        {% endblock%}
+
+        {% block footer_wrapper %}
+            <mj-section background-color="#EDEFF2" full-width="full-width">
+                <mj-column>
+                    {% block footer %}
+                        <mj-text align="center" color="#b5b6b6" font-size="12px">
+                            © 2016 {{ config.app.name }}. All rights reserved.
+                        </mj-text>
+                    {% endblock %}
+                </mj-column>
+            </mj-section>
+        {% endblock %}
+    </mj-body>
+</mjml>

@@ -40,6 +40,4 @@ class ChangePasswordType extends AbstractType
             'translation_domain' => 'admin'
         ]);
     }
-
-
 }

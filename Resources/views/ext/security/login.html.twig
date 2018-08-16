@@ -5,6 +5,10 @@
 {% block sonata_head_title %}{% endblock %}
 
 {% block content_public %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="text-center" style="margin-bottom: 10px;">
             {{ 'action.login.loggedAs'|trans({':username': '<strong>' ~ app.user.username|escape ~ '</strong>'})|raw }}
@@ -19,10 +23,6 @@
             </a>
         </div>
         <hr>
-    {% endif %}
-
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     <p class="login-box-msg">{{ 'action.login.login'|trans }}</p>

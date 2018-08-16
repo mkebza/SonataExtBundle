@@ -16,22 +16,7 @@
 
         {% block layout_open %}
             <div class="login-box-body">
-                {#{% if error %}#}
-                {#<div class="alert alert-danger alert-error">{{ error.messageKey }}</div>#}
-                {#{% endif %}#}
-
-                {% include 'backend/sonata/flashbag.html.twig' %}
-
-
-                {#{% if app.request.hasPreviousSession %}#}
-                    {#{% for type, messages in app.session.flashbag.all() %}#}
-                        {#{% for message in messages %}#}
-                            {#<div class="flash-{{ type }}">#}
-                                {#{{ message }}#}
-                            {#</div>#}
-                        {#{% endfor %}#}
-                    {#{% endfor %}#}
-                {#{% endif %}#}
+                {% include '@SonataCore/FlashMessage/render.html.twig' %}
 
                 {% block content_public %}{% endblock content_public %}
             </div>

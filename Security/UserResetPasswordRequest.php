@@ -11,8 +11,10 @@ namespace MKebza\SonataExt\Security;
 
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
+use MKebza\Notificator\NotificatorInterface;
 use MKebza\SonataExt\Entity\User;
 use MKebza\SonataExt\Event\Security\UserPasswordResetRequestedEvent;
+use MKebza\SonataExt\Notification\Security\ResetPasswordRequestNotification;
 use MKebza\SonataExt\Service\AppMailer;
 use MKebza\SonataExt\Utils\TokenGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,9 +27,9 @@ class UserResetPasswordRequest
     private $em;
 
     /**
-     * @var AppMailer
+     * @var NotificatorInterface
      */
-    private $mailer;
+    private $notificator;
 
     /**
      * @var EventDispatcherInterface
@@ -42,18 +44,18 @@ class UserResetPasswordRequest
     /**
      * UserResetPasswordRequest constructor.
      * @param EntityManagerInterface $em
-     * @param AppMailer $mailer
+     * @param NotificatorInterface $notificator
      * @param EventDispatcherInterface $dispatcher
      * @param TokenGeneratorInterface $tokenGenerator
      */
     public function __construct(
         EntityManagerInterface $em,
-        AppMailer $mailer,
+        NotificatorInterface $notificator,
         EventDispatcherInterface $dispatcher,
         TokenGeneratorInterface $tokenGenerator
     ) {
         $this->em = $em;
-        $this->mailer = $mailer;
+        $this->notificator = $notificator;
         $this->dispatcher = $dispatcher;
         $this->tokenGenerator = $tokenGenerator;
     }
@@ -69,12 +71,10 @@ class UserResetPasswordRequest
 
             $user->setPassworResetRequest($token);
 
-//            $this->mailer->createAndSend(
-//                $user->getEmail(),
-//                'security.resetPasswordRequest.subject',
-//                '@SonataExt/email/security/reset_password_request.html.twig',
-//                ['token ' => $token, 'user' => $user, 'validity' => $requestValid]
-//            );
+            $this->notificator->send($user, ResetPasswordRequestNotification::class, [
+                'user' => $user,
+                'requestValid' => $requestValid
+            ]);
 
             $this->dispatcher->dispatch(
                 UserPasswordResetRequestedEvent::class,

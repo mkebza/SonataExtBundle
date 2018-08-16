@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use MKebza\EntityHistory\ORM\EntityHistory;
 use MKebza\EntityHistory\ORM\EntityHistoryInterface;
 use MKebza\EntityHistory\ORM\EntityHistoryUserInterface;
+use MKebza\Notificator\NotifiableInterface;
 use MKebza\SonataExt\ActionLog\ActionLogUserInterface;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggable;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
@@ -26,7 +27,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\MappedSuperclass()
  */
-class User implements UserInterface, \Serializable, ActionLoggableInterface, ActionLogUserInterface, EquatableInterface
+class User implements NotifiableInterface, UserInterface, \Serializable, ActionLoggableInterface, ActionLogUserInterface, EquatableInterface
 {
     use ActionLoggable, Timestampable;
 
@@ -192,6 +193,31 @@ class User implements UserInterface, \Serializable, ActionLoggableInterface, Act
         $this->passwordResetRequested = $created;
     }
 
+    public function removePasswordResetRequest(): self
+    {
+        $this->passwordResetRequested = null;
+        $this->passwordResetToken = null;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getPasswordResetRequested(): ?\DateTime
+    {
+        return $this->passwordResetRequested;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+
+
+
 
 
     public function getSalt()
@@ -280,5 +306,12 @@ class User implements UserInterface, \Serializable, ActionLoggableInterface, Act
     public function isEqualTo(UserInterface $user)
     {
         return true;
+    }
+
+    public function getNotificationChannels(): array
+    {
+        return [
+            'email' => $this->getEmail()
+        ];
     }
 }

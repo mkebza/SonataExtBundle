@@ -38,13 +38,14 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
         // Add paths to namespaces so we can override some bundles paths
         $container->loadFromExtension('twig', [
             'paths' => [
+                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' =>  'Email',
+                '%kernel.project_dir%/templates/email' =>  'Email',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' =>  'SonataAdmin',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/fos-user' => 'FOSUser',
             ]
         ]);
     }
-
 
     /**
      * Loads a specific configuration.
@@ -79,7 +80,8 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
 
         // Set default builder for dashboard
         if ($container->hasDefinition(DashboardController::class)) {
-            $container->getDefinition(DashboardController::class)
+            $container
+                ->getDefinition(DashboardController::class)
                 ->setArgument('$dashboard', new Reference($config['dashboard']['admin_homepage']));
         }
 

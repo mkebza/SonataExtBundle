@@ -40,6 +40,8 @@ class ResetPasswordRequestController extends AbstractController
                 AdminFlashMessage::SUCCESS,
                 $translator->trans('action.resetPasswordRequest.flashResetPasswordRequested', [], 'admin')
             );
+
+            return $this->redirectToRoute('admin_login');
         }
 
         return $this->render('@SonataExt/security/reset_password_request.html.twig', [
