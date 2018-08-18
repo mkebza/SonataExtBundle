@@ -22,6 +22,12 @@ User:
 ########################################################################################################################
 # Actions
 action:
+    resetPassword:
+        title: Please enter your new password
+        back: Cancel
+        flashInvalidToken: You token is invalid or expired, you can try to request again.
+        flashPasswordReset: Your password have been changed, you can now log in.
+        buttonChangePassword: Change password
     resetPasswordRequest:
         title: 'Please enter your email to reset password'
         email: E-mail

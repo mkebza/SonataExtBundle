@@ -6,13 +6,14 @@
 namespace MKebza\SonataExt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MKebza\SonataExt\ORM\SonataExtUserGroupInterface;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
 
 /**
  * @ORM\Table(name="user_group")
  * @ORM\MappedSuperclass()
  */
-class UserGroup
+abstract class UserGroup implements SonataExtUserGroupInterface
 {
     use Timestampable;
 

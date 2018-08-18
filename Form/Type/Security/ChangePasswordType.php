@@ -29,7 +29,7 @@ class ChangePasswordType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'action.changePassword.currentPassword'],
+                'first_options'  => ['label' => 'action.changePassword.newPassword'],
                 'second_options' => ['label' => 'action.changePassword.newPasswordRepeat'],
             ]);
     }

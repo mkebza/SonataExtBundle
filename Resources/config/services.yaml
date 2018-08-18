@@ -3,6 +3,10 @@ services:
         bind:
             $templating: '@templating'
             $translator: '@translator'
+            $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
+            $em: '@Doctrine\ORM\EntityManagerInterface'
+            $notificator: '@MKebza\Notificator\Notificator'
+
             $userEntityName: '%sonata_ext.user_entity%'
 
     MKebza\SonataExt\Controller\:
@@ -55,18 +59,18 @@ services:
         tags:
             - { name: 'fidry_alice_data_fixtures.processor' }
 
-    MKebza\SonataExt\Security\UserChangePassword:
+    MKebza\SonataExt\Service\Security\ResetPasswordAction:
         arguments:
             $encoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
-            $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
-            $em: '@Doctrine\ORM\EntityManagerInterface'
 
-    MKebza\SonataExt\Security\UserResetPasswordRequest:
+    MKebza\SonataExt\Service\Security\ChangePasswordAction:
         arguments:
-            $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
-            $em: '@Doctrine\ORM\EntityManagerInterface'
-            $notificator: '@MKebza\Notificator\Notificator'
+            $encoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
+
+    MKebza\SonataExt\Service\Security\ResetPasswordRequestAction:
+        arguments:
             $tokenGenerator: '@MKebza\SonataExt\Utils\TokenGenerator'
+            $requestStack: '@request_stack'
 
 
     ####################################################################################################################

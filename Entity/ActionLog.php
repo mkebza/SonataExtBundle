@@ -57,7 +57,7 @@ class ActionLog
 
     /**
      * @var ActionLogUserInterface
-     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\ActionLog\ActionLogUserInterface")
+     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\ORM\SonataExtUserInterface")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $userObject;

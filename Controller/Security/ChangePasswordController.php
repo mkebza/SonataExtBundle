@@ -12,13 +12,14 @@ namespace MKebza\SonataExt\Controller\Security;
 use MKebza\SonataExt\Enum\AdminFlashMessage;
 use MKebza\SonataExt\Form\Type\Security\ChangePasswordType;
 use MKebza\SonataExt\Security\UserChangePassword;
+use MKebza\SonataExt\Service\Security\ChangePasswordAction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class ChangePasswordController extends AbstractController
 {
-    public function __invoke(Request $request, UserChangePassword $changer, TranslatorInterface $t)
+    public function __invoke(Request $request, ChangePasswordAction $changer, TranslatorInterface $t)
     {
         $form = $this->createForm(ChangePasswordType::class);
         $form->handleRequest($request);

@@ -5,7 +5,7 @@
  * Date: 11/08/2018
  * Time: 10:54
  */
-namespace MKebza\SonataExt\Security;
+namespace MKebza\SonataExt\Service\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MKebza\SonataExt\Entity\User;
@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserChangePassword
+class ChangePasswordAction
 {
     /**
      * @var UserPasswordEncoderInterface

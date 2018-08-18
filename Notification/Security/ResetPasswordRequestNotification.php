@@ -66,7 +66,7 @@ class ResetPasswordRequestNotification implements NotificationInterface
         return (new OptionsResolver())
             ->setDefaults([
                 'user' => null,
-                'requestValid' => null
+                'request' => null
             ])
             ->resolve($options);
     }

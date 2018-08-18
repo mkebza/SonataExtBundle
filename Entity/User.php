@@ -18,7 +18,9 @@ use MKebza\Notificator\NotifiableInterface;
 use MKebza\SonataExt\ActionLog\ActionLogUserInterface;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggable;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
+use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
+use MKebza\SonataExt\Security\PasswordResettableInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -27,7 +29,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\MappedSuperclass()
  */
-class User implements NotifiableInterface, UserInterface, \Serializable, ActionLoggableInterface, ActionLogUserInterface, EquatableInterface
+abstract class User implements
+    NotifiableInterface,
+    UserInterface,
+    \Serializable,
+    ActionLoggableInterface,
+    EquatableInterface,
+    SonataExtUserInterface
 {
     use ActionLoggable, Timestampable;
 
@@ -66,32 +74,13 @@ class User implements NotifiableInterface, UserInterface, \Serializable, ActionL
     protected $lastLogin;
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $passwordResetRequested;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true, length=20, unique=true)
-     */
-    protected $passwordResetToken;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UserGroup")
+     * @ORM\ManyToMany(targetEntity="MKebza\SonataExt\ORM\SonataExtUserGroupInterface")
      * @ORM\JoinTable(name="user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_group_id", referencedColumnName="id")}
      * )
      */
     protected $groups;
-
-    /**
-     * @var string|null
-     */
-    protected $plainPassword;
 
     public function __construct()
     {
@@ -183,48 +172,10 @@ class User implements NotifiableInterface, UserInterface, \Serializable, ActionL
         return $this;
     }
 
-    public function setPassworResetRequest(string $token, \DateTime $created = null)
-    {
-        if (null === $created) {
-            $created = new \DateTime();
-        }
-
-        $this->passwordResetToken = $token;
-        $this->passwordResetRequested = $created;
-    }
-
-    public function removePasswordResetRequest(): self
-    {
-        $this->passwordResetRequested = null;
-        $this->passwordResetToken = null;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getPasswordResetRequested(): ?\DateTime
-    {
-        return $this->passwordResetRequested;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getPasswordResetToken(): ?string
-    {
-        return $this->passwordResetToken;
-    }
-
-
-
-
-
-
     public function getSalt()
     {
         return null;
     }
-
 
     public function getUsername()
     {
@@ -249,6 +200,7 @@ class User implements NotifiableInterface, UserInterface, \Serializable, ActionL
 
     public function eraseCredentials()
     {
+
     }
 
     /** @see \Serializable::serialize() */

@@ -20,6 +20,7 @@
        "symfony/stopwatch": "^4.0",
        "ircmaxell/random-lib": "^1.2",
        "notfloran/mjml-bundle": "^2.1",
+       "rollerworks/password-strength-validator": "^1.1",
        "jmose/command-scheduler-bundle": "dev-sonata-ext"
     },
     "repositories": [
