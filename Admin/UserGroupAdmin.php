@@ -1,12 +1,14 @@
 <?php
 
 /*
- * (c) Marek Kebza <marek@kebza.cz>
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Admin;
 
-use FOS\UserBundle\Model\UserManagerInterface;
 use MKebza\SonataExt\Form\Type\UserGroup\UserGroupSecurityRolesType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -50,8 +52,8 @@ class UserGroupAdmin extends AbstractAdmin
         $list->add('_action', null, [
             'actions' => [
                 'edit' => [],
-                'delete' => []
-            ]
+                'delete' => [],
+            ],
         ]);
     }
 }

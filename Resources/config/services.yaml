@@ -81,15 +81,15 @@ services:
 
     ####################################################################################################################
     # Action log
-    MKebza\SonataExt\EventListener\ActionLog\CreateLoggableRelationSubscriber:
+    MKebza\SonataExt\EventListener\AppLog\CreateLoggableRelationSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    MKebza\SonataExt\EventListener\ActionLog\InjectUserSubscriber:
+    MKebza\SonataExt\EventListener\AppLoggerSubscriber:
         arguments:
-            $userProvider: '@MKebza\SonataExt\ActionLog\CurrentUserProvider'
+            $appLogger: '@logger'
         tags:
-            - { name: doctrine.orm.entity_listener }
+            - { name: 'kernel.event_subscriber' }
 
     # Sonata
     MKebza\SonataExt\EventListener\Sonata\MenuDashboardSubscriber:

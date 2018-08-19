@@ -1,23 +1,23 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 15:40
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Dashboard;
-
-
-use MKebza\SonataExt\Dashboard\Block\BlockRegistryInterface;
 
 class DashboardBuilder implements DashboardBuilderInterface
 {
     protected $blocks = [];
 
-    public function add(string $name, string $block, array $options = []): self {
+    public function add(string $name, string $block, array $options = []): self
+    {
         $this->blocks[$name] = [
             'block' => $block,
-            'options' => $options
+            'options' => $options,
         ];
 
         return $this;

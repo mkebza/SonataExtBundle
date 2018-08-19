@@ -1,12 +1,13 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 10/06/2018
- * Time: 14:57
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\ActionLog;
-
 
 use MKebza\SonataExt\Form\Type\TemplateType;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
@@ -18,7 +19,7 @@ trait AdminActionLogTab
     {
         if (!$this->getSubject() instanceof ActionLoggableInterface) {
             throw new \LogicException(
-                sprintf("Class %s is required to implement %s interface in order to display logged actions",
+                sprintf('Class %s is required to implement %s interface in order to display logged actions',
                     get_class($this->getSubject()), ActionLoggableInterface::class
                 ));
         }
@@ -29,8 +30,8 @@ trait AdminActionLogTab
                     ->add('_entity_history', TemplateType::class, [
                         'template' => '@SonataExt/action_log/tab_history.html.twig',
                         'vars' => [
-                            'entries' => $this->getSubject()->getLoggedActions()
-                        ]
+                            'entries' => $this->getSubject()->getAppLog(),
+                        ],
                     ])
                 ->end()
             ->end();

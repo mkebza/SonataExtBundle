@@ -1,21 +1,19 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 15:47
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Dashboard;
 
-
 use MKebza\SonataExt\Dashboard\Block\BlockRegistryInterface;
-use Sonata\BlockBundle\Model\BlockInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class DashboardRenderer
 {
-
     /**
      * @var BlockRegistryInterface
      */
@@ -23,13 +21,13 @@ class DashboardRenderer
 
     /**
      * DashboardRenderer constructor.
+     *
      * @param EventDispatcherInterface $dispatcher
-     * @param BlockRegistryInterface $registry
+     * @param BlockRegistryInterface   $registry
      */
     public function __construct(BlockRegistryInterface $registry)
     {
         $this->registry = $registry;
-
     }
 
     public function render(DashboardInterface $dashboard): string
@@ -55,6 +53,7 @@ class DashboardRenderer
 
         $resolver = new OptionsResolver();
         $block->options($resolver);
+
         return $block->execute($resolver->resolve($options));
     }
 }

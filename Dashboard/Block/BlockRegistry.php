@@ -1,12 +1,13 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 15:32
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Dashboard\Block;
-
 
 use MKebza\SonataExt\Exception\BlockNotFoundException;
 
@@ -19,6 +20,7 @@ class BlockRegistry implements BlockRegistryInterface
 
     /**
      * BlockRegistry constructor.
+     *
      * @param BlockInterface[] $blocks
      */
     public function __construct(iterable $blocks)
@@ -43,7 +45,7 @@ class BlockRegistry implements BlockRegistryInterface
         if (!$this->has($alias)) {
             throw BlockNotFoundException::create($alias);
         }
+
         return $this->blocks[$alias];
     }
-
 }

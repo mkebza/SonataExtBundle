@@ -1,20 +1,21 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 21/06/2018
- * Time: 13:04
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Repository;
-
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use MKebza\SonataExt\Entity\ActionLog;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Banner|null find($id, $lockMode = null, $lockVersion = null)
- * @method Banner|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Banner find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Banner findOneBy(array $criteria, array $orderBy = null)
  * @method Banner[]    findAll()
  * @method Banner[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

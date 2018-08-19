@@ -1,13 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 11/08/2018
- * Time: 14:02
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Form\Type\Security;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -23,17 +23,15 @@ class ResetPasswordRequestType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'action.resetPasswordRequest.email',
                 'constraints' => [
-                    new Email()
-                ]
+                    new Email(),
+                ],
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'translation_domain' => 'admin'
+            'translation_domain' => 'admin',
         ]);
     }
-
-
 }

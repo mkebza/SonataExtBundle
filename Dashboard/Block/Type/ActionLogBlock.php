@@ -1,19 +1,19 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 21/06/2018
- * Time: 13:00
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Dashboard\Block\Type;
-
 
 use MKebza\SonataExt\Repository\ActionLogRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActionLogBlock extends AbstractBoxBlock
 {
-
     /**
      * @var ActionLogRepository
      */
@@ -21,6 +21,7 @@ class ActionLogBlock extends AbstractBoxBlock
 
     /**
      * ActionLogBlock constructor.
+     *
      * @param ActionLogRepository $repository
      */
     public function __construct(ActionLogRepository $repository)

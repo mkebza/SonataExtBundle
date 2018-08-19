@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 11/08/2018
- * Time: 11:26
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Tests\Security;
@@ -43,10 +44,11 @@ class UserChangePasswordTest extends TestCase
         $object = new UserChangePassword($encoder, $dispatcher, $em);
         $object->change($testUser, 'plain_password');
 
-        $this->assertEquals($testUser->getPassword(), 'encoded_password');
+        $this->assertSame($testUser->getPassword(), 'encoded_password');
     }
 
-    public function testChangePasswordRollback() {
+    public function testChangePasswordRollback()
+    {
         $testUser = new TestUser();
 
         $encoder = $this->createMock(UserPasswordEncoderInterface::class);
@@ -64,7 +66,5 @@ class UserChangePasswordTest extends TestCase
 
         $this->expectException(\Exception::class);
         $object->change($testUser, 'rollback');
-
     }
-
 }

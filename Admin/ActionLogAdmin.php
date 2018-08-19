@@ -1,12 +1,13 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 10/06/2018
- * Time: 12:28
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Admin;
-
 
 use MKebza\SonataExt\Entity\ActionLog;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -26,7 +27,7 @@ class ActionLogAdmin extends AbstractAdmin
         '_sort_by' => 'createdAt',
     ];
 
-    protected $userDetailRouteName = null;
+    protected $userDetailRouteName;
 
     /**
      * @param mixed $userDetailRouteName
@@ -40,7 +41,6 @@ class ActionLogAdmin extends AbstractAdmin
     {
         return $this->userDetailRouteName;
     }
-
 
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -58,7 +58,6 @@ class ActionLogAdmin extends AbstractAdmin
             ->add('createdAt', 'doctrine_orm_date_range', [], DateRangePickerType::class)
         ;
     }
-
 
     protected function configureListFields(ListMapper $list)
     {

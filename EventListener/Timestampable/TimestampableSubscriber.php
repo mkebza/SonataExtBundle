@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 10/08/2018
- * Time: 17:19
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\EventListener\Timestampable;
@@ -18,7 +19,7 @@ class TimestampableSubscriber implements EventSubscriber
     public function getSubscribedEvents()
     {
         return [
-            Events::loadClassMetadata
+            Events::loadClassMetadata,
         ];
     }
 
@@ -30,7 +31,7 @@ class TimestampableSubscriber implements EventSubscriber
         // the $metadata is the whole mapping info for this class
         $metadata = $eventArgs->getClassMetadata();
 
-        if (in_array(Timestampable::class, $metadata->getReflectionClass()->getTraitNames())) {
+        if (in_array(Timestampable::class, $metadata->getReflectionClass()->getTraitNames(), true)) {
             $metadata->addLifecycleCallback('updateCreated', Events::prePersist);
         }
     }

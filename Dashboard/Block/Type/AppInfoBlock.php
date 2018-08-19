@@ -1,12 +1,13 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 19:34
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Dashboard\Block\Type;
-
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -17,7 +18,7 @@ use Symfony\Component\Process\Process;
 class AppInfoBlock extends AbstractBoxBlock implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
-    
+
     public function execute(array $options = []): ?string
     {
         return $this->render('@SonataExt/block/app_info.html.twig', [
@@ -25,8 +26,12 @@ class AppInfoBlock extends AbstractBoxBlock implements ContainerAwareInterface
             'project_dir' => $this->container->getParameter('kernel.project_dir'),
             'database_connections' => $this->getConnections(),
             'git' => $this->getGitInfo(),
-
         ], $options);
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_DEVELOPER'];
     }
 
     protected function getConnections(): array
@@ -40,6 +45,7 @@ class AppInfoBlock extends AbstractBoxBlock implements ContainerAwareInterface
                 'database' => $connection->getDatabase(),
             ];
         }
+
         return $connections;
     }
 
@@ -60,18 +66,10 @@ class AppInfoBlock extends AbstractBoxBlock implements ContainerAwareInterface
         return sprintf('%s/%s', $branch ?: '?', $version ?: '?');
     }
 
-
     protected function configure(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'block_type' => 'danger',
         ]);
     }
-
-    public function getRoles(): array
-    {
-        return ['ROLE_DEVELOPER'];
-    }
-
-
 }

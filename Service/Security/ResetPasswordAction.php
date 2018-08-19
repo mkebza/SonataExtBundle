@@ -1,7 +1,13 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+declare(strict_types=1);
 
 namespace MKebza\SonataExt\Service\Security;
 
@@ -9,7 +15,6 @@ use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use MKebza\SonataExt\Entity\ResetPasswordRequest;
 use MKebza\SonataExt\Event\Security\UserPasswordResettedEvent;
-use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -32,9 +37,10 @@ class ResetPasswordAction
 
     /**
      * ResetPasswordAction constructor.
+     *
      * @param UserPasswordEncoderInterface $encoder
-     * @param EntityManagerInterface $em
-     * @param EventDispatcherInterface $dispatcher
+     * @param EntityManagerInterface       $em
+     * @param EventDispatcherInterface     $dispatcher
      */
     public function __construct(
         UserPasswordEncoderInterface $encoder,
@@ -46,7 +52,6 @@ class ResetPasswordAction
         $this->dispatcher = $dispatcher;
     }
 
-
     public function getToken(string $token, \DateTime $now = null): ?ResetPasswordRequest
     {
         $token = $this->em->getRepository(ResetPasswordRequest::class)->findOneBy(['token' => $token]);
@@ -55,7 +60,7 @@ class ResetPasswordAction
             return null;
         }
         $now = $now ?? Carbon::now();
-        if ($now >= $token->getExpire()  || $token->isUsed()) {
+        if ($now >= $token->getExpire() || $token->isUsed()) {
             return null;
         }
 
@@ -65,6 +70,7 @@ class ResetPasswordAction
     public function reset(ResetPasswordRequest $request, string $newPassword): void
     {
         $this->em->beginTransaction();
+
         try {
             $user = $request->getUser();
 
@@ -73,7 +79,7 @@ class ResetPasswordAction
 
             $this->dispatcher->dispatch(
                 UserPasswordResettedEvent::class,
-                new UserPasswordResettedEvent($token)
+                new UserPasswordResettedEvent($request)
             );
 
             $this->em->persist($user);
@@ -81,6 +87,7 @@ class ResetPasswordAction
             $this->em->commit();
         } catch (\Exception $e) {
             $this->em->rollback();
+
             throw $e;
         }
     }

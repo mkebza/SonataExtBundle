@@ -1,8 +1,10 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 13:09
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\EventListener;
@@ -23,6 +25,7 @@ class CommandInfoSubscriber implements \Symfony\Component\EventDispatcher\EventS
 
     /**
      * CommandInfoSubscriber constructor.
+     *
      * @param Stopwatch $stopwatch
      */
     public function __construct(Stopwatch $stopwatch)
@@ -30,12 +33,11 @@ class CommandInfoSubscriber implements \Symfony\Component\EventDispatcher\EventS
         $this->stopwatch = $stopwatch;
     }
 
-
     public static function getSubscribedEvents()
     {
         return [
             ConsoleEvents::COMMAND => 'onCommand',
-            ConsoleEvents::TERMINATE => 'onTerminate'
+            ConsoleEvents::TERMINATE => 'onTerminate',
         ];
     }
 
@@ -47,9 +49,8 @@ class CommandInfoSubscriber implements \Symfony\Component\EventDispatcher\EventS
 
         $this->stopwatch->start($event->getCommand()->getName());
         $event->getOutput()->writeln(sprintf(
-            "// Command %s started at %s", $event->getCommand()->getName(), Carbon::now()->toDateTimeString()
+            '// Command %s started at %s', $event->getCommand()->getName(), Carbon::now()->toDateTimeString()
         ));
-
     }
 
     public function onTerminate(ConsoleTerminateEvent $event): void
@@ -60,6 +61,6 @@ class CommandInfoSubscriber implements \Symfony\Component\EventDispatcher\EventS
 
         $timer = $this->stopwatch->stop($event->getCommand()->getName());
         $event->getOutput()->writeln(sprintf(
-            "// Command finished in %.2fs with code %s", $timer->getDuration() / 100, $event->getExitCode()));
+            '// Command finished in %.2fs with code %s', $timer->getDuration() / 100, $event->getExitCode()));
     }
 }

@@ -1,17 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 11/08/2018
- * Time: 10:54
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 namespace MKebza\SonataExt\Service\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MKebza\SonataExt\Entity\User;
 use MKebza\SonataExt\Event\Security\UserPasswordChangedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ChangePasswordAction
@@ -33,9 +34,10 @@ class ChangePasswordAction
 
     /**
      * UserChangePassword constructor.
+     *
      * @param UserPasswordEncoderInterface $encoder
-     * @param EventDispatcherInterface $dispatcher
-     * @param EntityManagerInterface $em
+     * @param EventDispatcherInterface     $dispatcher
+     * @param EntityManagerInterface       $em
      */
     public function __construct(
         UserPasswordEncoderInterface $encoder,
@@ -48,7 +50,7 @@ class ChangePasswordAction
     }
 
     /**
-     * Change user password and trigger event
+     * Change user password and trigger event.
      *
      * @param User $user
      * @param $newPassword
@@ -56,6 +58,7 @@ class ChangePasswordAction
     public function change(User $user, $newPassword)
     {
         $this->em->beginTransaction();
+
         try {
             $user->setPassword($this->encoder->encodePassword($user, $newPassword));
             $this->em->persist($user);
@@ -66,6 +69,7 @@ class ChangePasswordAction
             $this->em->commit();
         } catch (\Exception $e) {
             $this->em->rollback();
+
             throw $e;
         }
     }

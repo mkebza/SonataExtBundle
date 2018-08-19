@@ -1,6 +1,10 @@
 <?php
+
 /*
- * (c) Marek Kebza <marek@kebza.cz>
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Command;
@@ -14,52 +18,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RoleExportCommand extends ContainerAwareCommand implements CommandInfoInterface
 {
+    protected const FORMAT_COMPACT = 'compact';
+    protected const FORMAT_EXPANDED = 'expanded';
     /**
      * @var SymfonyStyle
      */
     private $style;
 
     private $formats = [self::FORMAT_COMPACT, self::FORMAT_EXPANDED];
-
-    protected const FORMAT_COMPACT = 'compact';
-    protected const FORMAT_EXPANDED = 'expanded';
-
-    protected function configure()
-    {
-        $this
-            ->setName('sonata-ext:export-roles')
-            ->setDescription('Generates all roles for sonata admin classes and saves them in security.yml between tags ##SONATA_ADMIN_ROLES_BEGIN## and ##SONATA_ADMIN_ROLES_END##')
-            ->addOption(
-                'dry-run',
-                'd',
-                InputOption::VALUE_NONE,
-                "Don't write to the file but output instead")
-            ->addOption(
-                'format',
-                'f',
-                InputOption::VALUE_REQUIRED,
-                'Format of roles *compact* or *expanded*',
-                self::FORMAT_EXPANDED)
-            ->addOption(
-                'security-file',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Full path to security.yaml file',
-                null)
-        ;
-    }
-
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
-        if (!in_array($input->getOption('format'), $this->formats)) {
-            throw new \InvalidArgumentException(sprintf("Invalid format parameters, allowed values are %s", implode(', ', $this->formats)));
-        }
-
-        if (null === $input->getOption('security-file')) {
-            $input->setOption('security-file', realpath($this->getContainer()->getParameter('kernel.root_dir').'/../config/packages/security.yaml'));
-        }
-    }
-
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -96,10 +62,46 @@ class RoleExportCommand extends ContainerAwareCommand implements CommandInfoInte
                 throw new \RuntimeException(sprintf("Can't update roles in '%s', error while writing new file", $securityFilePath));
             }
 
-            $this->style->success(sprintf("Updated roles in %s", $securityFilePath));
+            $this->style->success(sprintf('Updated roles in %s', $securityFilePath));
         }
 
         return 0;
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setName('sonata-ext:export-roles')
+            ->setDescription('Generates all roles for sonata admin classes and saves them in security.yml between tags ##SONATA_ADMIN_ROLES_BEGIN## and ##SONATA_ADMIN_ROLES_END##')
+            ->addOption(
+                'dry-run',
+                'd',
+                InputOption::VALUE_NONE,
+                "Don't write to the file but output instead")
+            ->addOption(
+                'format',
+                'f',
+                InputOption::VALUE_REQUIRED,
+                'Format of roles *compact* or *expanded*',
+                self::FORMAT_EXPANDED)
+            ->addOption(
+                'security-file',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Full path to security.yaml file',
+                null)
+        ;
+    }
+
+    protected function interact(InputInterface $input, OutputInterface $output)
+    {
+        if (!in_array($input->getOption('format'), $this->formats, true)) {
+            throw new \InvalidArgumentException(sprintf('Invalid format parameters, allowed values are %s', implode(', ', $this->formats)));
+        }
+
+        if (null === $input->getOption('security-file')) {
+            $input->setOption('security-file', realpath($this->getContainer()->getParameter('kernel.root_dir').'/../config/packages/security.yaml'));
+        }
     }
 
     protected function formatRolesExpanded(array $map): string
@@ -152,6 +154,7 @@ class RoleExportCommand extends ContainerAwareCommand implements CommandInfoInte
                 }
             }
         }
+
         return $map;
     }
 }

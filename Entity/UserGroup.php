@@ -1,6 +1,10 @@
 <?php
+
 /*
- * (c) Marek Kebza <marek@kebza.cz>
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Entity;
@@ -25,14 +29,14 @@ abstract class UserGroup implements SonataExtUserGroupInterface
     protected $id;
 
     /**
-     * @var string|null
+     * @var null|string
      *
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
 
     /**
-     * @var string|null
+     * @var null|string
      *
      * @ORM\Column(type="string", length=100, name="internal_key", nullable=true)
      */
@@ -56,7 +60,12 @@ abstract class UserGroup implements SonataExtUserGroupInterface
         $this->roles = [];
     }
 
-    public function addRole($role): UserGroup
+    public function __toString()
+    {
+        return sprintf('%s [#%s]', $this->getName(), ($this->getId() ? $this->getId() : '?'));
+    }
+
+    public function addRole($role): self
     {
         if (!$this->hasRole($role)) {
             $this->roles[] = strtoupper($role);
@@ -75,16 +84,15 @@ abstract class UserGroup implements SonataExtUserGroupInterface
 
     /**
      * @param null|string $key
+     *
      * @return UserGroup
      */
-    public function setKey(?string $key): UserGroup
+    public function setKey(?string $key): self
     {
         $this->key = $key;
 
         return $this;
     }
-
-
 
     public function getId(): ?int
     {
@@ -106,7 +114,7 @@ abstract class UserGroup implements SonataExtUserGroupInterface
         return $this->roles;
     }
 
-    public function removeRole($role): UserGroup
+    public function removeRole($role): self
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
@@ -116,23 +124,17 @@ abstract class UserGroup implements SonataExtUserGroupInterface
         return $this;
     }
 
-    public function setName($name): UserGroup
+    public function setName($name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function setRoles(array $roles): UserGroup
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
-    }
-
-
-    public function __toString()
-    {
-        return sprintf('%s [#%s]', $this->getName(), ($this->getId() ? $this->getId() : '?'));
     }
 }

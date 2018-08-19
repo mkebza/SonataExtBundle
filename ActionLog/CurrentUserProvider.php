@@ -1,13 +1,14 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 10/06/2018
- * Time: 11:53
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\ActionLog;
 
-use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -26,9 +27,8 @@ class CurrentUserProvider implements CurrentUserProviderInterface
     public function getUser(): ?UserInterface
     {
         $token = $this->token->getToken();
-        if (null === $token ||  null === $token->getUser()) {
+        if (null === $token || null === $token->getUser()) {
             return null;
-
         }
 
         $user = $token->getUser();
@@ -44,6 +44,4 @@ class CurrentUserProvider implements CurrentUserProviderInterface
     {
         return $this->getUser() ? $this->getUser()->getActionLogName() : null;
     }
-
-
 }

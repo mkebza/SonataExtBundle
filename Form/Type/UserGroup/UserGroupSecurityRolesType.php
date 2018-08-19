@@ -1,7 +1,10 @@
 <?php
 
 /*
- * (c) Marek Kebza <marek@kebza.cz>
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Form\Type\UserGroup;
@@ -20,6 +23,8 @@ class UserGroupSecurityRolesType extends AbstractType
 
     /**
      * SecurityRolesType constructor.
+     *
+     * @param mixed $roles
      */
     public function __construct($roles)
     {

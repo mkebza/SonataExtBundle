@@ -1,17 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 10/08/2018
- * Time: 21:39
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 declare(strict_types=1);
 
 namespace MKebza\SonataExt\Controller\Security;
 
 use MKebza\SonataExt\Enum\AdminFlashMessage;
 use MKebza\SonataExt\Form\Type\Security\ChangePasswordType;
-use MKebza\SonataExt\Security\UserChangePassword;
 use MKebza\SonataExt\Service\Security\ChangePasswordAction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class ChangePasswordController extends AbstractController
         }
 
         return $this->render('@SonataExt/security/change_password.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

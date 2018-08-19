@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 declare(strict_types=1);
 
 namespace MKebza\SonataExt\Controller\Security;
@@ -21,6 +28,7 @@ class ResetPasswordController extends AbstractController
             $this->addFlash(AdminFlashMessage::ERROR,
                $translator->trans('action.resetPassword.flashInvalidToken', [], 'admin')
             );
+
             return $this->redirectToRoute('admin_reset_password_request');
         }
 
@@ -32,6 +40,7 @@ class ResetPasswordController extends AbstractController
             $this->addFlash(AdminFlashMessage::SUCCESS,
                 $translator->trans('action.resetPassword.flashPasswordReset', [], 'admin')
             );
+
             return $this->redirectToRoute('admin_login');
         }
 

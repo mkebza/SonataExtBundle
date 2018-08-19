@@ -1,8 +1,10 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 16:05
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Controller;
@@ -30,7 +32,7 @@ class DashboardController extends AbstractController
     {
         return $this->render('@SonataExt/dashboard/dashboard.html.twig', [
             'renderer' => $this->renderer,
-            'dashboard' => $this->dashboard
+            'dashboard' => $this->dashboard,
         ]);
     }
 }

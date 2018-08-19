@@ -1,31 +1,32 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 10/06/2018
- * Time: 10:24
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
-namespace MKebza\SonataExt\EventListener\ActionLog;
+namespace MKebza\SonataExt\EventListener\AppLog;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
-use MKebza\EntityHistory\Entity\EntityHistory;
-use MKebza\EntityHistory\ORM\EntityHistoryInterface;
 use MKebza\SonataExt\Entity\ActionLog;
+use MKebza\SonataExt\Entity\AppLog;
 use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
-
+use MKebza\SonataExt\ORM\AppLog\LoggableInterface;
 
 class CreateLoggableRelationSubscriber implements EventSubscriber
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::loadClassMetadata,
-        );
+        ];
     }
 
     /**
@@ -38,7 +39,7 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
 
         if (
             $metadata->isMappedSuperclass ||
-            !$metadata->getReflectionClass()->implementsInterface(ActionLoggableInterface::class)
+            !$metadata->getReflectionClass()->implementsInterface(LoggableInterface::class)
         ) {
             return;
         }
@@ -49,38 +50,38 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
             ->getNamingStrategy();
 
         $relationInfo = [
-            'table' => strtolower($namingStrategy->classToTableName($metadata->getName().'ActionLog')),
+            'table' => strtolower($namingStrategy->classToTableName($metadata->getName().'Log')),
             'entity_name' => $metadata->getName(),
             'entity_column' => $namingStrategy->joinKeyColumnName($metadata->getName()),
-            'log_column' => 'log_id'
+            'log_column' => 'log_id',
         ];
 
         $metadata->mapManyToMany(
-            array(
+            [
                 'orderBy' => ['createdAt' => 'DESC'],
-                'targetEntity' => ActionLog::class,
-                'fieldName' => 'loggedActions',
-                'cascade' => array('persist'),
-                'joinTable' => array(
+                'targetEntity' => AppLog::class,
+                'fieldName' => 'log',
+                'cascade' => ['persist'],
+                'joinTable' => [
                     'name' => $relationInfo['table'],
-                    'joinColumns' => array(
-                        array(
+                    'joinColumns' => [
+                        [
                             'name' => $relationInfo['entity_column'],
                             'referencedColumnName' => $namingStrategy->referenceColumnName(),
                             'onDelete' => 'CASCADE',
                             'onUpdate' => 'CASCADE',
-                        ),
-                    ),
-                    'inverseJoinColumns' => array(
-                        array(
+                        ],
+                    ],
+                    'inverseJoinColumns' => [
+                        [
                             'name' => $relationInfo['log_column'],
                             'referencedColumnName' => $namingStrategy->referenceColumnName(),
                             'onDelete' => 'CASCADE',
                             'onUpdate' => 'CASCADE',
-                        ),
-                    )
-                )
-            )
+                        ],
+                    ],
+                ],
+            ]
         );
     }
 }

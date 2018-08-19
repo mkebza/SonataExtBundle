@@ -1,12 +1,13 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 16/06/2018
- * Time: 13:18
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\ActionLog;
-
 
 interface ActionLogUserInterface
 {

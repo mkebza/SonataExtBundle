@@ -1,14 +1,15 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 09/06/2018
- * Time: 16:56
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\DependencyInjection;
 
 use MKebza\SonataExt\Controller\DashboardController;
-use MKebza\SonataExt\Dashboard\DashboardRenderer;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -31,19 +32,18 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
                 'title_mode' => 'both',
             ],
             'security' => [
-                'handler' =>  'MKebza\SonataExt\Sonata\RoleSecurityHandler'
-            ]
+                'handler' => 'MKebza\SonataExt\Sonata\RoleSecurityHandler',
+            ],
         ]);
 
         // Add paths to namespaces so we can override some bundles paths
         $container->loadFromExtension('twig', [
             'paths' => [
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' =>  'Email',
-                '%kernel.project_dir%/templates/email' =>  'Email',
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' =>  'SonataAdmin',
+                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' => 'Email',
+                '%kernel.project_dir%/templates/email' => 'Email',
+                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' => 'SonataAdmin',
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/fos-user' => 'FOSUser',
-            ]
+            ],
         ]);
     }
 
@@ -86,6 +86,5 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
         }
 
         // Chnage of skin
-
     }
 }

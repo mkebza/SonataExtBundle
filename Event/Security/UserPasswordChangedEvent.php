@@ -1,10 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 11/08/2018
- * Time: 11:06
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 declare(strict_types=1);
 
 namespace MKebza\SonataExt\Event\Security;
@@ -26,7 +28,8 @@ final class UserPasswordChangedEvent extends Event
 
     /**
      * UserPasswordChangedEvent constructor.
-     * @param User $user
+     *
+     * @param User   $user
      * @param string $newPassword
      */
     public function __construct(User $user, string $newPassword)

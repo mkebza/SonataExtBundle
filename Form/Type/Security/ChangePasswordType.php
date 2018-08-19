@@ -1,10 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 10/08/2018
- * Time: 21:42
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 declare(strict_types=1);
 
 namespace MKebza\SonataExt\Form\Type\Security;
@@ -24,12 +26,12 @@ class ChangePasswordType extends AbstractType
             ->add('currentPassword', PasswordType::class, [
                 'label' => 'action.changePassword.currentPassword',
                 'constraints' => [
-                    new UserPassword()
-                ]
+                    new UserPassword(),
+                ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'action.changePassword.newPassword'],
+                'first_options' => ['label' => 'action.changePassword.newPassword'],
                 'second_options' => ['label' => 'action.changePassword.newPasswordRepeat'],
             ]);
     }
@@ -37,7 +39,7 @@ class ChangePasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'translation_domain' => 'admin'
+            'translation_domain' => 'admin',
         ]);
     }
 }

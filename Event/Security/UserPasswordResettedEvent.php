@@ -1,15 +1,21 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+declare(strict_types=1);
 
 namespace MKebza\SonataExt\Event\Security;
 
-
 use MKebza\SonataExt\Entity\ResetPasswordRequest;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
+use Symfony\Component\EventDispatcher\Event;
 
-final class UserPasswordResettedEvent
+final class UserPasswordResettedEvent extends Event
 {
     /**
      * @var ResetPasswordRequest
@@ -18,6 +24,7 @@ final class UserPasswordResettedEvent
 
     /**
      * UserPasswordResettedEvent constructor.
+     *
      * @param SonataExtUserInterface $user
      */
     public function __construct(ResetPasswordRequest $user)

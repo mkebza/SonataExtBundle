@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 11/08/2018
- * Time: 20:48
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 declare(strict_types=1);
@@ -11,7 +12,6 @@ declare(strict_types=1);
 namespace MKebza\SonataExt\Event\Security;
 
 use MKebza\SonataExt\Entity\ResetPasswordRequest;
-use MKebza\SonataExt\Entity\User;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -29,8 +29,9 @@ final class ResetPasswordRequestedEvent extends Event
 
     /**
      * UserPasswordResetRequestedEvent constructor.
+     *
      * @param SonataExtUserInterface $user
-     * @param PasswordResetRequest $request
+     * @param PasswordResetRequest   $request
      */
     public function __construct(SonataExtUserInterface $user, ResetPasswordRequest $request)
     {
@@ -53,8 +54,4 @@ final class ResetPasswordRequestedEvent extends Event
     {
         return $this->request;
     }
-
-
-
-
 }

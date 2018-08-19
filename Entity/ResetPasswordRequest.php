@@ -1,13 +1,19 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+declare(strict_types=1);
 
 namespace MKebza\SonataExt\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
@@ -23,7 +29,7 @@ class ResetPasswordRequest
     use Timestampable;
 
     /**
-     * @var integer|null
+     * @var null|int
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -39,7 +45,7 @@ class ResetPasswordRequest
     protected $token;
 
     /**
-     * @var \DateTime|null
+     * @var null|\DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -53,7 +59,7 @@ class ResetPasswordRequest
     protected $browser;
 
     /**
-     * Possible to store IPv6
+     * Possible to store IPv6.
      *
      * @var string
      *
@@ -76,10 +82,10 @@ class ResetPasswordRequest
     /**
      * PasswordResetRequest constructor.
      *
-     * @param string $token
-     * @param \DateTime|null $expire
-     * @param string $browser
-     * @param string $ip
+     * @param string         $token
+     * @param null|\DateTime $expire
+     * @param string         $browser
+     * @param string         $ip
      * @param $user
      */
     public function __construct(SonataExtUserInterface $user, string $token, ?\DateTime $expire, string $browser, string $ip)
@@ -93,7 +99,7 @@ class ResetPasswordRequest
     }
 
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getId(): ?int
     {
@@ -109,7 +115,7 @@ class ResetPasswordRequest
     }
 
     /**
-     * @return \DateTime|null
+     * @return null|\DateTime
      */
     public function getExpire(): ?\DateTime
     {
@@ -149,7 +155,7 @@ class ResetPasswordRequest
     }
 
     /**
-     * Set request as used
+     * Set request as used.
      */
     public function use(): void
     {

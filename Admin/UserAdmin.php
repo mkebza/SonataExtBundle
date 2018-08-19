@@ -1,34 +1,30 @@
 <?php
 
 /*
- * (c) Marek Kebza <marek@kebza.cz>
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Admin;
 
 use App\Entity\User;
-use FOS\UserBundle\Model\UserManagerInterface;
-use MKebza\EntityHistory\Entity\EntityHistory;
-use MKebza\EntityHistory\Sonata\AdminHistoryTab;
 use MKebza\SonataExt\ActionLog\AdminActionLogTab;
-use MKebza\SonataExt\Entity\ActionLog;
-use MKebza\SonataExt\Form\Type\User\UserSecurityRolesType;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 
 class UserAdmin extends AbstractAdmin
 {
+    use AdminActionLogTab;
     protected $baseRoutePattern = 'user';
     protected $baseRouteName = 'admin_user';
 
-    use AdminActionLogTab;
-
     public function getFormBuilder()
     {
-        $this->formOptions['validation_groups'] = (!$this->getSubject() || is_null($this->getSubject()->getId())) ? 'Registration' : 'Profile';
+        $this->formOptions['validation_groups'] = (!$this->getSubject() || null === $this->getSubject()->getId()) ? 'Registration' : 'Profile';
 
         return parent::getFormBuilder();
     }

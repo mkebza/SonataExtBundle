@@ -1,13 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 10/08/2018
- * Time: 17:02
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 namespace MKebza\SonataExt\ORM\Timestampable;
 
-use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 
 trait Timestampable
@@ -29,6 +30,7 @@ trait Timestampable
 
     /**
      * @param \DateTime $created
+     *
      * @return TimestampableProperties
      */
     public function setCreated(\DateTime $created): self

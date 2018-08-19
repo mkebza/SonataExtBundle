@@ -1,18 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 11/08/2018
- * Time: 14:00
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Controller\Security;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use MKebza\SonataExt\Enum\AdminFlashMessage;
 use MKebza\SonataExt\Form\Type\Security\ResetPasswordRequestType;
-use MKebza\SonataExt\Security\UserResetPassword;
 use MKebza\SonataExt\Service\Security\ResetPasswordRequestAction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,14 +27,13 @@ class ResetPasswordRequestController extends AbstractController
         TranslatorInterface $translator,
         EntityManagerInterface $em,
         string $userEntityName
-    )
-    {
+    ) {
         $form = $this->createForm(ResetPasswordRequestType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $em->getRepository($userEntityName)->findOneBy([
-                'email' => $form->get('email')->getData()
+                'email' => $form->get('email')->getData(),
             ]);
 
             if (null !== $user) {

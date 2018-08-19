@@ -1,14 +1,18 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
+declare(strict_types=1);
 
 namespace MKebza\SonataExt\Form\Type\Security;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ResetPasswordType extends AbstractType
@@ -19,8 +23,7 @@ class ResetPasswordType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => false,
                 'constraints' => [
-                ]
+                ],
             ]);
     }
-
 }

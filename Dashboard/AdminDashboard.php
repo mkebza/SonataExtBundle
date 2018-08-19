@@ -1,17 +1,17 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 20/06/2018
- * Time: 16:38
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Dashboard;
 
-
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use JMose\CommandSchedulerBundle\Entity\ScheduledCommand;
-use MKebza\SonataExt\Dashboard\Block\StatsNumberProvider\UserCountProvider;
 use MKebza\SonataExt\Dashboard\Block\Type\ActionLogBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\AppInfoBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\CurrentUserInfoBlock;
@@ -34,7 +34,8 @@ class AdminDashboard implements DashboardInterface
 
     /**
      * AdminDashboard constructor.
-     * @param RouterInterface $router
+     *
+     * @param RouterInterface        $router
      * @param EntityManagerInterface $em
      */
     public function __construct(RouterInterface $router, EntityManagerInterface $em)
@@ -52,25 +53,24 @@ class AdminDashboard implements DashboardInterface
                 'number' => $this->getTotalUsers(),
                 'label' => 'Total users',
                 'icon' => 'fa fa-users',
-                'target' => $this->router->generate('admin_user_list')
+                'target' => $this->router->generate('admin_user_list'),
             ])
             ->add('log_event_count_count', StatsNumberBlock::class, [
                 'number' => $this->getTotalLogEvents(),
                 'label' => 'Total log events',
                 'icon' => 'fa fa-bars',
-                'target' => $this->router->generate('admin_action_log_list')
+                'target' => $this->router->generate('admin_action_log_list'),
             ])
 
             ->add('locked_crons_count', StatsNumberBlock::class, [
                 'number' => $this->getTotalLockedCrons(),
                 'label' => 'Locked crons',
                 'icon' => 'fa fa-clock-o',
-                'color' => $this->getTotalLockedCrons() == 0 ? 'green' : 'red',
-                'target' => $this->router->generate('admin_cron_list')
+                'color' => 0 === $this->getTotalLockedCrons() ? 'green' : 'red',
+                'target' => $this->router->generate('admin_cron_list'),
             ])
 
             ->add('_separator_1', SeparatorBlock::class)
-
 
             ->add('app_info', AppInfoBlock::class)
             ->add('action_log', ActionLogBlock::class)
@@ -107,6 +107,4 @@ class AdminDashboard implements DashboardInterface
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-
 }

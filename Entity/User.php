@@ -1,26 +1,23 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 16/06/2018
- * Time: 12:03
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 declare(strict_types=1);
 
 namespace MKebza\SonataExt\Entity;
 
-use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use MKebza\EntityHistory\ORM\EntityHistory;
-use MKebza\EntityHistory\ORM\EntityHistoryInterface;
-use MKebza\EntityHistory\ORM\EntityHistoryUserInterface;
 use MKebza\Notificator\NotifiableInterface;
-use MKebza\SonataExt\ActionLog\ActionLogUserInterface;
-use MKebza\SonataExt\ORM\ActionLog\ActionLoggable;
-use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
+use MKebza\SonataExt\ORM\AppLog\Loggable;
+use MKebza\SonataExt\ORM\AppLog\LoggableInterface;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
-use MKebza\SonataExt\Security\PasswordResettableInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -29,18 +26,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\MappedSuperclass()
  */
-abstract class User implements
-    NotifiableInterface,
-    UserInterface,
-    \Serializable,
-    ActionLoggableInterface,
-    EquatableInterface,
-    SonataExtUserInterface
+abstract class User implements NotifiableInterface, UserInterface, \Serializable, LoggableInterface, EquatableInterface, SonataExtUserInterface
 {
-    use ActionLoggable, Timestampable;
+    use Loggable, Timestampable;
 
     /**
-     * @var integer|null
+     * @var null|int
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -49,25 +40,25 @@ abstract class User implements
     protected $id;
 
     /**
-     * @var string|null
+     * @var null|string
      * @ORM\Column(type="string", length=254, unique=true)
      */
     protected $email;
 
     /**
-     * @var string|null
+     * @var null|string
      * @ORM\Column(type="string", length=64)
      */
     protected $password;
 
     /**
-     * @var boolean|null
+     * @var null|bool
      * @ORM\Column(type="boolean")
      */
     protected $active;
 
     /**
-     * @var \DateTime|null
+     * @var null|\DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -88,8 +79,13 @@ abstract class User implements
         $this->loggedActions = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return sprintf('%s [#%s]', $this->getUsername(), ($this->getId() ? $this->getId() : '?'));
+    }
+
     /**
-     * @return int|null
+     * @return null|int
      */
     public function getId(): ?int
     {
@@ -106,9 +102,10 @@ abstract class User implements
 
     /**
      * @param null|string $password
+     *
      * @return User
      */
-    public function setPassword(?string $password): User
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -125,9 +122,10 @@ abstract class User implements
 
     /**
      * @param null|string $email
+     *
      * @return User
      */
-    public function setEmail(?string $email): User
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -135,7 +133,7 @@ abstract class User implements
     }
 
     /**
-     * @return bool|null
+     * @return null|bool
      */
     public function isActive(): ?bool
     {
@@ -143,10 +141,11 @@ abstract class User implements
     }
 
     /**
-     * @param bool|null $active
+     * @param null|bool $active
+     *
      * @return User
      */
-    public function setActive(?bool $active): User
+    public function setActive(?bool $active): self
     {
         $this->active = $active;
 
@@ -154,7 +153,7 @@ abstract class User implements
     }
 
     /**
-     * @return \DateTime|null
+     * @return null|\DateTime
      */
     public function getLastLogin(): ?\DateTime
     {
@@ -162,10 +161,11 @@ abstract class User implements
     }
 
     /**
-     * @param \DateTime|null $lastLogin
+     * @param null|\DateTime $lastLogin
+     *
      * @return User
      */
-    public function setLastLogin(?\DateTime $lastLogin): User
+    public function setLastLogin(?\DateTime $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
 
@@ -200,29 +200,28 @@ abstract class User implements
 
     public function eraseCredentials()
     {
-
     }
 
     /** @see \Serializable::serialize() */
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->email,
             $this->password,
-            $this->active
-        ));
+            $this->active,
+        ]);
     }
 
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->email,
             $this->password,
             $this->active
-            ) = unserialize($serialized, array('allowed_classes' => false));
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
     /**
@@ -245,14 +244,9 @@ abstract class User implements
         return $this;
     }
 
-    public function __toString()
-    {
-        return sprintf('%s [#%s]', $this->getUsername(), ($this->getId() ? $this->getId() : '?'));
-    }
-
     public function getActionLogName(): string
     {
-        return (string)$this;
+        return (string) $this;
     }
 
     public function isEqualTo(UserInterface $user)
@@ -263,7 +257,7 @@ abstract class User implements
     public function getNotificationChannels(): array
     {
         return [
-            'email' => $this->getEmail()
+            'email' => $this->getEmail(),
         ];
     }
 }

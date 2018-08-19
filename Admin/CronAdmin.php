@@ -1,8 +1,10 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 17/06/2018
- * Time: 11:14
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Admin;
@@ -16,9 +18,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Process\Process;
@@ -57,7 +57,7 @@ class CronAdmin extends AbstractAdmin
                     ->add('arguments', TextType::class)
                     ->add('cronExpression', TextType::class)
                     ->add('logFile', TextType::class)
-                    ->add('priority', IntegerType::class, ['empty_data' => 100,])
+                    ->add('priority', IntegerType::class, ['empty_data' => 100])
                     ->add('executeImmediately', CheckboxType::class)
                     ->add('disabled', CheckboxType::class)
                 ->end()
@@ -68,13 +68,12 @@ class CronAdmin extends AbstractAdmin
                         'template' => '@SonataExt/cron/edit/_tab_execution_log.html.twig',
                         'vars' => [
                             'fileName' => $command->getLogFile(),
-                            'content' => $this->getLogFileContent($command->getLogFile())
-                        ]
+                            'content' => $this->getLogFileContent($command->getLogFile()),
+                        ],
                     ])
                 ->end()
             ->end()
         ;
-
 
         $this->addActionLogTab($form);
     }
@@ -111,6 +110,7 @@ class CronAdmin extends AbstractAdmin
 
         $tail = new Process(['tail', '-n 200', $fileName]);
         $tail->run();
+
         return $tail->getOutput();
     }
 }

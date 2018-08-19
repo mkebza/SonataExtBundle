@@ -1,10 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 14/08/2018
- * Time: 15:08
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
+
 declare(strict_types=1);
 
 namespace MKebza\SonataExt\Notification\Security;
@@ -30,7 +32,8 @@ class ResetPasswordRequestNotification implements NotificationInterface
 
     /**
      * ResetPasswordRequestNotification constructor.
-     * @param EngineInterface $templating
+     *
+     * @param EngineInterface     $templating
      * @param TranslatorInterface $translator
      */
     public function __construct(EngineInterface $templating, TranslatorInterface $translator)
@@ -42,7 +45,7 @@ class ResetPasswordRequestNotification implements NotificationInterface
     public function getChannels(NotifiableInterface $target): array
     {
         return [
-            'email'
+            'email',
         ];
     }
 
@@ -66,7 +69,7 @@ class ResetPasswordRequestNotification implements NotificationInterface
         return (new OptionsResolver())
             ->setDefaults([
                 'user' => null,
-                'request' => null
+                'request' => null,
             ])
             ->resolve($options);
     }

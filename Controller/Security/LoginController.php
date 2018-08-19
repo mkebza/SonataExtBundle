@@ -1,8 +1,10 @@
 <?php
-/**
- * User: Marek Kebza <marek@kebza.cz>
- * Date: 09/08/2018
- * Time: 16:31
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Controller\Security;
@@ -17,10 +19,9 @@ class LoginController extends AbstractController
         $error = $utils->getLastAuthenticationError();
         $lastUsername = $utils->getLastUsername();
 
-        return $this->render('@SonataExt/security/login.html.twig', array(
+        return $this->render('@SonataExt/security/login.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
+            'error' => $error,
+        ]);
     }
-
 }
