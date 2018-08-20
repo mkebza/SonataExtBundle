@@ -19,6 +19,19 @@ User:
     field:
         email: E-mail
 
+Log:
+    field:
+        channel: Channel
+        message: Message
+        level: Severenity
+        created: Created
+        user: User
+
+    action:
+        adminTab:
+            title: History
+            showing: Showing last :count messages
+
 ########################################################################################################################
 # Actions
 action:

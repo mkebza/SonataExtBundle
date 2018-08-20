@@ -7,13 +7,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace MKebza\SonataExt\ORM\AppLog;
+namespace MKebza\SonataExt\ORM\Logger;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use MKebza\SonataExt\Entity\ActionLog;
-use MKebza\SonataExt\Entity\AppLog;
+use MKebza\SonataExt\Entity\Log;
 
 trait Loggable
 {
@@ -22,7 +22,7 @@ trait Loggable
      */
     protected $log;
 
-    public function log(AppLog $object): LoggableInterface
+    public function log(Log $object): LoggableInterface
     {
         $this->log->add($object);
 
@@ -34,12 +34,12 @@ trait Loggable
      */
     public function getLog(int $limit = null): Collection
     {
-        $criteria = Criteria::create()->orderBy(['createdAt' => 'DESC']);
+        $criteria = Criteria::create()->orderBy(['created' => 'DESC']);
 
         if (null !== $limit) {
             $criteria->setMaxResults($limit);
         }
 
-        return $this->loggedActions->matching($criteria);
+        return $this->log->matching($criteria);
     }
 }

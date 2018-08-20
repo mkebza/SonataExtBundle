@@ -12,12 +12,12 @@ namespace MKebza\SonataExt\Dashboard;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use JMose\CommandSchedulerBundle\Entity\ScheduledCommand;
-use MKebza\SonataExt\Dashboard\Block\Type\ActionLogBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\AppInfoBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\CurrentUserInfoBlock;
+use MKebza\SonataExt\Dashboard\Block\Type\LogBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\SeparatorBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\StatsNumberBlock;
-use MKebza\SonataExt\Entity\ActionLog;
+use MKebza\SonataExt\Entity\Log;
 use Symfony\Component\Routing\RouterInterface;
 
 class AdminDashboard implements DashboardInterface
@@ -59,7 +59,7 @@ class AdminDashboard implements DashboardInterface
                 'number' => $this->getTotalLogEvents(),
                 'label' => 'Total log events',
                 'icon' => 'fa fa-bars',
-                'target' => $this->router->generate('admin_action_log_list'),
+                'target' => $this->router->generate('admin_log_list'),
             ])
 
             ->add('locked_crons_count', StatsNumberBlock::class, [
@@ -73,7 +73,7 @@ class AdminDashboard implements DashboardInterface
             ->add('_separator_1', SeparatorBlock::class)
 
             ->add('app_info', AppInfoBlock::class)
-            ->add('action_log', ActionLogBlock::class)
+            ->add('log', LogBlock::class)
         ;
     }
 
@@ -92,7 +92,7 @@ class AdminDashboard implements DashboardInterface
         return $this->em
             ->createQueryBuilder()
             ->select('COUNT(entry)')
-            ->from(ActionLog::class, 'entry')
+            ->from(Log::class, 'entry')
             ->getQuery()
             ->getSingleScalarResult();
     }

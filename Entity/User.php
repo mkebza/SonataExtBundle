@@ -14,8 +14,8 @@ namespace MKebza\SonataExt\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MKebza\Notificator\NotifiableInterface;
-use MKebza\SonataExt\ORM\AppLog\Loggable;
-use MKebza\SonataExt\ORM\AppLog\LoggableInterface;
+use MKebza\SonataExt\ORM\Logger\Loggable;
+use MKebza\SonataExt\ORM\Logger\LoggableInterface;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -244,7 +244,7 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
         return $this;
     }
 
-    public function getActionLogName(): string
+    public function getLoggableName(): string
     {
         return (string) $this;
     }

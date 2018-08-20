@@ -74,8 +74,8 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
         }
 
         // User route for action log
-        if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('sonata.admin.action_log')) {
-            $container->getDefinition('sonata.admin.action_log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
+        if (is_string($config['action_log']['user_detail_route']) && $container->hasDefinition('sonata.admin.log')) {
+            $container->getDefinition('sonata.admin.log')->addMethodCall('setUserDetailRouteName', [$config['action_log']['user_detail_route']]);
         }
 
         // Set default builder for dashboard

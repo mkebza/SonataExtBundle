@@ -7,9 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace MKebza\SonataExt\ActionLog;
+declare(strict_types=1);
 
-interface ActionLogUserInterface
+namespace MKebza\SonataExt\ORM\Logger;
+
+interface LoggableUserInterface
 {
-    public function getActionLogName(): string;
+    public function getLoggableName(): string;
 }

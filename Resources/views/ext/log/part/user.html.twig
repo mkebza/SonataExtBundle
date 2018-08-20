@@ -1,0 +1,6 @@
+{{ object.name|default }}
+{% if object.user is not null and admin.userDetailRouteName is not null %}
+    <a href="{{ path(admin.userDetailRouteName, {id: object.user.id}) }}">
+        <i class="fa fa-share-square-o"></i>
+    </a>
+{% endif %}

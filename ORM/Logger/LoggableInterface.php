@@ -7,10 +7,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace MKebza\SonataExt\ORM\AppLog;
+namespace MKebza\SonataExt\ORM\Logger;
 
 use Doctrine\Common\Collections\Collection;
-use MKebza\SonataExt\Entity\AppLog;
+use MKebza\SonataExt\Entity\Log;
 
 interface LoggableInterface
 {
@@ -21,7 +21,10 @@ interface LoggableInterface
      *
      * @return mixed
      */
-    public function log(AppLog $event): LoggableInterface;
+    public function log(Log $event): self;
 
+    /**
+     * @return null|Collection
+     */
     public function getLog(): ?Collection;
 }

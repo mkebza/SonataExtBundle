@@ -29,9 +29,9 @@ services:
         tags:
             - { name: 'dashboard.block' }
 
-    MKebza\SonataExt\Dashboard\Block\Type\ActionLogBlock:
+    MKebza\SonataExt\Dashboard\Block\Type\LogBlock:
         arguments:
-            $repository: '@MKebza\SonataExt\Repository\ActionLogRepository'
+            $repository: '@MKebza\SonataExt\Repository\LogRepository'
         calls:
             - ['setTemplating', ['@templating']]
             - ['setAuthorizationChecker', ['@security.authorization_checker']]

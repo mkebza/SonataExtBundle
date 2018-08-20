@@ -1,5 +1,5 @@
 {% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
 
 {% block field %}
-    {% include "@SonataExt/action_log/_level.html.twig" with {level: object.level} only %}
+    {% include "@SonataExt/log/part/level.html.twig" with {level: object.level} only %}
 {% endblock %}

@@ -6,6 +6,7 @@ services:
             $dispatcher: '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
             $em: '@Doctrine\ORM\EntityManagerInterface'
             $notificator: '@MKebza\Notificator\Notificator'
+            $appLogger: '@monolog.logger.action'
 
             $userEntityName: '%sonata_ext.user_entity%'
 
@@ -19,7 +20,7 @@ services:
             $superAdminRoles:
                 - ROLE_SUPER_ADMIN
 
-    MKebza\SonataExt\ActionLog\CurrentUserProvider:
+    MKebza\SonataExt\Service\Logger\UserProvider:
         arguments:
             $tokenStorage: '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
 
@@ -27,7 +28,7 @@ services:
 #        tags:
 #            - { name: 'sonata.block' }
 
-    MKebza\SonataExt\Repository\ActionLogRepository:
+    MKebza\SonataExt\Repository\LogRepository:
         arguments:
             $registry: '@Symfony\Bridge\Doctrine\RegistryInterface'
         tags:
@@ -81,15 +82,20 @@ services:
 
     ####################################################################################################################
     # Action log
-    MKebza\SonataExt\EventListener\AppLog\CreateLoggableRelationSubscriber:
+    MKebza\SonataExt\EventListener\Logger\CreateLoggableRelationSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    MKebza\SonataExt\EventListener\AppLoggerSubscriber:
-        arguments:
-            $appLogger: '@logger'
+    MKebza\SonataExt\EventListener\EntityLoggerSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+
+    MKebza\SonataExt\EventListener\LoggerSubscriber:
         tags:
             - { name: 'kernel.event_subscriber' }
+
+    MKebza\SonataExt\Service\Logger\AssignToEntityHandler: ~
 
     # Sonata
     MKebza\SonataExt\EventListener\Sonata\MenuDashboardSubscriber:

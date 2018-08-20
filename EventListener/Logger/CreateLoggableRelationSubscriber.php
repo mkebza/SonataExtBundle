@@ -7,15 +7,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace MKebza\SonataExt\EventListener\AppLog;
+namespace MKebza\SonataExt\EventListener\Logger;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
-use MKebza\SonataExt\Entity\ActionLog;
-use MKebza\SonataExt\Entity\AppLog;
-use MKebza\SonataExt\ORM\ActionLog\ActionLoggableInterface;
-use MKebza\SonataExt\ORM\AppLog\LoggableInterface;
+use MKebza\SonataExt\Entity\Log;
+use MKebza\SonataExt\ORM\Logger\LoggableInterface;
 
 class CreateLoggableRelationSubscriber implements EventSubscriber
 {
@@ -58,8 +56,8 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
 
         $metadata->mapManyToMany(
             [
-                'orderBy' => ['createdAt' => 'DESC'],
-                'targetEntity' => AppLog::class,
+                'orderBy' => ['created' => 'DESC'],
+                'targetEntity' => Log::class,
                 'fieldName' => 'log',
                 'cascade' => ['persist'],
                 'joinTable' => [

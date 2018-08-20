@@ -8,13 +8,13 @@
         {% block table_class %}{{ parent() }} table-condensed{% endblock %}
         {% block row %}
             <td>{{ row.message }}</td>
-            <td class="text-right">{% include '@SonataExt/action_log/_level.html.twig' with {level: row.level } only %}</td>
+            <td class="text-right">{% include '@SonataExt/log/part/level.html.twig' with {level: row.level } only %}</td>
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block footer %}
     <div class="text-right">
-        <a href="{{ path('admin_action_log_list') }}">Show more</a>
+        <a href="{{ path('admin_log_list') }}">Show more</a>
     </div>
 {% endblock %}

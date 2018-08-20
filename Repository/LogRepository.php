@@ -10,7 +10,7 @@
 namespace MKebza\SonataExt\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use MKebza\SonataExt\Entity\ActionLog;
+use MKebza\SonataExt\Entity\Log;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,10 +19,24 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Banner[]    findAll()
  * @method Banner[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ActionLogRepository extends ServiceEntityRepository
+class LogRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, ActionLog::class);
+        parent::__construct($registry, Log::class);
+    }
+
+    public function getChannels(): array
+    {
+        $records = $this->createQueryBuilder('e')
+            ->select('e.channel')
+            ->groupBy('e.channel')
+            ->orderBy('e.channel', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return array_map(function ($v) {
+            return $v['channel'];
+        }, $records);
     }
 }

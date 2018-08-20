@@ -9,10 +9,8 @@
 
 declare(strict_types=1);
 
-namespace MKebza\SonataExt\ORM;
+namespace MKebza\SonataExt\Exception;
 
-use MKebza\SonataExt\ORM\Logger\LoggableUserInterface;
-
-interface SonataExtUserInterface extends LoggableUserInterface
+class ObjectNotLoggableException extends \InvalidArgumentException
 {
 }

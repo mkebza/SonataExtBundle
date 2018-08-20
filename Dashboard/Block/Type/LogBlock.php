@@ -10,12 +10,14 @@
 namespace MKebza\SonataExt\Dashboard\Block\Type;
 
 use MKebza\SonataExt\Repository\ActionLogRepository;
+use MKebza\SonataExt\Repository\AppLogRepository;
+use MKebza\SonataExt\Repository\LogRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActionLogBlock extends AbstractBoxBlock
+class LogBlock extends AbstractBoxBlock
 {
     /**
-     * @var ActionLogRepository
+     * @var AppLogRepository
      */
     protected $repository;
 
@@ -24,7 +26,7 @@ class ActionLogBlock extends AbstractBoxBlock
      *
      * @param ActionLogRepository $repository
      */
-    public function __construct(ActionLogRepository $repository)
+    public function __construct(LogRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -35,7 +37,7 @@ class ActionLogBlock extends AbstractBoxBlock
             ->createQueryBuilder('entry')
             ->select('entry')
             ->setMaxResults($options['limit'])
-            ->orderBy('entry.createdAt', 'DESC')
+            ->orderBy('entry.created', 'DESC')
         ;
 
         if (null !== $options['level']) {
@@ -49,7 +51,7 @@ class ActionLogBlock extends AbstractBoxBlock
                 ->setParameter('levels', $levels);
         }
 
-        return $this->render('@SonataExt/block/action_log.html.twig', [
+        return $this->render('@SonataExt/block/log.html.twig', [
             'records' => $qb->getQuery()->getResult(),
         ], $options);
     }

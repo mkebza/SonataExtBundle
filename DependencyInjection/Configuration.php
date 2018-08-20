@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('user')->defaultTrue()->end()
                         ->booleanNode('user_group')->defaultTrue()->end()
-                        ->booleanNode('action_log')->defaultTrue()->end()
+                        ->booleanNode('log')->defaultTrue()->end()
                         ->booleanNode('cron')->defaultTrue()->end()
                     ->end()
                 ->end()

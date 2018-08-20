@@ -7,13 +7,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace MKebza\SonataExt\ActionLog;
+declare(strict_types=1);
+
+namespace MKebza\SonataExt\Service\Logger;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-interface CurrentUserProviderInterface
+interface UserProviderInterface
 {
-    public function getUsername(): ?string;
+    public function getName(): ?string;
 
     public function getUser(): ?UserInterface;
 }

@@ -21,6 +21,7 @@
        "ircmaxell/random-lib": "^1.2",
        "notfloran/mjml-bundle": "^2.1",
        "rollerworks/password-strength-validator": "^1.1",
+       "elao/enum": "^1.5",
        "jmose/command-scheduler-bundle": "dev-sonata-ext"
     },
     "repositories": [
