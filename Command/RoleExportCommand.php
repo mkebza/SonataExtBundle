@@ -155,6 +155,9 @@ class RoleExportCommand extends ContainerAwareCommand implements CommandInfoInte
             }
         }
 
+        // Add master role
+        $map['ROLE_ADMIN_ALL'] = array_keys($map);
+
         return $map;
     }
 }

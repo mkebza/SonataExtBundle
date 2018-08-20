@@ -10,6 +10,7 @@
 namespace MKebza\SonataExt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MKebza\SonataExt\Enum\LogLevel;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
 
@@ -52,8 +53,8 @@ class Log
     private $message;
 
     /**
-     * @var int
-     * @ORM\Column(type="smallint", nullable=false)
+     * @var LogLevel
+     * @ORM\Column(type="log_level")
      */
     private $level;
 
@@ -88,7 +89,7 @@ class Log
     public function __construct(
         string $channel,
         string $message,
-        int $level,
+        LogLevel $level,
         ?string $name,
         ?SonataExtUserInterface $user,
         ?array $extra
@@ -112,7 +113,7 @@ class Log
     /**
      * @return int
      */
-    public function getLevel(): int
+    public function getLevel(): LogLevel
     {
         return $this->level;
     }

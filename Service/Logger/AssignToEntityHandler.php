@@ -13,6 +13,7 @@ namespace MKebza\SonataExt\Service\Logger;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MKebza\SonataExt\Entity\Log;
+use MKebza\SonataExt\Enum\LogLevel;
 use MKebza\SonataExt\Exception\ObjectNotLoggableException;
 use MKebza\SonataExt\ORM\Logger\LoggableInterface;
 use Monolog\Handler\AbstractHandler;
@@ -25,18 +26,34 @@ class AssignToEntityHandler extends AbstractHandler
     protected $em;
 
     /**
+     * @var UserProviderInterface
+     */
+    protected $userProvider;
+
+    /**
      * AssignToEntityHandler constructor.
      *
      * @param EntityManagerInterface $em
+     * @param UserProviderInterface  $userProvider
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, UserProviderInterface $userProvider)
     {
         $this->em = $em;
+        $this->userProvider = $userProvider;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function handle(array $record)
     {
-        $message = new Log($record['channel'], $record['message'], $record['level'], null, null, $record['extra']);
+        $message = new Log(
+            $record['channel'],
+            $record['message'],
+            LogLevel::fromMonologLevel($record['level']),
+            $this->userProvider->getName(),
+            $this->userProvider->getUser(),
+            $record['extra']);
         $this->em->persist($message);
 
         if (isset($record['context']['references'])) {

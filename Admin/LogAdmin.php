@@ -10,6 +10,7 @@
 namespace MKebza\SonataExt\Admin;
 
 use MKebza\SonataExt\Entity\Log;
+use MKebza\SonataExt\Enum\LogLevel;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -67,9 +68,9 @@ class LogAdmin extends AbstractAdmin
             ->add('user', null, [
                 'label' => 'Log.field.user',
             ])
-//            ->add('level', 'doctrine_orm_choice', ['label' => 'Log.field.level'], ChoiceType::class, [
-//                'choices' => array_combine($channels, $channels),
-//            ])
+            ->add('level', 'doctrine_orm_choice', ['label' => 'Log.field.level'], ChoiceType::class, [
+                'choices' => LogLevel::readables(),
+            ])
             ->add('created', 'doctrine_orm_date_range', ['label' => 'Log.field.created'], DateRangePickerType::class)
         ;
     }

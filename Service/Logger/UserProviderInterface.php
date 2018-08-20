@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 namespace MKebza\SonataExt\Service\Logger;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use MKebza\SonataExt\ORM\Logger\LoggableUserInterface;
 
 interface UserProviderInterface
 {
     public function getName(): ?string;
 
-    public function getUser(): ?UserInterface;
+    public function getUser(): ?LoggableUserInterface;
 }

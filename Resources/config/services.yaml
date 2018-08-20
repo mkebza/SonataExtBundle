@@ -95,7 +95,9 @@ services:
         tags:
             - { name: 'kernel.event_subscriber' }
 
-    MKebza\SonataExt\Service\Logger\AssignToEntityHandler: ~
+    MKebza\SonataExt\Service\Logger\AssignToEntityHandler:
+        arguments:
+            $userProvider: '@MKebza\SonataExt\Service\Logger\UserProvider'
 
     # Sonata
     MKebza\SonataExt\EventListener\Sonata\MenuDashboardSubscriber:

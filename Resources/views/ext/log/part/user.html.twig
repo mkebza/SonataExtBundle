@@ -1,6 +1,7 @@
-{{ object.name|default }}
-{% if object.user is not null and admin.userDetailRouteName is not null %}
-    <a href="{{ path(admin.userDetailRouteName, {id: object.user.id}) }}">
-        <i class="fa fa-share-square-o"></i>
+{% if object.user is not null and is_granted('ROLE_ADMIN_USER_EDIT', object.user) %}
+    <a href="{{ path('admin_user_edit', {id: object.user.id}) }}">
+        {{ object.name|default('-') }}
     </a>
+{% else %}
+    {{ object.name|default('-') }}
 {% endif %}

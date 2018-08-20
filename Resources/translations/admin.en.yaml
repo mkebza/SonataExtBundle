@@ -64,3 +64,7 @@ action:
         changePassword: Change password
         flashPasswordChanged: Your password has been changed
 
+
+enum:
+    LogLevel:
+        debug: debug

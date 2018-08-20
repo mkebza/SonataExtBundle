@@ -1,23 +1,12 @@
 {% set mapColors = {
-    (constant('\\Monolog\\Logger::DEBUG')): 'default',
-    (constant('\\Monolog\\Logger::INFO')): 'primary',
-    (constant('\\Monolog\\Logger::NOTICE')): 'primary',
-    (constant('\\Monolog\\Logger::WARNING')): 'warning',
-    (constant('\\Monolog\\Logger::ERROR')): 'danger',
-    (constant('\\Monolog\\Logger::CRITICAL')): 'danger',
-    (constant('\\Monolog\\Logger::ALERT')): 'danger',
-    (constant('\\Monolog\\Logger::EMERGENCY')): 'danger',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::DEBUG')): 'default',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::INFO')): 'primary',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::NOTICE')): 'primary',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::WARNING')): 'warning',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::ERROR')): 'danger',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::CRITICAL')): 'danger',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::ALERT')): 'danger',
+    (constant('\\MKebza\\SonataExt\\Enum\\LogLevel::EMERGENCY')): 'danger',
 } %}
 
-{% set mapNames = {
-    (constant('\\Monolog\\Logger::DEBUG')): 'debug',
-    (constant('\\Monolog\\Logger::INFO')): 'info',
-    (constant('\\Monolog\\Logger::NOTICE')): 'notice',
-    (constant('\\Monolog\\Logger::WARNING')): 'warning',
-    (constant('\\Monolog\\Logger::ERROR')): 'error',
-    (constant('\\Monolog\\Logger::CRITICAL')): 'critical',
-    (constant('\\Monolog\\Logger::ALERT')): 'alert',
-    (constant('\\Monolog\\Logger::EMERGENCY')): 'emergency',
-} %}
-
-<span class="label label-{{ mapColors[level] }}">{{ mapNames[level] }}</span>
+<span class="label label-{{ mapColors[level.value] }}">{{ level|trans([], 'admin') }}</span>
