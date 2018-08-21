@@ -1,0 +1,26 @@
+sonata_admin_dashboard:
+    path: /dashboard
+    controller: MKebzaSonataExtBundle:Dashboard:dashboard
+
+admin_dashboard:
+    path: /dashboard
+    controller: MKebzaSonataExtBundle:Dashboard:dashboard
+
+admin_login:
+    path: /login
+    controller: MKebza\SonataExt\Controller\Security\LoginController
+
+admin_logout:
+    path: /logout
+
+admin_change_password:
+    path: /change-password
+    controller: MKebza\SonataExt\Controller\Security\ChangePasswordController
+
+admin_reset_password_request:
+    path: /reset-password-request
+    controller: MKebza\SonataExt\Controller\Security\ResetPasswordRequestController
+
+admin_reset_password:
+    path: /reset-password-request/{token}
+    controller: MKebza\SonataExt\Controller\Security\ResetPasswordController

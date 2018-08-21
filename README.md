@@ -53,6 +53,36 @@ sonata_admin_dashboard:
 
 ```
 
+monolog:
+    handlers:
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+            channels: ["!event"]
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type: firephp
+        #    level: info
+        #chromephp:
+        #    type: chromephp
+        #    level: info
+        console:
+            type:   console
+            process_psr_3_messages: false
+            channels: ["!event", "!doctrine", "!console"]
+
+        assign_to_entity:
+            level: debug
+            type: service
+            id: MKebza\SonataExt\Service\Logger\AssignToEntityHandler
+            channels: [action]
+
+    channels:
+        - action
+        
+        
 Whats available
 
 - TemplateType

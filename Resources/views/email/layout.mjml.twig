@@ -5,6 +5,7 @@
         <mj-attributes>
             {% block header_attributes %}
                 <mj-text line-height="23px" font-family="Helvetica, Arial, sans-serif" font-size="14px" />
+                <mj-class name="logo" font-size="30px" align="center" font-weight="bold" />
                 <mj-button font-size="18px" background-color="#28a745" border-radius="0px" />
                 <mj-divider border-color="#EDEFF2" border-width="1px" />
             {% endblock %}
@@ -12,10 +13,14 @@
     </mj-head>
     <mj-body>
         {% block header_wrapper %}
-            <mj-section background-color="#f4f4f4" full-width="full-width">
+            <mj-section padding="0" border-bottom="5px solid #f4f4f4">
                 <mj-column>
                     {% block header %}
-                        <mj-image width="100" href="" src="/assets/img/logo-small.png"></mj-image>
+                        {% if config.logo.email is empty %}
+                            <mj-text mj-class="logo">{{ config.app.name }}</mj-text>
+                        {% else %}
+                            <mj-image width="400" href="" src="{{ absolute_url(asset(config.logo.email)) }}"></mj-image>
+                        {% endif %}
                     {% endblock %}
                 </mj-column>
             </mj-section>
@@ -30,11 +35,11 @@
         {% endblock%}
 
         {% block footer_wrapper %}
-            <mj-section background-color="#EDEFF2" full-width="full-width">
+            <mj-section border-top="5px solid #f4f4f4">
                 <mj-column>
                     {% block footer %}
                         <mj-text align="center" color="#b5b6b6" font-size="12px">
-                            © 2016 {{ config.app.name }}. All rights reserved.
+                            © {{ date('Y')|date('Y') }} {{ config.app.name }}. All rights reserved.
                         </mj-text>
                     {% endblock %}
                 </mj-column>

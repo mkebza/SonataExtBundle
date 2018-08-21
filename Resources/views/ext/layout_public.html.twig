@@ -8,8 +8,10 @@
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ path('admin_login') }}">
-                {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
-                    <img src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
+                {% if config.logo.admin is empty %}
+                    <span>{{ config.app.name }}</span>
+                {% else %}
+                    <img src="{{ asset(config.logo.admin) }}" alt="{{ config.app.name }}"/>
                 {% endif %}
             </a>
         </div>

@@ -7,6 +7,19 @@
     {%- endif -%}"
 {%- endblock -%}
 
+{% block logo %}
+    {% spaceless %}
+        <a class="logo hidden-xs" href="{{ path('sonata_admin_dashboard') }}">
+            {% if config.logo.admin is empty %}
+                <span>{{ config.app.name }}</span>
+            {% else %}
+                <span class="name-short">{{ config.app.name_short }}</span>
+                <img width="400" href="" src="{{ asset(config.logo.admin) }}" alt="{{ config.app.name }}"/>
+            {% endif %}
+        </a>
+    {% endspaceless %}
+{% endblock %}
+
 {% block side_bar_nav %}
     {{ knp_menu_render('sonata_admin_sidebar', {template: get_global_template('knp_menu_template'), allow_safe_labels: true}) }}
 {% endblock %}

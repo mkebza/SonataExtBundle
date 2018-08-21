@@ -21,6 +21,17 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->arrayNode('options')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('My new APP')->end()
+                        ->scalarNode('name_short')->defaultValue('APP')->end()
+                        ->scalarNode('logo_admin')->defaultNull()->end()
+                        ->scalarNode('logo_email')->defaultNull()->end()
+                        ->scalarNode('email_from')->defaultValue('foo@bar.com')->end()
+                        ->scalarNode('email_from_name')->defaultValue('FooBar')->end()
+                    ->end()
+                ->end()
                 ->arrayNode('dashboard')
                     ->addDefaultsIfNotSet()
                     ->children()

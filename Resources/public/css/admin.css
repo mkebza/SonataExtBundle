@@ -45,6 +45,14 @@ body {
     height: auto;
 }
 
+.sidebar-mini .logo .name-short {
+    display: none;
+}
+
+.sidebar-mini.sidebar-collapse .logo .name-short {
+    display: inline;
+}
+
 .sidebar-mini.sidebar-collapse .created-by {
     display: none;
 }

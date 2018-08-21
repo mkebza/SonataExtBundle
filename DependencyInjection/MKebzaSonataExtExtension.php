@@ -10,6 +10,7 @@
 namespace MKebza\SonataExt\DependencyInjection;
 
 use MKebza\SonataExt\Controller\DashboardController;
+use MKebza\SonataExt\ORM\Type\LogLevelType;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -21,7 +22,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
 {
     public function prepend(ContainerBuilder $container)
     {
-        // Load custom security handler
+        // Configure sonata
         $container->loadFromExtension('sonata_admin', [
             'show_mosaic_button' => false,
             'search' => false,
@@ -36,7 +37,17 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             ],
         ]);
 
-        // Add paths to namespaces so we can override some bundles paths
+        // Configure doctrine
+        $container->loadFromExtension('doctrine', [
+            'dbal' => [
+                // Custom types
+                'types' => [
+                    'log_level' => LogLevelType::class,
+                ],
+            ],
+        ]);
+
+        // Configure twig
         $container->loadFromExtension('twig', [
             'paths' => [
                 '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' => 'Email',
@@ -62,6 +73,13 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
 
         $container->setParameter('sonata_ext.user_entity', $config['user_entity']);
         $container->setParameter('sonata_ext.user_group_entity', $config['user_group_entity']);
+
+        $container->setParameter('app.name', $config['options']['name']);
+        $container->setParameter('app.name_short', $config['options']['name_short']);
+        $container->setParameter('app.logo.admin', $config['options']['logo_admin']);
+        $container->setParameter('app.logo.email', $config['options']['logo_email']);
+        $container->setParameter('app.email.from', $config['options']['email_from']);
+        $container->setParameter('app.email.from_name', $config['options']['email_from_name']);
 
         $loader->load('services.yaml');
         $loader->load('dashboard.yaml');

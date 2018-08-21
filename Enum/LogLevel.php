@@ -29,8 +29,8 @@ use Monolog\Logger;
  */
 final class LogLevel extends TranslatableEnum
 {
-    public const DEBUG = 'debug';
-    public const INFO = 'info';
+    const DEBUG = 'debug';
+    const INFO = 'info';
     const NOTICE = 'notice';
     const WARNING = 'warning';
     const ERROR = 'error';

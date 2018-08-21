@@ -1,0 +1,8 @@
+m_kebza_notificator:
+    handlers:
+        email:
+            service: MKebza\Notificator\Handler\Type\SwiftMailerHandler
+            options:
+                from_name: '%app.email.from_name%'
+                from_email: '%app.email.from%'
+                subject_attach: " - %app.name%"

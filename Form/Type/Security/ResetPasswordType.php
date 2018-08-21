@@ -11,9 +11,11 @@ declare(strict_types=1);
 
 namespace MKebza\SonataExt\Form\Type\Security;
 
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResetPasswordType extends AbstractType
 {
@@ -23,6 +25,12 @@ class ResetPasswordType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => false,
                 'constraints' => [
+                    new NotBlank(),
+                    new PasswordRequirements([
+                        'requireCaseDiff' => true,
+                        'requireNumbers' => true,
+                        'minLength' => 10,
+                    ]),
                 ],
             ]);
     }
