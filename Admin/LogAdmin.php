@@ -11,7 +11,6 @@ namespace MKebza\SonataExt\Admin;
 
 use MKebza\SonataExt\Entity\Log;
 use MKebza\SonataExt\Enum\LogLevel;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;

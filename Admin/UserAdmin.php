@@ -12,7 +12,6 @@ namespace MKebza\SonataExt\Admin;
 use App\Entity\User;
 use MKebza\SonataExt\Service\Logger\AdminLoggerTab;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordRequirements;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,7 +23,6 @@ class UserAdmin extends AbstractAdmin
 
     protected $baseRoutePattern = 'user';
     protected $baseRouteName = 'admin_user';
-    protected $translationDomain = 'admin';
 
     public function getFormBuilder()
     {
@@ -77,7 +75,7 @@ class UserAdmin extends AbstractAdmin
                         'requireNumbers' => true,
                         'minLength' => 10,
                     ]),
-                ]
+                ],
             ]);
         }
 
@@ -99,10 +97,9 @@ class UserAdmin extends AbstractAdmin
         $actions['delete'] = [];
 
         $list
-            ->addIdentifier('email', 'string', ['label' => 'E-mail'])
-            ->add('active', 'boolean', ['label' => 'Active', 'editable' => true])
-            ->add('lastLogin', 'datetime', ['label' => 'Last login'])
-            ->add('created', 'date', ['label' => 'Created at'])
+            ->addIdentifier('email', 'string', ['label' => 'User.field.email'])
+            ->add('active', 'boolean', ['label' => 'User.field.active', 'editable' => true])
+            ->add('created', 'date', ['label' => 'User.field.created'])
             ->add('_action', null, ['actions' => $actions]);
     }
 }

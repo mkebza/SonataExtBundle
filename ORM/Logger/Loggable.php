@@ -10,7 +10,6 @@
 namespace MKebza\SonataExt\ORM\Logger;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use MKebza\SonataExt\Entity\ActionLog;
 use MKebza\SonataExt\Entity\Log;

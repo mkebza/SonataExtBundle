@@ -32,6 +32,10 @@ doctrine:
 Import notificator configuration
 
 
+Nutnost zadat:
+    protected $baseRoutePattern = 'user';
+    protected $baseRouteName = 'admin_user';
+
 
 # Extra roles
         ROLE_ADMIN_GRANT_PERMISSION: ~

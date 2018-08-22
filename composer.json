@@ -22,6 +22,7 @@
        "notfloran/mjml-bundle": "^2.1",
        "rollerworks/password-strength-validator": "^1.1",
        "elao/enum": "^1.5",
+       "cocur/slugify": "^3.0",
        "mkebza/notificator-bundle": "^1.0",
        "jmose/command-scheduler-bundle": "dev-sonata-ext"
     },

@@ -13,7 +13,6 @@ use JMose\CommandSchedulerBundle\Entity\ScheduledCommand;
 use JMose\CommandSchedulerBundle\Form\Type\CommandChoiceType;
 use MKebza\SonataExt\Form\Type\TemplateType;
 use MKebza\SonataExt\Service\Logger\AdminLoggerTab;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;

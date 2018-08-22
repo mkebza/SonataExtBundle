@@ -144,6 +144,9 @@ services:
             - { name: form.type }
 
 
+    MKebza\SonataExt\EventListener\Sluggable\SluggableSubscriber:
+        tags: ['doctrine.event_subscriber']
+
     MKebza\SonataExt\Twig\Extension\LastLoginExtension:
         tags: ['twig.extension']
 

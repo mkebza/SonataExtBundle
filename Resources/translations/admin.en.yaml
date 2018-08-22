@@ -18,6 +18,8 @@ UserGroup:
 User:
     field:
         email: E-mail
+        active: Active
+        created: Created
 
 Log:
     field:

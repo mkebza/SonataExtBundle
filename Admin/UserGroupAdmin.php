@@ -10,7 +10,6 @@
 namespace MKebza\SonataExt\Admin;
 
 use MKebza\SonataExt\Form\Type\UserGroup\UserGroupSecurityRolesType;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
