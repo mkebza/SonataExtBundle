@@ -7,6 +7,7 @@ services:
             $em: '@Doctrine\ORM\EntityManagerInterface'
             $notificator: '@MKebza\Notificator\Notificator'
             $appLogger: '@monolog.logger.action'
+            $requestStack: '@request_stack'
 
             $userEntityName: '%sonata_ext.user_entity%'
 
@@ -34,6 +35,13 @@ services:
         tags:
             - { name: 'doctrine.repository_service' }
 
+    MKebza\SonataExt\Repository\UserLoginAttemptRepository:
+        arguments:
+            $registry: '@Symfony\Bridge\Doctrine\RegistryInterface'
+        tags:
+        - { name: 'doctrine.repository_service' }
+
+
 
     MKebza\SonataExt\Utils\TokenGenerator:
 
@@ -60,6 +68,12 @@ services:
         tags:
             - { name: 'fidry_alice_data_fixtures.processor' }
 
+    MKebza\SonataExt\EventListener\Security\AuthenticationLoggerSubscriber:
+        arguments:
+            $attemptRepository: '@MKebza\SonataExt\Repository\UserLoginAttemptRepository'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
     MKebza\SonataExt\Service\Security\ResetPasswordAction:
         arguments:
             $encoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
@@ -71,7 +85,7 @@ services:
     MKebza\SonataExt\Service\Security\ResetPasswordRequestAction:
         arguments:
             $tokenGenerator: '@MKebza\SonataExt\Utils\TokenGenerator'
-            $requestStack: '@request_stack'
+
 
 
     ####################################################################################################################
@@ -129,3 +143,11 @@ services:
         tags:
             - { name: form.type }
 
+
+    MKebza\SonataExt\Twig\Extension\LastLoginExtension:
+        tags: ['twig.extension']
+
+    MKebza\SonataExt\Twig\Runtime\LastLoginRuntime:
+        arguments:
+            $repository: '@MKebza\SonataExt\Repository\UserLoginAttemptRepository'
+        tags: ['twig.runtime']

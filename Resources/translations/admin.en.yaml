@@ -33,6 +33,12 @@ Log:
             showing: Showing last :count messages
 
 ########################################################################################################################
+block:
+    CurrentUserInfo:
+        greeting: Hi :salutation
+        lastLogin: Last login on :datetime
+
+########################################################################################################################
 # Actions
 action:
     resetPassword:
@@ -64,6 +70,8 @@ action:
         changePassword: Change password
         flashPasswordChanged: Your password has been changed
 
+########################################################################################################################
+# enum
 enum:
     LogLevel:
         debug: debug

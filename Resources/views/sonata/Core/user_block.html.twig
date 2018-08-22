@@ -4,7 +4,7 @@
         {#{{ app.user.fullName }}#}
         <small>
             {{ app.user.email }}<br>
-            Last login {{ app.user.lastLogin|date('d.m.Y H:i:s') }}
+            Last login {{ last_login(app.user)|date('d.m.Y H:i:s') }}
         </small>
     </p>
 </li>

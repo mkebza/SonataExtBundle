@@ -32,7 +32,7 @@ trait Loggable
     /**
      * @return ActionLog[]
      */
-    public function getLog(int $limit = null): Collection
+    public function getLog(int $limit = null): iterable
     {
         $criteria = Criteria::create()->orderBy(['created' => 'DESC']);
 

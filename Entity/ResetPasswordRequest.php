@@ -52,9 +52,9 @@ class ResetPasswordRequest
     protected $expire;
 
     /**
-     * @var string
+     * @var null|string
      *
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     protected $browser;
 
@@ -88,7 +88,7 @@ class ResetPasswordRequest
      * @param string         $ip
      * @param $user
      */
-    public function __construct(SonataExtUserInterface $user, string $token, ?\DateTime $expire, string $browser, string $ip)
+    public function __construct(SonataExtUserInterface $user, string $token, ?\DateTime $expire, ?string $browser, ?string $ip)
     {
         $this->token = $token;
         $this->expire = $expire;
@@ -125,7 +125,7 @@ class ResetPasswordRequest
     /**
      * @return string
      */
-    public function getBrowser(): string
+    public function getBrowser(): ?string
     {
         return $this->browser;
     }

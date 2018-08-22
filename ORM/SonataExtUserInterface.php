@@ -15,4 +15,5 @@ use MKebza\SonataExt\ORM\Logger\LoggableUserInterface;
 
 interface SonataExtUserInterface extends LoggableUserInterface
 {
+    public function getSalutation(): string;
 }

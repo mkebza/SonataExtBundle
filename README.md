@@ -29,6 +29,10 @@ doctrine:
 
 ```
 
+Import notificator configuration
+
+
+
 # Extra roles
         ROLE_ADMIN_GRANT_PERMISSION: ~
         ROLE_ALLOW_IMPERSONATE: ~

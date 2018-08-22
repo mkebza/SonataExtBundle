@@ -10,6 +10,7 @@
 namespace MKebza\SonataExt\DependencyInjection;
 
 use MKebza\SonataExt\Controller\DashboardController;
+use MKebza\SonataExt\ORM\Type\LoginAttemptResultType;
 use MKebza\SonataExt\ORM\Type\LogLevelType;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -27,7 +28,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             'show_mosaic_button' => false,
             'search' => false,
             'options' => [
-                'use_stickyforms' => true,
+                'use_stickyforms' => false,
                 'html5_validate' => false,
                 'form_type' => 'horizontal',
                 'title_mode' => 'both',
@@ -43,6 +44,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
                 // Custom types
                 'types' => [
                     'log_level' => LogLevelType::class,
+                    'login_attempt_result' => LoginAttemptResultType::class,
                 ],
             ],
         ]);

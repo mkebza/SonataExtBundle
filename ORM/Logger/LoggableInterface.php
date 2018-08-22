@@ -26,5 +26,5 @@ interface LoggableInterface
     /**
      * @return null|Collection
      */
-    public function getLog(): ?Collection;
+    public function getLog(): iterable;
 }

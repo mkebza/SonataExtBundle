@@ -58,13 +58,6 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
     protected $active;
 
     /**
-     * @var null|\DateTime
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $lastLogin;
-
-    /**
      * @ORM\ManyToMany(targetEntity="MKebza\SonataExt\ORM\SonataExtUserGroupInterface")
      * @ORM\JoinTable(name="user_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -76,7 +69,7 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
     public function __construct()
     {
         $this->groups = new ArrayCollection();
-        $this->loggedActions = new ArrayCollection();
+        $this->log = new ArrayCollection();
     }
 
     public function __toString()
@@ -148,26 +141,6 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
     public function setActive(?bool $active): self
     {
         $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * @return null|\DateTime
-     */
-    public function getLastLogin(): ?\DateTime
-    {
-        return $this->lastLogin;
-    }
-
-    /**
-     * @param null|\DateTime $lastLogin
-     *
-     * @return User
-     */
-    public function setLastLogin(?\DateTime $lastLogin): self
-    {
-        $this->lastLogin = $lastLogin;
 
         return $this;
     }
@@ -252,6 +225,11 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
     public function isEqualTo(UserInterface $user)
     {
         return true;
+    }
+
+    public function getSalutation(): string
+    {
+        return (string) $this;
     }
 
     public function getNotificationChannels(): array
