@@ -67,7 +67,13 @@ trait Sluggable
         return $this;
     }
 
+    public function getSlugSource(): ?string
+    {
+        return $this->getName();
+    }
+
     public function shouldUpdateSlugOnUpdate(): bool
     {
+        return true;
     }
 }

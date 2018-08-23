@@ -145,6 +145,9 @@ services:
 
 
     MKebza\SonataExt\EventListener\Sluggable\SluggableSubscriber:
+        arguments:
+            $slugger: '@Cocur\Slugify\SlugifyInterface'
+
         tags: ['doctrine.event_subscriber']
 
     MKebza\SonataExt\Twig\Extension\LastLoginExtension:
