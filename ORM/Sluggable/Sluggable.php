@@ -27,6 +27,11 @@ trait Sluggable
      */
     private $slug;
 
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
+
     /**
      * @return null|string
      */

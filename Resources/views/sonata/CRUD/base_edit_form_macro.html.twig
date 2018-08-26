@@ -6,7 +6,7 @@
 
         <div class="{{ form_group.class|default('col-md-12') }}">
             <div class="{{ form_group.box_class }}">
-                {% if form_group.name|length > 0 %}
+                {% if form_group.name|length > 0 and form_group.name != '-' %}
                     <div class="box-header">
                         <h4 class="box-title">
                             {{ form_group.name|trans({}, form_group.translation_domain ?: admin.translationDomain) }}

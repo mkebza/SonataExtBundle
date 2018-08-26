@@ -157,3 +157,15 @@ services:
         arguments:
             $repository: '@MKebza\SonataExt\Repository\UserLoginAttemptRepository'
         tags: ['twig.runtime']
+
+    MKebza\SonataExt\Twig\Extension\FilesizeExtension:
+        tags: ['twig.extension']
+
+    MKebza\SonataExt\Twig\Runtime\FilesizeRuntime:
+        tags: ['twig.runtime']
+
+    MKebza\SonataExt\Twig\Extension\TypeTestExtension:
+        tags: ['twig.extension']
+
+    MKebza\SonataExt\Twig\Runtime\TypeTestRuntime:
+        tags: ['twig.runtime']

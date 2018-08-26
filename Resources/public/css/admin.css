@@ -5,6 +5,19 @@ body {
     font-size: 14px;
 }
 
+img {
+    max-width: 100%;
+}
+
+
+div.mosaic-inner-box {
+    height: 180px;
+}
+
+.sonata-collection-row-without-label.col-sm-offset-3 {
+    margin-left: 6.33%;
+}
+
 .content-wrapper, .right-side {
     background-color: #fafafa;
 }
@@ -12,7 +25,6 @@ body {
 .content-header {
     padding: 0;
 }
-
 
 .content-header > .navbar-default {
     background: #eee;
