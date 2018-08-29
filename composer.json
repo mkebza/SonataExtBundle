@@ -24,12 +24,6 @@
        "elao/enum": "^1.5",
        "cocur/slugify": "^3.0",
        "mkebza/notificator-bundle": "^1.0",
-       "jmose/command-scheduler-bundle": "dev-sonata-ext"
-    },
-    "repositories": [
-      {
-        "type": "vcs",
-        "url": "https://github.com/mkebza/CommandSchedulerBundle.git"
-      }
-    ]
+       "jmose/command-scheduler-bundle": "^2.0"
+    }
 }
