@@ -16,6 +16,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use MKebza\SonataExt\ORM\Sluggable\Sluggable;
+use MKebza\SonataExt\Utils\ClassAnalyzer;
 
 class SluggableSubscriber implements EventSubscriber
 {
@@ -45,7 +46,8 @@ class SluggableSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $event): void
     {
         $entity = $event->getEntity();
-        if ($this->hasTrait($entity)) {
+
+        if (ClassAnalyzer::hasTrait($entity, Sluggable::class)) {
             $entity->setSlug($this->slug($entity->getSlugSource()));
         }
     }
@@ -53,7 +55,8 @@ class SluggableSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $event): void
     {
         $entity = $event->getEntity();
-        if ($this->hasTrait($entity) && $entity->shouldUpdateSlugOnUpdate()) {
+
+        if (ClassAnalyzer::hasTrait($entity, Sluggable::class) && $entity->shouldUpdateSlugOnUpdate()) {
             $entity->setSlug($this->slug($entity->getSlugSource()));
         }
     }
@@ -61,12 +64,5 @@ class SluggableSubscriber implements EventSubscriber
     protected function slug(string $string): string
     {
         return $this->slugger->slugify($string);
-    }
-
-    protected function hasTrait($entity): bool
-    {
-        $reflection = new \ReflectionClass($entity);
-
-        return in_array(Sluggable::class, $reflection->getTraitNames(), true);
     }
 }

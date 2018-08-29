@@ -31,7 +31,10 @@ class TimestampableSubscriber implements EventSubscriber
         // the $metadata is the whole mapping info for this class
         $metadata = $eventArgs->getClassMetadata();
 
-        if (in_array(Timestampable::class, $metadata->getReflectionClass()->getTraitNames(), true)) {
+        if (
+                null !== $metadata->getReflectionClass() &&
+                in_array(Timestampable::class, $metadata->getReflectionClass()->getTraitNames(), true)
+        ) {
             $metadata->addLifecycleCallback('updateCreated', Events::prePersist);
         }
     }

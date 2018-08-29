@@ -41,6 +41,13 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
         return null === $this->id($this->getSubject());
     }
 
+    public function isGrantedSymfony($attributes, $subject = null):bool {
+        return $this->getConfigurationPool()
+            ->getContainer()
+            ->get('security.authorization_checker')
+            ->isGranted($attributes, $subject);
+    }
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('show');
