@@ -41,7 +41,8 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
         return null === $this->id($this->getSubject());
     }
 
-    public function isGrantedSymfony($attributes, $subject = null):bool {
+    public function isGrantedSymfony($attributes, $subject = null): bool
+    {
         return $this->getConfigurationPool()
             ->getContainer()
             ->get('security.authorization_checker')

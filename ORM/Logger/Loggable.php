@@ -23,7 +23,7 @@ trait Loggable
 
     public function log(Log $object): LoggableInterface
     {
-        $this->log->add($object);
+//        $this->log->add($object);
 
         return $this;
     }
@@ -33,12 +33,15 @@ trait Loggable
      */
     public function getLog(int $limit = null): iterable
     {
-        $criteria = Criteria::create()->orderBy(['created' => 'DESC']);
-
-        if (null !== $limit) {
-            $criteria->setMaxResults($limit);
-        }
-
-        return $this->log->matching($criteria);
+        return [];
+//        $criteria = Criteria::create()->orderBy(['created' => 'DESC']);
+//
+//        if (null !== $limit) {
+//            $criteria->setMaxResults($limit);
+//        }
+//
+//        return $this->log->matching($criteria);
     }
+
+    abstract public function getLogEntityFQN(): string;
 }

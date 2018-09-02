@@ -1,16 +1,21 @@
 <?php
 
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 declare(strict_types=1);
 
-
 namespace MKebza\SonataExt\Utils;
-
 
 class ClassAnalyzer
 {
     public static function hasTrait($class, $trait): bool
     {
-        return in_array($trait, self::getAllTraits($class));
+        return in_array($trait, self::getAllTraits($class), true);
     }
 
     public static function getAllTraits($class, bool $autoload = true): array
@@ -28,7 +33,7 @@ class ClassAnalyzer
             $newTraits = class_uses(array_pop($traitsToSearch), $autoload);
             $traits = array_merge($newTraits, $traits);
             $traitsToSearch = array_merge($newTraits, $traitsToSearch);
-        };
+        }
 
         foreach ($traits as $trait => $same) {
             $traits = array_merge(class_uses($trait, $autoload), $traits);

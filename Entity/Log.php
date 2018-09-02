@@ -9,6 +9,7 @@
 
 namespace MKebza\SonataExt\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MKebza\SonataExt\Enum\LogLevel;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
@@ -78,6 +79,11 @@ class Log
     private $extra;
 
     /**
+     * @var ArrayCollection|LogReference[]
+     */
+    private $references;
+
+    /**
      * AppLog constructor.
      *
      * @param string                      $message
@@ -100,6 +106,8 @@ class Log
         $this->name = $name;
         $this->user = $user;
         $this->extra = (empty($extra) ? null : $extra);
+
+        $this->references = new ArrayCollection();
     }
 
     /**
@@ -148,5 +156,21 @@ class Log
     public function getChannel(): string
     {
         return $this->channel;
+    }
+
+    /**
+     * @return ArrayCollection|LogReference[]
+     */
+    public function getReferences()
+    {
+        return $this->references;
+    }
+
+    /**
+     * @param ArrayCollection|LogReference[] $references
+     */
+    public function setReferences($references): void
+    {
+        $this->references = $references;
     }
 }

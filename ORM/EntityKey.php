@@ -1,22 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 27/08/2018
- * Time: 14:58
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\ORM;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 trait EntityKey
 {
     /**
-     * @var string|null
+     * @var null|string
      *
-     * @ORM\Column(type="string", name="_key", unique=true, nullable=true)
+     * @ORM\Column(type="string", length=100, name="_key", unique=true, nullable=true)
      */
     protected $key;
 
@@ -30,6 +30,7 @@ trait EntityKey
 
     /**
      * @param null|string $key
+     *
      * @return EntityKey
      */
     public function setKey(?string $key): self

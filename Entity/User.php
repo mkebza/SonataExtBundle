@@ -41,7 +41,7 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
 
     /**
      * @var null|string
-     * @ORM\Column(type="string", length=254, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     protected $email;
 
@@ -237,5 +237,10 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
         return [
             'email' => $this->getEmail(),
         ];
+    }
+
+    public function getLogEntityFQN(): string
+    {
+        return UserLog::class;
     }
 }

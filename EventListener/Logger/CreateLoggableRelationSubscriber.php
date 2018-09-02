@@ -12,8 +12,8 @@ namespace MKebza\SonataExt\EventListener\Logger;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
-use MKebza\SonataExt\Entity\Log;
-use MKebza\SonataExt\ORM\Logger\LoggableInterface;
+use MKebza\SonataExt\Entity\LogReference;
+use MKebza\SonataExt\ORM\DiscriminatorMapEntryInterface;
 
 class CreateLoggableRelationSubscriber implements EventSubscriber
 {
@@ -30,56 +30,34 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
     /**
      * @param LoadClassMetadataEventArgs $eventArgs
      */
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    public function loadClassMetadata(LoadClassMetadataEventArgs $event)
     {
-        // the $metadata is the whole mapping info for this class
-        $metadata = $eventArgs->getClassMetadata();
+        $metadata = $event->getClassMetadata();
+        $classes = [];
 
-        if (
-            $metadata->isMappedSuperclass ||
-            !$metadata->getReflectionClass()->implementsInterface(LoggableInterface::class)
-        ) {
+        if (LogReference::class !== $metadata->getName() && !$metadata->getReflectionClass()->isSubclassOf(LogReference::class)) {
             return;
         }
 
-        $namingStrategy = $eventArgs
-            ->getEntityManager()
-            ->getConfiguration()
-            ->getNamingStrategy();
+        $newMap = [];
+        foreach ($metadata->discriminatorMap as $alias => $fqn) {
+            $fqnReflection = (new \ReflectionClass($fqn));
 
-        $relationInfo = [
-            'table' => strtolower($namingStrategy->classToTableName($metadata->getName().'Log')),
-            'entity_name' => $metadata->getName(),
-            'entity_column' => $namingStrategy->joinKeyColumnName($metadata->getName()),
-            'log_column' => 'log_id',
-        ];
+            $newName = null;
 
-        $metadata->mapManyToMany(
-            [
-                'orderBy' => ['created' => 'DESC'],
-                'targetEntity' => Log::class,
-                'fieldName' => 'log',
-                'cascade' => ['persist'],
-                'joinTable' => [
-                    'name' => $relationInfo['table'],
-                    'joinColumns' => [
-                        [
-                            'name' => $relationInfo['entity_column'],
-                            'referencedColumnName' => $namingStrategy->referenceColumnName(),
-                            'onDelete' => 'CASCADE',
-                            'onUpdate' => 'CASCADE',
-                        ],
-                    ],
-                    'inverseJoinColumns' => [
-                        [
-                            'name' => $relationInfo['log_column'],
-                            'referencedColumnName' => $namingStrategy->referenceColumnName(),
-                            'onDelete' => 'CASCADE',
-                            'onUpdate' => 'CASCADE',
-                        ],
-                    ],
-                ],
-            ]
-        );
+            if (
+                $fqnReflection->implementsInterface(DiscriminatorMapEntryInterface::class) &&
+                !$fqnReflection->getMethod('getDiscriminatorEntryName')->isAbstract()
+            ) {
+                $newName = $fqn::getDiscriminatorEntryName();
+            } else {
+                $shortName = $fqnReflection->getShortName();
+                $newName = strtolower(preg_replace('~(?<=\\w)([A-Z])~', '_$1', $shortName));
+            }
+
+            $newMap[$newName] = $fqn;
+        }
+
+        $metadata->discriminatorMap = $newMap;
     }
 }

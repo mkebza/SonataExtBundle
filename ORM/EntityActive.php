@@ -1,23 +1,28 @@
 <?php
 
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 declare(strict_types=1);
 
-
 namespace MKebza\SonataExt\ORM;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 trait EntityActive
 {
     /**
-     * @var boolean|null
+     * @var null|bool
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected $active = false;
 
     /**
-     * @return bool|null
+     * @return null|bool
      */
     public function getActive(): ?bool
     {
@@ -25,7 +30,7 @@ trait EntityActive
     }
 
     /**
-     * @param bool|null $active
+     * @param null|bool $active
      */
     public function setActive(?bool $active): self
     {
