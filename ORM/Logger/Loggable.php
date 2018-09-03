@@ -10,9 +10,6 @@
 namespace MKebza\SonataExt\ORM\Logger;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
-use MKebza\SonataExt\Entity\ActionLog;
-use MKebza\SonataExt\Entity\Log;
 
 trait Loggable
 {
@@ -20,28 +17,6 @@ trait Loggable
      * @var ArrayCollection
      */
     protected $log;
-
-    public function log(Log $object): LoggableInterface
-    {
-//        $this->log->add($object);
-
-        return $this;
-    }
-
-    /**
-     * @return ActionLog[]
-     */
-    public function getLog(int $limit = null): iterable
-    {
-        return [];
-//        $criteria = Criteria::create()->orderBy(['created' => 'DESC']);
-//
-//        if (null !== $limit) {
-//            $criteria->setMaxResults($limit);
-//        }
-//
-//        return $this->log->matching($criteria);
-    }
 
     abstract public function getLogEntityFQN(): string;
 }

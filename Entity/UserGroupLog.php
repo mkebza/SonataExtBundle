@@ -12,25 +12,25 @@ declare(strict_types=1);
 namespace MKebza\SonataExt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MKebza\SonataExt\ORM\SonataExtUserInterface;
+use MKebza\SonataExt\ORM\SonataExtUserGroupInterface;
 
 /**
  * @ORM\Entity()
  */
-class UserLog extends LogReference
+class UserGroupLog extends LogReference
 {
     /**
-     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\ORM\SonataExtUserInterface", inversedBy="log")
+     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\ORM\SonataExtUserGroupInterface", inversedBy="log")
      */
     protected $reference;
 
     public static function getDiscriminatorEntryName(): string
     {
-        return 'user';
+        return 'user_group';
     }
 
     /**
-     * @return SonataExtUserInterface
+     * @return SonataExtUserGroupInterface
      */
     public function getReference(): object
     {
@@ -38,7 +38,7 @@ class UserLog extends LogReference
     }
 
     /**
-     * @param object $reference
+     * @param SonataExtUserGroupInterface $reference
      *
      * @return LogReference
      */

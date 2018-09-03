@@ -12,8 +12,8 @@ namespace MKebza\SonataExt\EventListener\Logger;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
-use MKebza\SonataExt\Entity\LogReference;
-use MKebza\SonataExt\ORM\DiscriminatorMapEntryInterface;
+use MKebza\SonataExt\Entity\Log;
+use MKebza\SonataExt\ORM\Logger\LoggableInterface;
 
 class CreateLoggableRelationSubscriber implements EventSubscriber
 {
@@ -30,34 +30,26 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
     /**
      * @param LoadClassMetadataEventArgs $eventArgs
      */
-    public function loadClassMetadata(LoadClassMetadataEventArgs $event)
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
-        $metadata = $event->getClassMetadata();
-        $classes = [];
+        // the $metadata is the whole mapping info for this class
 
-        if (LogReference::class !== $metadata->getName() && !$metadata->getReflectionClass()->isSubclassOf(LogReference::class)) {
+        $metadata = $eventArgs->getClassMetadata();
+
+        if (
+            $metadata->isMappedSuperclass ||
+            !$metadata->getReflectionClass()->implementsInterface(LoggableInterface::class)
+        ) {
             return;
         }
 
-        $newMap = [];
-        foreach ($metadata->discriminatorMap as $alias => $fqn) {
-            $fqnReflection = (new \ReflectionClass($fqn));
-
-            $newName = null;
-
-            if (
-                $fqnReflection->implementsInterface(DiscriminatorMapEntryInterface::class) &&
-                !$fqnReflection->getMethod('getDiscriminatorEntryName')->isAbstract()
-            ) {
-                $newName = $fqn::getDiscriminatorEntryName();
-            } else {
-                $shortName = $fqnReflection->getShortName();
-                $newName = strtolower(preg_replace('~(?<=\\w)([A-Z])~', '_$1', $shortName));
-            }
-
-            $newMap[$newName] = $fqn;
-        }
-
-        $metadata->discriminatorMap = $newMap;
+        $metadata->mapOneToMany(
+            [
+                'targetEntity' => $metadata->getName()::getLogEntityFQN(),
+                'fieldName' => 'log',
+                'cascade' => ['persist'],
+                'mappedBy' => 'reference',
+            ]
+        );
     }
 }

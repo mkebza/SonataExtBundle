@@ -1,0 +1,10 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    {{ object.message }}
+
+    <span class="pull-right">
+        <span class="label label-default">{{ object.channel }}</span>
+        {% include "@SonataExt/log/part/level.html.twig" with {level: object.level} only %}
+    </span>
+{% endblock %}

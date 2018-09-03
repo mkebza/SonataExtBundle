@@ -3,5 +3,13 @@ services:
     sonata.admin.user_group:
         class: MKebza\SonataExt\Admin\UserGroupAdmin
         arguments: [~, App\Entity\UserGroup, ~]
+        calls:
+        - ['addChild', ['@sonata.admin.user_group.log']]
         tags:
             - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Groups'}
+
+    sonata.admin.user_group.log:
+        class: MKebza\SonataExt\Admin\LogReferenceAdmin
+        arguments: [~, MKebza\SonataExt\Entity\UserGroupLog, ~]
+        tags:
+        - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }

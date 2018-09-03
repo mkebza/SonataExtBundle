@@ -9,22 +9,7 @@
 
 namespace MKebza\SonataExt\ORM\Logger;
 
-use Doctrine\Common\Collections\Collection;
-use MKebza\SonataExt\Entity\Log;
-
 interface LoggableInterface
 {
-    /**
-     * On purpose omitted return type.
-     *
-     * @param ActionLog $object
-     *
-     * @return mixed
-     */
-    public function log(Log $event): self;
-
-    /**
-     * @return null|Collection
-     */
-    public function getLog(): iterable;
+    public function getLogEntityFQN(): string;
 }

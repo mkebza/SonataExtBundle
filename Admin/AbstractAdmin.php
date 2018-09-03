@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace MKebza\SonataExt\Admin;
 
+use Knp\Menu\ItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAbstractAdmin;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 abstract class AbstractAdmin extends BaseAbstractAdmin
@@ -49,9 +51,75 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
             ->isGranted($attributes, $subject);
     }
 
+    public function createTabMenu(array $map, string $currentAction, ItemInterface $root, AdminInterface $currentAdmin): void
+    {
+        $menuDefinition = null;
+
+        $currentAdminClasss = get_class($currentAdmin);
+        if (isset($map[$currentAdminClasss])) {
+            foreach ($map[$currentAdminClasss] as $menu) {
+                if (in_array($currentAction, $menu['actions'], true)) {
+                    $menuDefinition = $menu['items'];
+
+                    break;
+                }
+            }
+        }
+
+        if (isset($map[$currentAdmin->getCode()])) {
+            foreach ($map[$currentAdmin->getCode()] as $menu) {
+                if (in_array($currentAction, $menu['actions'], true)) {
+                    $menuDefinition = $menu['items'];
+
+                    break;
+                }
+            }
+        }
+
+        if (null === $menuDefinition) {
+            return;
+        }
+
+        foreach ($menuDefinition as $itemDefinition) {
+            $item = $root->addChild($itemDefinition[0], $itemDefinition[1]);
+            if (!empty($itemDefinition[2])) {
+                $item->setAttributes($itemDefinition[2]);
+            }
+        }
+    }
+
+    public function getTabMenuMap(): array
+    {
+        return [];
+    }
+
+    public function createTabMenuItem($name, $route, $routeParams, $icon = null): array
+    {
+        $routeParams = array_combine($routeParams, $routeParams);
+        $routeParams = array_map(function ($name) {
+            return $this->getRequest()->get($name);
+        }, $routeParams);
+
+        $item = [
+            $name,
+            ['route' => $route, 'routeParameters' => $routeParams],
+            ['icon' => 'fa fa-'.$icon],
+        ];
+
+        return $item;
+    }
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('show');
         $collection->remove('export');
+    }
+
+    protected function configureTabMenu(ItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if ($this->hasChildren() && !empty($this->getTabMenuMap())) {
+            $admin = $this->getCurrentLeafChildAdmin() ? $this->getCurrentLeafChildAdmin() : $this;
+            $this->createTabMenu($this->getTabMenuMap(), $action, $menu, $admin);
+        }
     }
 }

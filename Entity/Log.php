@@ -80,6 +80,7 @@ class Log
 
     /**
      * @var ArrayCollection|LogReference[]
+     * @ORM\OneToMany(targetEntity="MKebza\SonataExt\Entity\LogReference", mappedBy="log")
      */
     private $references;
 
@@ -100,7 +101,7 @@ class Log
         ?SonataExtUserInterface $user,
         ?array $extra
     ) {
-        $this->channel = $channel;
+        $this->channel = preg_replace('/^(app_)/', '', $channel);
         $this->message = $message;
         $this->level = $level;
         $this->name = $name;

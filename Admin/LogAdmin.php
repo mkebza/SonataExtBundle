@@ -45,7 +45,7 @@ class LogAdmin extends AbstractAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->clearExcept(['list', 'export']);
+        $collection->clearExcept(['list', 'export', 'show']);
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter)
@@ -77,16 +77,18 @@ class LogAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list)
     {
         $list
-            ->add('channel', null, ['label' => 'Log.field.channel'])
-            ->add('message', null, ['label' => 'Log.field.message'])
-            ->add('level', null, [
-                'label' => 'Log.field.level',
-                'template' => '@SonataExt/log/list/level.html.twig',
+            ->add('message', null, [
+                'label' => 'Log.field.message',
+                'template' => '@SonataExt/log/list/message.html.twig',
             ])
             ->add('user', null, [
                 'label' => 'Log.field.user',
                 'template' => '@SonataExt/log/list/user.html.twig',
             ])
             ->add('created', null, ['label' => 'Log.field.created']);
+
+        $list->add('_action', null, ['actions' => [
+            'show' => [],
+        ]]);
     }
 }

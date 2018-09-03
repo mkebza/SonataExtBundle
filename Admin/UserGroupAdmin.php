@@ -19,6 +19,20 @@ class UserGroupAdmin extends AbstractAdmin
     protected $baseRouteName = 'admin_user_group';
     protected $translationDomain = 'admin';
 
+    public function getTabMenuMap(): array
+    {
+        return [
+            self::class => [
+                [
+                    'actions' => ['edit'],
+                    'items' => [
+                        $this->createTabMenuItem('Log', 'admin_user_group_log_list', ['id'], 'bars'),
+                    ],
+                ],
+            ],
+        ];
+    }
+
     protected function configureFormFields(FormMapper $form)
     {
         parent::configureFormFields($form);

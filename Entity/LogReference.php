@@ -12,13 +12,21 @@ declare(strict_types=1);
 namespace MKebza\SonataExt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MKebza\SonataExt\Enum\LogLevel;
 use MKebza\SonataExt\ORM\DiscriminatorMapEntryInterface;
 use MKebza\SonataExt\ORM\EntityId;
+use MKebza\SonataExt\ORM\SonataExtUserInterface;
 
 /**
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="model", type="string")
+ * @ORM\Table(
+ *     name="log_reference",
+ *     indexes={
+ *          @ORM\Index(name="refererence", columns={"reference_id", "model"})
+ *     }
+ * )
  */
 class LogReference implements DiscriminatorMapEntryInterface
 {
@@ -26,7 +34,7 @@ class LogReference implements DiscriminatorMapEntryInterface
 
     /**
      * @var Log
-     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\Entity\Log", inversedBy="")
+     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\Entity\Log", inversedBy="references", fetch="EAGER")
      */
     protected $log;
 
@@ -44,6 +52,21 @@ class LogReference implements DiscriminatorMapEntryInterface
         $this->reference = $reference;
     }
 
+    public function getReference(): object
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @param null|object $reference
+     *
+     * @return Image
+     */
+    public function setReference(object $reference): self
+    {
+        return $this;
+    }
+
     /**
      * @return Log
      */
@@ -55,5 +78,58 @@ class LogReference implements DiscriminatorMapEntryInterface
     public static function getDiscriminatorEntryName(): string
     {
         return 'log';
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->getLog()->getMessage();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLevel(): LogLevel
+    {
+        return $this->getLog()->getLevel();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getName(): ?string
+    {
+        return $this->getLog()->getName();
+    }
+
+    /**
+     * @return null|SonataExtUserInterface
+     */
+    public function getUser(): ?SonataExtUserInterface
+    {
+        return $this->getLog()->getUser();
+    }
+
+    /**
+     * @return null|array
+     */
+    public function getExtra(): ?array
+    {
+        return $this->getLog()->getExtra();
+    }
+
+    /**
+     * @return string
+     */
+    public function getChannel(): string
+    {
+        return $this->getLog()->getChannel();
+    }
+
+    public function getCreated(): \DateTime
+    {
+        return $this->getLog()->getCreated();
     }
 }
