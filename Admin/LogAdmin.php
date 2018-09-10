@@ -14,6 +14,7 @@ use MKebza\SonataExt\Enum\LogLevel;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -90,5 +91,18 @@ class LogAdmin extends AbstractAdmin
         $list->add('_action', null, ['actions' => [
             'show' => [],
         ]]);
+    }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('message')
+            ->add('channel', null, ['template' => '@SonataExt/log/show/channel.html.twig'])
+            ->add('level', null, ['template' => '@SonataExt/log/show/level.html.twig'])
+            ->add('user')
+            ->add('references', null, ['template' => '@SonataExt/log/show/references.html.twig'])
+            ->add('extra', null, ['template' => '@SonataExt/log/show/extra.html.twig'])
+            ->add('created')
+        ;
     }
 }

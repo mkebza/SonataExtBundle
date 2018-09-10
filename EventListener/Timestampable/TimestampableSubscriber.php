@@ -10,32 +10,42 @@
 namespace MKebza\SonataExt\EventListener\Timestampable;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use MKebza\SonataExt\ORM\Timestampable\Timestampable;
+use MKebza\SonataExt\Utils\ClassAnalyzer;
 
 class TimestampableSubscriber implements EventSubscriber
 {
     public function getSubscribedEvents()
     {
         return [
-            Events::loadClassMetadata,
+            Events::prePersist,
+            Events::preUpdate,
         ];
     }
 
-    /**
-     * @param LoadClassMetadataEventArgs $eventArgs
-     */
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    public function prePersist(LifecycleEventArgs $event)
     {
-        // the $metadata is the whole mapping info for this class
-        $metadata = $eventArgs->getClassMetadata();
-
-        if (
-                null !== $metadata->getReflectionClass() &&
-                in_array(Timestampable::class, $metadata->getReflectionClass()->getTraitNames(), true)
-        ) {
-            $metadata->addLifecycleCallback('updateCreated', Events::prePersist);
+        if (!ClassAnalyzer::getAllTraits($event->getObject(), Timestampable::class)) {
+            return;
         }
+
+        $object = $event->getObject();
+        if (null === $object->getCreated()) {
+            $now = new \DateTime();
+            $object->setCreated($now);
+            $object->setUpdated($now);
+        }
+    }
+
+    public function preUpdate(LifecycleEventArgs $event)
+    {
+        if (!ClassAnalyzer::getAllTraits($event->getObject(), Timestampable::class)) {
+            return;
+        }
+
+        $now = new \DateTime();
+        $object = $event->getObject()->setUpdated($now);
     }
 }

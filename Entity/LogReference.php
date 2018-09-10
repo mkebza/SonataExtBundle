@@ -34,7 +34,7 @@ class LogReference implements DiscriminatorMapEntryInterface
 
     /**
      * @var Log
-     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\Entity\Log", inversedBy="references", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="MKebza\SonataExt\Entity\Log", inversedBy="references", fetch="EAGER", cascade={"persist"})
      */
     protected $log;
 

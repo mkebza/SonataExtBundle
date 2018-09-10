@@ -26,7 +26,7 @@ class UserGroupAdmin extends AbstractAdmin
                 [
                     'actions' => ['edit'],
                     'items' => [
-                        $this->createTabMenuItem('Log', 'admin_user_group_log_list', ['id'], 'bars'),
+                        $this->createLogTabMenuItem(),
                     ],
                 ],
             ],

@@ -23,4 +23,18 @@ class TextRuntime implements RuntimeExtensionInterface
 
         return array_merge($items);
     }
+
+    public function fqn($object): string
+    {
+        if (!is_object($object)) {
+            return '?';
+        }
+
+        return (new \ReflectionClass($object))->getName();
+    }
+
+    public function print_r($value)
+    {
+        return print_r($value, true);
+    }
 }

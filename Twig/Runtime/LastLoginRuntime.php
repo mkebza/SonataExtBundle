@@ -36,6 +36,6 @@ class LastLoginRuntime implements RuntimeExtensionInterface
     {
         $attempt = $this->repository->getLastLogin($user);
 
-        return null === $attempt ?: $attempt->getCreated();
+        return null === $attempt ? null : $attempt->getCreated();
     }
 }

@@ -14,16 +14,23 @@ use Doctrine\ORM\Mapping as ORM;
 trait Timestampable
 {
     /**
-     * @var \DateTime
+     * @var null|\DateTime
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $created;
 
     /**
+     * @var null|\DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    protected $updated;
+
+    /**
      * @return \DateTime
      */
-    public function getCreated(): \DateTime
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }
@@ -40,8 +47,19 @@ trait Timestampable
         return $this;
     }
 
-    public function updateCreated(): void
+    /**
+     * @return null|\DateTime
+     */
+    public function getUpdated(): ?\DateTime
     {
-        $this->setCreated(new \DateTime());
+        return $this->updated;
+    }
+
+    /**
+     * @param null|\DateTime $updated
+     */
+    public function setUpdated(?\DateTime $updated): void
+    {
+        $this->updated = $updated;
     }
 }

@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/CRUD/base_show_field.html.twig' %}
+
+{% block field_value %}
+    {% if object.extra is null %}
+        -
+    {% else %}
+        <pre>{{ text_print_r(object.extra) }}</pre>
+    {% endif %}
+{% endblock %}

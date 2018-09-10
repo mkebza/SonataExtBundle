@@ -22,6 +22,8 @@ class TextExtension extends AbstractExtension
     {
         return [
             new TwigFunction('text_itemize', [TextRuntime::class, 'itemize']),
+            new TwigFunction('text_fqn', [TextRuntime::class, 'fqn']),
+            new TwigFunction('text_print_r', [TextRuntime::class, 'print_r']),
         ];
     }
 

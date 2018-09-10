@@ -1,0 +1,14 @@
+{% extends '@SonataAdmin/CRUD/base_show_field.html.twig' %}
+
+{% block field_value %}
+    <ul style="margin-bottom: 0; padding-left: 1rem;">
+        {% for reference in object.references %}
+            <li>
+                {{ reference.reference.logString }}
+                {% if is_granted('ROLE_DEVELOPER') %}
+                    | <strong>Entity - {{ text_fqn(reference.reference)|replace({'App\\Entity\\': ''}) }}</strong>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

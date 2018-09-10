@@ -12,4 +12,6 @@ namespace MKebza\SonataExt\ORM\Logger;
 interface LoggableInterface
 {
     public function getLogEntityFQN(): string;
+
+    public function getLogString(): string;
 }

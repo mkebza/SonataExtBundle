@@ -18,5 +18,40 @@ trait Loggable
      */
     protected $log;
 
-    abstract public function getLogEntityFQN(): string;
+    public function getLogEntityFQN(): string
+    {
+        return self::class.'Log';
+    }
+
+    final public function getLogString(): string
+    {
+        try {
+            $reflection = new \ReflectionClass($this);
+
+            $idPart = '?';
+            $namePart = $reflection->getName();
+
+            if ($reflection->hasMethod('getId') && null !== $this->getId()) {
+                $idPart = $this->getId();
+            }
+
+            $checkMethods = ['getCode', 'getUsername', 'getName', 'getTitle'];
+            foreach ($checkMethods as $method) {
+                if (
+                    $reflection->hasMethod($method) &&
+                    0 === $reflection->getMethod($method)->getNumberOfParameters() &&
+                    null !== $this->{$method}()
+                ) {
+                    $namePart = $this->{$method}();
+
+                    break;
+                }
+            }
+
+            return sprintf("'%s' [#%s]", $namePart, $idPart);
+        } catch (\Exception $e) {
+            // for deleted entiteis, we still can return some info, unfortunately ID will stay in database
+            return '-- entity deleted --';
+        }
+    }
 }

@@ -87,6 +87,9 @@ class LogReferenceAdmin extends AbstractAdmin
                 'label' => 'Log.field.user',
                 'template' => '@SonataExt/log/list/user.html.twig',
             ])
-            ->add('log.created', null, ['label' => 'Log.field.created']);
+            ->add('log.created', null, ['label' => 'Log.field.created'])
+            ->add('_action', null, ['actions' => [
+                'show' => ['template' => '@SonataExt/log/part/log_reference_show.html.twig'],
+            ]]);
     }
 }

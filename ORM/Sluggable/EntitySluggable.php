@@ -10,12 +10,14 @@
 namespace MKebza\SonataExt\ORM\Sluggable;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-trait Sluggable
+trait EntitySluggable
 {
     /**
      * @var null|string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $name;

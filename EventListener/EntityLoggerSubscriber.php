@@ -12,27 +12,95 @@ declare(strict_types=1);
 namespace MKebza\SonataExt\EventListener;
 
 use Doctrine\Common\EventSubscriber;
-use Psr\Log\LoggerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Events;
+use MKebza\SonataExt\Entity\Log;
+use MKebza\SonataExt\Enum\LogLevel;
+use MKebza\SonataExt\ORM\Logger\LoggableInterface;
+use MKebza\SonataExt\Service\Logger\UserProviderInterface;
 
 class EntityLoggerSubscriber implements EventSubscriber
 {
     /**
-     * @var LoggerInterface
+     * @var string
      */
-    private $logger;
+    private $channel;
+
+    /**
+     * @var UserProviderInterface
+     */
+    private $userProvider;
 
     /**
      * EntityLoggerSubscriber constructor.
      *
-     * @param LoggerInterface $logger
+     * @param string                $channel
+     * @param UserProviderInterface $userProvider
      */
-    public function __construct(LoggerInterface $appLogger)
+    public function __construct(string $channel, UserProviderInterface $userProvider)
     {
-        $this->logger = $appLogger;
+        $this->channel = $channel;
+        $this->userProvider = $userProvider;
     }
 
     public function getSubscribedEvents()
     {
-        return [];
+        return [
+            Events::onFlush,
+        ];
+    }
+
+    public function onFlush(OnFlushEventArgs $event)
+    {
+        $em = $event->getEntityManager();
+        $uow = $event->getEntityManager()->getUnitOfWork();
+
+        foreach ($uow->getScheduledEntityUpdates() as $key => $entity) {
+            if ($entity instanceof LoggableInterface) {
+                $changeSet = $uow->getEntityChangeSet($entity);
+                $this->createRecord(
+                    $em,
+                    $entity,
+                    sprintf('Entity %s updated', $entity->getLogString()),
+                    $uow->getEntityChangeSet($entity));
+            }
+        }
+
+        foreach ($uow->getScheduledEntityInsertions() as $key => $entity) {
+            if ($entity instanceof LoggableInterface) {
+                $this->createRecord($em, $entity, sprintf('Entity %s created', $entity->getLogString()));
+            }
+        }
+
+        foreach ($uow->getScheduledEntityDeletions() as $key => $entity) {
+            if ($entity instanceof LoggableInterface) {
+                if ($entity instanceof LoggableInterface) {
+                    $this->createRecord($em, $entity, sprintf('Entity %s deleted', $entity->getLogString()));
+                }
+            }
+        }
+    }
+
+    private function createRecord(EntityManagerInterface $em, object $entity, string $message, array $extra = null): void
+    {
+        $uow = $em->getUnitOfWork();
+
+        $entry = new Log(
+            $this->channel,
+            $message,
+            LogLevel::INFO(),
+            $this->userProvider->getName(),
+            $this->userProvider->getUser(),
+            $extra
+        );
+
+        $referenceClassName = $entity->getLogEntityFQN();
+        $reference = new $referenceClassName($entry, $entity);
+
+        $em->persist($entry);
+        $uow->computeChangeSet($em->getClassMetadata(Log::class), $entry);
+        $em->persist($reference);
+        $uow->computeChangeSet($em->getClassMetadata($referenceClassName), $reference);
     }
 }

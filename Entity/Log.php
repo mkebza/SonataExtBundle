@@ -12,8 +12,8 @@ namespace MKebza\SonataExt\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MKebza\SonataExt\Enum\LogLevel;
+use MKebza\SonataExt\ORM\EntityId;
 use MKebza\SonataExt\ORM\SonataExtUserInterface;
-use MKebza\SonataExt\ORM\Timestampable\Timestampable;
 
 /**
  * Class HistoryEntry.
@@ -25,21 +25,13 @@ use MKebza\SonataExt\ORM\Timestampable\Timestampable;
  * @ORM\Table(
  *     name="log",
  *     indexes={
- *          @ORM\Index(name="created_at", columns={"created"})
+ *          @ORM\Index(name="created", columns={"created"})
  *     }
  * )
  */
 class Log
 {
-    use Timestampable;
-
-    /**
-     * @var int
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityId;
 
     /**
      * @var string
@@ -79,6 +71,13 @@ class Log
     private $extra;
 
     /**
+     * @var null|\DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $created;
+
+    /**
      * @var ArrayCollection|LogReference[]
      * @ORM\OneToMany(targetEntity="MKebza\SonataExt\Entity\LogReference", mappedBy="log")
      */
@@ -109,6 +108,13 @@ class Log
         $this->extra = (empty($extra) ? null : $extra);
 
         $this->references = new ArrayCollection();
+
+        $this->created = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return sprintf('[%s] - %s ', $this->getId(), $this->getMessage());
     }
 
     /**
@@ -165,6 +171,14 @@ class Log
     public function getReferences()
     {
         return $this->references;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated(): ?\DateTime
+    {
+        return $this->created;
     }
 
     /**

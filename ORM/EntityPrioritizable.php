@@ -11,7 +11,7 @@ namespace MKebza\SonataExt\ORM;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait Prioritizable
+trait EntityPrioritizable
 {
     /**
      * @var null|int

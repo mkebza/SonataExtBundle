@@ -49,6 +49,7 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
                 'fieldName' => 'log',
                 'cascade' => ['persist'],
                 'mappedBy' => 'reference',
+                'cascade' => ['persist'],
             ]
         );
     }

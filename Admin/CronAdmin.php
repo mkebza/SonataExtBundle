@@ -12,7 +12,6 @@ namespace MKebza\SonataExt\Admin;
 use JMose\CommandSchedulerBundle\Entity\ScheduledCommand;
 use JMose\CommandSchedulerBundle\Form\Type\CommandChoiceType;
 use MKebza\SonataExt\Form\Type\TemplateType;
-use MKebza\SonataExt\Service\Logger\AdminLoggerTab;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -24,8 +23,6 @@ use Symfony\Component\Process\Process;
 
 class CronAdmin extends AbstractAdmin
 {
-    use AdminLoggerTab;
-
     protected $baseRoutePattern = 'cron';
     protected $baseRouteName = 'admin_cron';
 

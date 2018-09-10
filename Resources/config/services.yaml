@@ -103,6 +103,9 @@ services:
         - { name: doctrine.event_subscriber, connection: default }
 
     MKebza\SonataExt\EventListener\EntityLoggerSubscriber:
+        arguments:
+            $userProvider: '@MKebza\SonataExt\Service\Logger\UserProvider'
+            $channel: 'entity'
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 

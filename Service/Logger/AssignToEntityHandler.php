@@ -62,7 +62,6 @@ class AssignToEntityHandler extends AbstractHandler
             foreach ($entities as $entity) {
                 $entityLogName = $entity->getLogEntityFQN();
                 $reference = new $entityLogName($message, $entity);
-
                 $this->em->persist($reference);
             }
         }

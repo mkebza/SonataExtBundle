@@ -20,6 +20,24 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
 {
     protected $translationDomain = 'admin';
 
+    public function createLogTabMenuItem(): array
+    {
+        return $this->createTabMenuItem(
+            'Log',
+            sprintf('%s_log_list', $this->baseRouteName),
+            ['id'],
+            'bars');
+    }
+
+    public function createParentTabMenuItem($route = null, array $params = ['id']): array
+    {
+        return $this->createTabMenuItem(
+            'Parent',
+            (null === $route ? $this->baseRouteName.'_edit' : $route),
+            $params,
+            'chevron-left');
+    }
+
     public function getExportFormats()
     {
         return [];

@@ -15,7 +15,7 @@ use Cocur\Slugify\SlugifyInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use MKebza\SonataExt\ORM\Sluggable\Sluggable;
+use MKebza\SonataExt\ORM\Sluggable\EntitySluggable;
 use MKebza\SonataExt\Utils\ClassAnalyzer;
 
 class SluggableSubscriber implements EventSubscriber
@@ -47,7 +47,7 @@ class SluggableSubscriber implements EventSubscriber
     {
         $entity = $event->getEntity();
 
-        if (ClassAnalyzer::hasTrait($entity, Sluggable::class)) {
+        if (ClassAnalyzer::hasTrait($entity, EntitySluggable::class)) {
             $entity->setSlug($this->slug($entity->getSlugSource()));
         }
     }
@@ -56,7 +56,7 @@ class SluggableSubscriber implements EventSubscriber
     {
         $entity = $event->getEntity();
 
-        if (ClassAnalyzer::hasTrait($entity, Sluggable::class) && $entity->shouldUpdateSlugOnUpdate()) {
+        if (ClassAnalyzer::hasTrait($entity, EntitySluggable::class) && $entity->shouldUpdateSlugOnUpdate()) {
             $entity->setSlug($this->slug($entity->getSlugSource()));
         }
     }
