@@ -35,7 +35,7 @@ trait Loggable
                 $idPart = $this->getId();
             }
 
-            $checkMethods = ['getCode', 'getUsername', 'getName', 'getTitle'];
+            $checkMethods = ['getCode', 'getUsername', 'getName', 'getTitle', '__toString'];
             foreach ($checkMethods as $method) {
                 if (
                     $reflection->hasMethod($method) &&

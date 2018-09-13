@@ -43,6 +43,10 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
             return;
         }
 
+        if ($metadata->hasAssociation('log')) {
+            return;
+        }
+
         $metadata->mapOneToMany(
             [
                 'targetEntity' => $metadata->getName()::getLogEntityFQN(),
