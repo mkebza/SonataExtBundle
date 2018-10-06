@@ -49,7 +49,7 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
 
         $metadata->mapOneToMany(
             [
-                'targetEntity' => $metadata->getName()::getLogEntityFQN(),
+                'targetEntity' => $metadata->getName()::getLogEntityFQCN(),
                 'fieldName' => 'log',
                 'cascade' => ['persist'],
                 'mappedBy' => 'reference',

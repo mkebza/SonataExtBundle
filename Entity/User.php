@@ -238,9 +238,4 @@ abstract class User implements NotifiableInterface, UserInterface, \Serializable
             'email' => $this->getEmail(),
         ];
     }
-
-    public function getLogEntityFQN(): string
-    {
-        return UserLog::class;
-    }
 }

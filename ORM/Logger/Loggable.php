@@ -18,7 +18,7 @@ trait Loggable
      */
     protected $log;
 
-    public function getLogEntityFQN(): string
+    public static function getLogEntityFQCN(): string
     {
         return self::class.'Log';
     }

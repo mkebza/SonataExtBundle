@@ -88,14 +88,14 @@ class EntityLoggerSubscriber implements EventSubscriber
 
         $entry = new Log(
             $this->channel,
-            $message,
+            $message
             LogLevel::INFO(),
             $this->userProvider->getName(),
             $this->userProvider->getUser(),
             $extra
         );
 
-        $referenceClassName = $entity->getLogEntityFQN();
+        $referenceClassName = $entity::getLogEntityFQCN();
         $reference = new $referenceClassName($entry, $entity);
 
         $em->persist($entry);

@@ -3,7 +3,7 @@ services:
         class: MKebza\SonataExt\Admin\UserAdmin
         arguments: [~, App\Entity\User, ~]
         calls:
-            - ['addChild', ['@sonata.admin.user.log']]
+            - ['addChild', ['@sonata.admin.user.log', 'reference']]
         tags:
             - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Users', icon: '<i class="fa fa-users"></i>' }
 
