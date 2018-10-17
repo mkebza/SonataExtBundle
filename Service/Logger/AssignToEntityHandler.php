@@ -60,7 +60,7 @@ class AssignToEntityHandler extends AbstractHandler
             $entities = $this->normalizeReferences($record['context']['references']);
 
             foreach ($entities as $entity) {
-                $entityLogName = $entity->getLogEntityFQN();
+                $entityLogName = $entity->getLogEntityFQCN();
                 $reference = new $entityLogName($message, $entity);
                 $this->em->persist($reference);
             }

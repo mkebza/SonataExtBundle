@@ -33,7 +33,6 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         // the $metadata is the whole mapping info for this class
-
         $metadata = $eventArgs->getClassMetadata();
 
         if (
