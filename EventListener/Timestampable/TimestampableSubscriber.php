@@ -27,7 +27,7 @@ class TimestampableSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $event)
     {
-        if (!ClassAnalyzer::getAllTraits($event->getObject(), Timestampable::class)) {
+        if (!ClassAnalyzer::hasTrait($event->getObject(), Timestampable::class)) {
             return;
         }
 
@@ -41,7 +41,7 @@ class TimestampableSubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $event)
     {
-        if (!ClassAnalyzer::getAllTraits($event->getObject(), Timestampable::class)) {
+        if (!ClassAnalyzer::hasTrait($event->getObject(), Timestampable::class)) {
             return;
         }
 

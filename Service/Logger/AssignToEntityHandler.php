@@ -53,7 +53,7 @@ class AssignToEntityHandler extends AbstractHandler
             LogLevel::fromMonologLevel($record['level']),
             $this->userProvider->getName(),
             $this->userProvider->getUser(),
-            $record['extra']);
+            isset($record['context']['extra']) ? $record['context']['extra'] : null);
         $this->em->persist($message);
 
         if (isset($record['context']['references'])) {

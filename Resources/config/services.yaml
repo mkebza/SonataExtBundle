@@ -41,7 +41,15 @@ services:
         tags:
         - { name: 'doctrine.repository_service' }
 
-    MKebza\SonataExt\Utils\TokenGenerator:
+    MKebza\SonataExt\Utils\TokenGeneratorInterface:
+        alias: MKebza\SonataExt\Utils\TokenGenerator
+
+    MKebza\SonataExt\Utils\TokenGenerator: ~
+
+    MKebza\SonataExt\Service\Fixture\Provider\PhoneNumberProvider:
+        arguments:
+            $phoneNumberUtil: '@libphonenumber.phone_number_util'
+        tags: ['nelmio_alice.faker.provider']
 
 
     ####################################################################################################################
@@ -148,6 +156,8 @@ services:
         tags:
             - { name: form.type }
 
+    Payum\Core\Payum:
+        alias: payum
 
     MKebza\SonataExt\EventListener\Sluggable\SluggableSubscriber:
         arguments:

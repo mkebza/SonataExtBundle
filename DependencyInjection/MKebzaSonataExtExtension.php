@@ -10,6 +10,7 @@
 namespace MKebza\SonataExt\DependencyInjection;
 
 use MKebza\SonataExt\Controller\DashboardController;
+use MKebza\SonataExt\ORM\Type\CarbonDateType;
 use MKebza\SonataExt\ORM\Type\LoginAttemptResultType;
 use MKebza\SonataExt\ORM\Type\LogLevelType;
 use Symfony\Component\Config\FileLocator;
@@ -43,8 +44,20 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             'dbal' => [
                 // Custom types
                 'types' => [
+                    'date' => CarbonDateType::class,
                     'log_level' => LogLevelType::class,
                     'login_attempt_result' => LoginAttemptResultType::class,
+                ],
+            ],
+        ]);
+
+        $container->loadFromExtension('sonata_doctrine_orm_admin', [
+            'templates' => [
+                // Custom types
+                'types' => [
+                    'list' => [
+                        'money' => '@SonataAdmin/CRUD/list_money.html.twig',
+                    ],
                 ],
             ],
         ]);
