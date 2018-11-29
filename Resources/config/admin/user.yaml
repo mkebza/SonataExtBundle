@@ -5,7 +5,13 @@ services:
         calls:
             - ['addChild', ['@sonata.admin.user.log', 'reference']]
         tags:
-            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Users', label: 'Users', icon: '<i class="fa fa-users"></i>' }
+            -
+                name: sonata.admin
+                manager_type: orm
+                show_in_dashboard: true
+                group: 'menu.group.users'
+                label: 'menu.item.users'
+                icon: '<i class="fa fa-users"></i>'
 
     sonata.admin.user.log:
         class: MKebza\SonataExt\Admin\LogReferenceAdmin

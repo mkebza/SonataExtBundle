@@ -32,6 +32,7 @@ services:
     MKebza\SonataExt\Dashboard\Block\Type\LogBlock:
         arguments:
             $repository: '@MKebza\SonataExt\Repository\LogRepository'
+            $translator: '@translator'
         calls:
             - ['setTemplating', ['@templating']]
             - ['setAuthorizationChecker', ['@security.authorization_checker']]
@@ -47,6 +48,7 @@ services:
         arguments:
             $em: '@doctrine.orm.entity_manager'
             $router: '@router'
+            $translator: '@translator'
 
     MKebza\SonataExt\Dashboard\DashboardRenderer:
         arguments:

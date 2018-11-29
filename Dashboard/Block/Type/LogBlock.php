@@ -13,6 +13,7 @@ use MKebza\SonataExt\Repository\ActionLogRepository;
 use MKebza\SonataExt\Repository\AppLogRepository;
 use MKebza\SonataExt\Repository\LogRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class LogBlock extends AbstractBoxBlock
 {
@@ -22,13 +23,19 @@ class LogBlock extends AbstractBoxBlock
     protected $repository;
 
     /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    /**
      * ActionLogBlock constructor.
      *
      * @param ActionLogRepository $repository
      */
-    public function __construct(LogRepository $repository)
+    public function __construct(LogRepository $repository, TranslatorInterface $translator)
     {
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     public function execute(array $options = []): ?string
@@ -62,7 +69,7 @@ class LogBlock extends AbstractBoxBlock
             ->setDefaults([
                 'level' => null,
                 'limit' => 20,
-                'label' => 'Action log',
+                'label' => $this->translator->trans('block.Log.title', [], 'admin'),
             ])
         ;
     }

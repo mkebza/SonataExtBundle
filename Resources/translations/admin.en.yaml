@@ -20,6 +20,15 @@ User:
         email: E-mail
         active: Active
         created: Created
+        groups: Groups
+    tab:
+        general: General
+        security: Security
+
+    panel:
+        general: General
+        securityStatus: Status
+        securityGroups: Groups
 
 Log:
     field:
@@ -28,6 +37,8 @@ Log:
         level: Severenity
         created: Created
         user: User
+        references: References
+        extra: Extra
 
     action:
         adminTab:
@@ -35,14 +46,40 @@ Log:
             showing: Showing last :count messages
 
 ########################################################################################################################
+part:
+    UserBlock:
+        lastLogin: Last login :date
+        exitImpersonate: 'Exit impersonalisation'
+        changePassword: 'Change password'
+        logout: 'Logout'
+    Layout:
+        createdBy: Created by
+
+
+########################################################################################################################
 block:
     CurrentUserInfo:
         greeting: Hi :salutation
         lastLogin: Last login on :datetime
+    AppInfo:
+        title: 'App Info'
+        enviroment: 'Enviroment'
+        version: 'Version'
+        projectDir: 'Project dir'
+        doctrineConnections: 'Doctrine connections'
+        phpVersion: 'PHP Version'
+    Log:
+        title: 'Action log'
+    StatsNumber:
+        users: 'Total users'
+        logEvents: 'Total log events'
+        lockedCrons: 'Locked crons'
 
 ########################################################################################################################
 # Actions
 action:
+    dashboard:
+        title: Dashboard
     resetPassword:
         title: Please enter your new password
         back: Cancel
@@ -71,6 +108,20 @@ action:
         newPasswordRepeat: Repeat password
         changePassword: Change password
         flashPasswordChanged: Your password has been changed
+
+common:
+    none: None
+    more: 'Show more'
+
+menu:
+    group:
+        users: Users
+        system: Systen
+    item:
+        users: Users
+        groups: Groups
+        crons: Crons
+        dashboard: Dashboard
 
 ########################################################################################################################
 # enum

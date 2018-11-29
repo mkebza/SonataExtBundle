@@ -1,33 +1,34 @@
 {% extends '@SonataExt/block/layout_box.html.twig' %}
+{% trans_default_domain 'admin' %}
 
-{% block header_title %}<i class="fa fa-info-circle"></i> App Info{% endblock %}
+{% block header_title %}<i class="fa fa-info-circle"></i> {{ 'block.AppInfo.title'|trans }}{% endblock %}
 
 {% block body %}
     <table class="table table-condensed table-striped">
         <tr>
-            <td>Enviroment</td>
+            <td>{{ 'block.AppInfo.enviroment'|trans }}</td>
             <th>{{ app.environment }}</th>
         </tr>
         <tr>
-            <td>Version</td>
+            <td>{{ 'block.AppInfo.version'|trans }}</td>
             <th>{{ git }}</th>
         </tr>
         <tr>
-            <td>Project dir</td>
+            <td>{{ 'block.AppInfo.projectDir'|trans }}</td>
             <th>{{ project_dir }}</th>
         </tr>
         <tr>
-            <td>Doctrine connections</td>
+            <td>{{ 'block.AppInfo.doctrineConnections'|trans }}</td>
             <th>
                 {% for connection in database_connections %}
                     {{ connection.name }} - {{ connection.host }}/{{ connection.database }}
                 {% else %}
-                    None
+                    {{ 'common.none'|trans }}
                 {% endfor %}
             </th>
         </tr>
         <tr>
-            <td>PHP Version</td>
+            <td>{{ 'block.AppInfo.phpVersion'|trans }}</td>
             <th>{{ php }}</th>
         </tr>
     </table>

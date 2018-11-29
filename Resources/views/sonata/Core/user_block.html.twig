@@ -1,10 +1,11 @@
-{% trans_default_domain 'unud' %}
+{% trans_default_domain 'admin' %}
+
 <li class="user-header">
     <p>
         {#{{ app.user.fullName }}#}
         <small>
             {{ app.user.email }}<br>
-            Last login {{ last_login(app.user)|date('d.m.Y H:i:s') }}
+            {{ 'part.UserBlock.lastLogin'|trans({':date': last_login(app.user)|date('d.m.Y H:i:s') }) }}
         </small>
     </p>
 </li>
@@ -27,13 +28,13 @@
 <li class="user-footer">
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
         <a href="{{ path('sonata_admin_dashboard', {'__impersonate': '_exit' }) }}" class="btn btn-danger btn-block" style="color:#fff; margin-bottom: 10px">
-            Exit impersonalisation
+            {{ 'part.UserBlock.exitImpersonate'|trans }}
         </a>
     {% endif %}
     <div class="pull-left">
-        <a href="{{ path('admin_change_password') }}" class="btn btn-primary btn-flat">Change password</a>
+        <a href="{{ path('admin_change_password') }}" class="btn btn-primary btn-flat">{{ 'part.UserBlock.changePassword'|trans }}</a>
     </div>
     <div class="pull-right">
-        <a href="{{ path('admin_logout') }}" class="btn btn-primary btn-flat">Logout</a>
+        <a href="{{ path('admin_logout') }}" class="btn btn-primary btn-flat">{{ 'part.UserBlock.logout'|trans }}</a>
     </div>
 </li>

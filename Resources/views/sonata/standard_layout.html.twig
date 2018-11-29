@@ -117,7 +117,7 @@
 {% block side_bar_after_nav %}
     <p class="text-center small created-by" style="padding-top: 10px">
         {% block side_bar_after_nav_content %}
-            <a href="http://kebza.cz/">Created by <strong>Marek Kebza</strong></a>
+            <a href="http://kebza.cz/">{{ 'part.Layout.createdBy'|trans({}, 'admin') }} <strong>Marek Kebza</strong></a>
         {% endblock %}
     </p>
 {% endblock %}

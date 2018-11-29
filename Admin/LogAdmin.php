@@ -96,13 +96,27 @@ class LogAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $show)
     {
         $show
-            ->add('message')
-            ->add('channel', null, ['template' => '@SonataExt/log/show/channel.html.twig'])
-            ->add('level', null, ['template' => '@SonataExt/log/show/level.html.twig'])
-            ->add('user')
-            ->add('references', null, ['template' => '@SonataExt/log/show/references.html.twig'])
-            ->add('extra', null, ['template' => '@SonataExt/log/show/extra.html.twig'])
-            ->add('created')
+            ->add('message', null, ['label' => 'Log.field.message'])
+            ->add('channel', null, [
+                'label' => 'Log.field.channel',
+                'template' => '@SonataExt/log/show/channel.html.twig'
+            ])
+            ->add('level', null, [
+                'label' => 'Log.field.level',
+                'template' => '@SonataExt/log/show/level.html.twig'
+            ])
+            ->add('user', null, ['label' => 'Log.field.user'])
+            ->add('references', null, [
+                'label' => 'Log.field.references',
+                'template' => '@SonataExt/log/show/references.html.twig',
+            ])
+            ->add('extra', null, [
+                'label' => 'Log.field.extra',
+                'template' => '@SonataExt/log/show/extra.html.twig'
+            ])
+            ->add('created', null, [
+                'label' => 'Log.field.extra'
+            ])
         ;
     }
 }

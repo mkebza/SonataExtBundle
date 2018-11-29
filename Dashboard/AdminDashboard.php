@@ -19,6 +19,7 @@ use MKebza\SonataExt\Dashboard\Block\Type\SeparatorBlock;
 use MKebza\SonataExt\Dashboard\Block\Type\StatsNumberBlock;
 use MKebza\SonataExt\Entity\Log;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class AdminDashboard implements DashboardInterface
 {
@@ -33,16 +34,23 @@ class AdminDashboard implements DashboardInterface
     private $em;
 
     /**
-     * AdminDashboard constructor.
-     *
-     * @param RouterInterface        $router
-     * @param EntityManagerInterface $em
+     * @var TranslatorInterface
      */
-    public function __construct(RouterInterface $router, EntityManagerInterface $em)
+    private $translator;
+
+    /**
+     * AdminDashboard constructor.
+     * @param RouterInterface $router
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(RouterInterface $router, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->router = $router;
         $this->em = $em;
+        $this->translator = $translator;
     }
+
 
     public function build(DashboardBuilderInterface $builder): void
     {
@@ -51,20 +59,20 @@ class AdminDashboard implements DashboardInterface
 
             ->add('user_count', StatsNumberBlock::class, [
                 'number' => $this->getTotalUsers(),
-                'label' => 'Total users',
+                'label' => $this->translator->trans('block.StatsNumber.users', [], 'admin'),
                 'icon' => 'fa fa-users',
                 'target' => $this->router->generate('admin_user_list'),
             ])
             ->add('log_event_count_count', StatsNumberBlock::class, [
                 'number' => $this->getTotalLogEvents(),
-                'label' => 'Total log events',
+                'label' => $this->translator->trans('block.StatsNumber.logEvents', [], 'admin'),
                 'icon' => 'fa fa-bars',
                 'target' => $this->router->generate('admin_log_list'),
             ])
 
             ->add('locked_crons_count', StatsNumberBlock::class, [
                 'number' => $this->getTotalLockedCrons(),
-                'label' => 'Locked crons',
+                'label' => $this->translator->trans('block.StatsNumber.lockedCrons', [], 'admin'),
                 'icon' => 'fa fa-clock-o',
                 'color' => 0 === $this->getTotalLockedCrons() ? 'green' : 'red',
                 'target' => $this->router->generate('admin_cron_list'),
