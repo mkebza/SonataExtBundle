@@ -27,7 +27,8 @@
        "nesbot/carbon": "^1.25",
        "jmose/command-scheduler-bundle": "^2.0",
        "sonata-project/admin-bundle": "^3.35",
-       "sonata-project/doctrine-orm-admin-bundle": "^3.6"
+       "sonata-project/doctrine-orm-admin-bundle": "^3.6",
+        "symfony/twig-bundle": "4.1.*"
     },
     "require-dev": {
       "theofidry/alice-data-fixtures": "^1.0",
