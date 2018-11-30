@@ -23,7 +23,7 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
     public function createLogTabMenuItem(string $routeName = null, array $params = ['id']): array
     {
         return $this->createTabMenuItem(
-            'Log',
+            'common.log',
             (null === $routeName ? sprintf('%s_log_list', $this->baseRouteName) : $routeName),
             $params,
             'bars');
@@ -32,7 +32,7 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
     public function createParentTabMenuItem($route = null, array $params = ['id']): array
     {
         return $this->createTabMenuItem(
-            'Parent',
+            'common.parent',
             (null === $route ? $this->baseRouteName.'_edit' : $route),
             $params,
             'chevron-left');
@@ -119,7 +119,7 @@ abstract class AbstractAdmin extends BaseAbstractAdmin
         }, $routeParams);
 
         $item = [
-            $name,
+            $this->trans($name, [], 'admin'),
             ['route' => $route, 'routeParameters' => $routeParams],
             ['icon' => 'fa fa-'.$icon],
         ];

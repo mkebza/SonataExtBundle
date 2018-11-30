@@ -10,6 +10,7 @@
 namespace MKebza\SonataExt\DependencyInjection;
 
 use MKebza\SonataExt\Controller\DashboardController;
+use MKebza\SonataExt\ORM\Type\CarbonDateTimeType;
 use MKebza\SonataExt\ORM\Type\CarbonDateType;
 use MKebza\SonataExt\ORM\Type\LoginAttemptResultType;
 use MKebza\SonataExt\ORM\Type\LogLevelType;
@@ -45,6 +46,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
                 // Custom types
                 'types' => [
                     'date' => CarbonDateType::class,
+                    'datetime' => CarbonDateTimeType::class,
                     'log_level' => LogLevelType::class,
                     'login_attempt_result' => LoginAttemptResultType::class,
                 ],
@@ -62,15 +64,19 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             ],
         ]);
 
-        // Configure twig
-        $container->loadFromExtension('twig', [
-            'paths' => [
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' => 'Email',
-                '%kernel.project_dir%/templates/email' => 'Email',
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' => 'SonataAdmin',
-                '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
-            ],
-        ]);
+
+        // Configure twig paths
+        $twigPaths = [
+            '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' => 'Email',
+            '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/sonata' => 'SonataAdmin',
+            '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/ext' => 'SonataExt',
+        ];
+        // Only if emails exists, otherwise no need
+        $emailPath = $container->getParameter('kernel.project_dir').'/templates/email';
+        if (file_exists($emailPath) && is_dir($emailPath)) {
+            $twigPaths = array_merge($twigPaths, ['%kernel.project_dir%/templates/email' => 'Email']);
+        }
+        $container->loadFromExtension('twig', ['paths' => $twigPaths]);
     }
 
     /**

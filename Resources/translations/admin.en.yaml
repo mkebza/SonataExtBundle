@@ -40,11 +40,6 @@ Log:
         references: References
         extra: Extra
 
-    action:
-        adminTab:
-            title: History
-            showing: Showing last :count messages
-
 ########################################################################################################################
 part:
     UserBlock:
@@ -109,10 +104,16 @@ action:
         changePassword: Change password
         flashPasswordChanged: Your password has been changed
 
+########################################################################################################################
+# Common
 common:
     none: None
     more: 'Show more'
+    parent: Parent
+    log: Log
 
+########################################################################################################################
+# Menu
 menu:
     group:
         users: Users
@@ -121,6 +122,7 @@ menu:
         users: Users
         groups: Groups
         crons: Crons
+        log: Log
         dashboard: Dashboard
 
 ########################################################################################################################

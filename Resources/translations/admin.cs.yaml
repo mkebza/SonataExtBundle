@@ -1,0 +1,139 @@
+########################################################################################################################
+# Entities
+UserGroup:
+    field:
+        name: Název
+        key: Klíč
+
+    tab:
+        general: Obecné
+
+    panel:
+        general: Obecné
+        roles: Role
+
+    action:
+
+
+User:
+    field:
+        email: E-mail
+        active: Aktivní
+        created: Vytvořeno
+        groups: Skupiny
+    tab:
+        general: Obecné
+        security: Zabezpečení
+
+    panel:
+        general: Obecné
+        securityStatus: Status
+        securityGroups: Skupiny
+
+Log:
+    field:
+        channel: Kanál
+        message: Zpráva
+        level: Závažnost
+        created: Vytvořeno
+        user: Uživatel
+        references: Relace
+        extra: Extra
+
+########################################################################################################################
+part:
+    UserBlock:
+        lastLogin: Poslední příhlášení :date
+        exitImpersonate: 'Zpět na mého uživatele'
+        changePassword: 'Změnit heslo'
+        logout: 'Odhlásit'
+    Layout:
+        createdBy: Vytvořil
+
+
+########################################################################################################################
+block:
+    CurrentUserInfo:
+        greeting: Zdravím :salutation
+        lastLogin: Naposledy přihlášen :datetime
+    AppInfo:
+        title: 'Informace o aplikace'
+        enviroment: 'Prostředí'
+        version: 'Verze'
+        projectDir: 'Adresář aplikace'
+        doctrineConnections: 'Definovaná připojení'
+        phpVersion: 'PHP Verze'
+    Log:
+        title: 'Log'
+    StatsNumber:
+        users: 'Uživatelé'
+        logEvents: 'Akcí'
+        lockedCrons: 'Zamknutých cronů'
+
+########################################################################################################################
+# Actions
+action:
+    dashboard:
+        title: Přehled
+    resetPassword:
+        title: Zadejte prosím vaše nové heslo
+        back: Zrušit
+        flashInvalidToken: Odkaz na změnu hesla je neplatný nebo vypšel, zkuste to prosím znovu.
+        flashPasswordReset: Vaše heslo bylo změněno, nyní se můžete přihlásit.
+        buttonChangePassword: Změnit heslo
+    resetPasswordRequest:
+        title: 'Zadejte prosím váš e-mail pro změnu hesla'
+        email: E-mail
+        back: 'Zpět'
+        buttonResetPassword: 'Obnovit heslo'
+        flashResetPasswordRequested: Pokud jste zadali existující e-mail, tak vám byly zaslány instrukce k obnově hesla
+    login:
+        login: Prosím přihlašte se
+        email: E-mail
+        password: Heslo
+        rememberMe: 'Trvalé přihlášení'
+        buttonLogin: 'Přihlásit'
+        continue: 'Pokračovat'
+        logout: 'Odhlásit'
+        loggedAs: Přihlášen jako :username
+        resetPassword: 'Obnovit heslo'
+    changePassword:
+        currentPassword: Aktuální heslo
+        newPassword: Nové heslo
+        newPasswordRepeat: Heslo znovu
+        changePassword: Změnit heslo
+        flashPasswordChanged: Vaše heslo bylo změněno
+
+########################################################################################################################
+# Common
+common:
+    none: Žádné
+    more: 'Více'
+    parent: Zpět
+    log: Log
+
+########################################################################################################################
+# Menu
+menu:
+    group:
+        users: Uživatelé
+        system: Systém
+    item:
+        users: Uživatelé
+        groups: Skupiny
+        crons: Crony
+        log: Log
+        dashboard: Přehled
+
+########################################################################################################################
+# enum
+enum:
+    LogLevel:
+        debug: ladící
+        info: informační
+        notice: poznámka
+        warning: varování
+        error: chyba
+        critical: kritická chyba
+        alert: poplach
+        emergency: nouze
