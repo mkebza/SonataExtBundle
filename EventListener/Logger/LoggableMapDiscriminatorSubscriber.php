@@ -35,7 +35,10 @@ class LoggableMapDiscriminatorSubscriber implements EventSubscriber
         $metadata = $event->getClassMetadata();
         $classes = [];
 
-        if (LogReference::class !== $metadata->getName() && !$metadata->getReflectionClass()->isSubclassOf(LogReference::class)) {
+        if (
+                LogReference::class !== $metadata->getName() &&
+                (null === $metadata->getReflectionClass() || !$metadata->getReflectionClass()->isSubclassOf(LogReference::class))
+        ) {
             return;
         }
 
