@@ -17,7 +17,6 @@
     },
     "require": {
        "php": "^7.1.3",
-       "symfony/stopwatch": "^4.0",
        "ircmaxell/random-lib": "^1.2",
        "notfloran/mjml-bundle": "^2.1",
        "rollerworks/password-strength-validator": "^1.1",
@@ -28,7 +27,7 @@
        "jmose/command-scheduler-bundle": "^2.0",
        "sonata-project/admin-bundle": "^3.35",
        "sonata-project/doctrine-orm-admin-bundle": "^3.6",
-        "symfony/twig-bundle": "4.1.*"
+        "symfony/twig-bundle": "^4.0"
     },
     "require-dev": {
       "theofidry/alice-data-fixtures": "^1.0",
