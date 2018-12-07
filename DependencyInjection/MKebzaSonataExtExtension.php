@@ -12,6 +12,7 @@ namespace MKebza\SonataExt\DependencyInjection;
 use MKebza\SonataExt\Controller\DashboardController;
 use MKebza\SonataExt\ORM\Type\CarbonDateTimeType;
 use MKebza\SonataExt\ORM\Type\CarbonDateType;
+use MKebza\SonataExt\ORM\Type\CarbonTimeType;
 use MKebza\SonataExt\ORM\Type\LoginAttemptResultType;
 use MKebza\SonataExt\ORM\Type\LogLevelType;
 use Symfony\Component\Config\FileLocator;
@@ -45,6 +46,7 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             'dbal' => [
                 // Custom types
                 'types' => [
+                    'time' => CarbonTimeType::class,
                     'date' => CarbonDateType::class,
                     'datetime' => CarbonDateTimeType::class,
                     'log_level' => LogLevelType::class,

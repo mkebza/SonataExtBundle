@@ -51,6 +51,15 @@ services:
             $phoneNumberUtil: '@libphonenumber.phone_number_util'
         tags: ['nelmio_alice.faker.provider']
 
+    MKebza\SonataExt\Service\Fixture\Provider\DateIntervalProvider:
+        tags: ['nelmio_alice.faker.provider']
+
+    MKebza\SonataExt\Service\Fixture\Provider\DatetimeProvider:
+        tags: ['nelmio_alice.faker.provider']
+
+    MKebza\SonataExt\Service\Fixture\Provider\EnumProvider:
+        tags: ['nelmio_alice.faker.provider']
+
 
     ####################################################################################################################
 #    MKebza\SonataExt\DataFixture\Processor\UserProcessor:
