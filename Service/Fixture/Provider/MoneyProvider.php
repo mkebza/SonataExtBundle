@@ -9,15 +9,22 @@
 
 namespace MKebza\SonataExt\Service\Fixture\Provider;
 
+use Faker\Generator;
 use Faker\Provider\Base;
 use Money\Money;
 
 class MoneyProvider extends Base
 {
-    public function money($min = 100, $max = 999999, $currency = 'USD')
+    /**
+     * DateIntervalProvider constructor.
+     */
+    public function __construct()
     {
-        $amount = self::numberBetween($min, $max);
+        parent::__construct(new Generator());
+    }
 
+    public function money($amount, $currency = 'EUR')
+    {
         return Money::$currency($amount);
     }
 }

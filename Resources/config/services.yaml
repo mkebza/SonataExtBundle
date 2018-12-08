@@ -51,6 +51,9 @@ services:
             $phoneNumberUtil: '@libphonenumber.phone_number_util'
         tags: ['nelmio_alice.faker.provider']
 
+    MKebza\SonataExt\Service\Fixture\Provider\MoneyProvider:
+        tags: ['nelmio_alice.faker.provider']
+
     MKebza\SonataExt\Service\Fixture\Provider\DateIntervalProvider:
         tags: ['nelmio_alice.faker.provider']
 
