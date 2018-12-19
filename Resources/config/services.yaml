@@ -202,3 +202,9 @@ services:
 
     MKebza\SonataExt\Twig\Runtime\TextRuntime:
         tags: ['twig.runtime']
+
+    MKebza\SonataExt\Twig\Runtime\EnumRuntime:
+        tags: ['twig.runtime']
+
+    MKebza\SonataExt\Twig\Extension\EnumExtension:
+        tags: ['twig.extension']
