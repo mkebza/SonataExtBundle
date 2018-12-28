@@ -117,7 +117,7 @@ common:
 menu:
     group:
         users: Users
-        system: Systen
+        system: System
     item:
         users: Users
         groups: Groups

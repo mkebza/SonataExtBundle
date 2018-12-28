@@ -40,9 +40,10 @@ class AdminDashboard implements DashboardInterface
 
     /**
      * AdminDashboard constructor.
-     * @param RouterInterface $router
+     *
+     * @param RouterInterface        $router
      * @param EntityManagerInterface $em
-     * @param TranslatorInterface $translator
+     * @param TranslatorInterface    $translator
      */
     public function __construct(RouterInterface $router, EntityManagerInterface $em, TranslatorInterface $translator)
     {
@@ -50,7 +51,6 @@ class AdminDashboard implements DashboardInterface
         $this->em = $em;
         $this->translator = $translator;
     }
-
 
     public function build(DashboardBuilderInterface $builder): void
     {

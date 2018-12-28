@@ -12,7 +12,6 @@ namespace MKebza\SonataExt\ORM\Type;
 use Carbon\Carbon;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\DateTimeType;
-use Doctrine\DBAL\Types\DateType;
 
 class CarbonDateTimeType extends DateTimeType
 {

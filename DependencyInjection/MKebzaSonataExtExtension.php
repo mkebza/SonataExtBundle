@@ -66,7 +66,6 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
             ],
         ]);
 
-
         // Configure twig paths
         $twigPaths = [
             '%kernel.project_dir%/vendor/mkebza/sonata-ext-bundle/Resources/views/email' => 'Email',

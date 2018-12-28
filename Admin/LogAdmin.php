@@ -99,11 +99,11 @@ class LogAdmin extends AbstractAdmin
             ->add('message', null, ['label' => 'Log.field.message'])
             ->add('channel', null, [
                 'label' => 'Log.field.channel',
-                'template' => '@SonataExt/log/show/channel.html.twig'
+                'template' => '@SonataExt/log/show/channel.html.twig',
             ])
             ->add('level', null, [
                 'label' => 'Log.field.level',
-                'template' => '@SonataExt/log/show/level.html.twig'
+                'template' => '@SonataExt/log/show/level.html.twig',
             ])
             ->add('user', null, ['label' => 'Log.field.user'])
             ->add('references', null, [
@@ -112,10 +112,10 @@ class LogAdmin extends AbstractAdmin
             ])
             ->add('extra', null, [
                 'label' => 'Log.field.extra',
-                'template' => '@SonataExt/log/show/extra.html.twig'
+                'template' => '@SonataExt/log/show/extra.html.twig',
             ])
             ->add('created', null, [
-                'label' => 'Log.field.extra'
+                'label' => 'Log.field.extra',
             ])
         ;
     }

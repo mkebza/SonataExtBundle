@@ -22,6 +22,7 @@ class MenuDashboardSubscriber implements EventSubscriberInterface
 
     /**
      * MenuDashboardSubscriber constructor.
+     *
      * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)

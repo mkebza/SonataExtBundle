@@ -41,6 +41,26 @@ services:
         tags:
         - { name: 'doctrine.repository_service' }
 
+    MKebza\SonataExt\EventListener\Workflow\WorkflowLoggableSubscriber:
+        arguments:
+            $logger: '@monolog.logger.app_workflow'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    MKebza\SonataExt\Service\Cron\CronManager:
+        arguments:
+            $slugger: '@Cocur\Slugify\SlugifyInterface'
+
+    sonata_ext.cron_manager:
+        alias: MKebza\SonataExt\Service\Cron\CronManager
+        public: true
+
+    MKebza\SonataExt\EventListener\Notificator\NotificatorLoggerSubscriber:
+        arguments:
+            $logger: '@monolog.logger.app_notification'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
     MKebza\SonataExt\Utils\TokenGeneratorInterface:
         alias: MKebza\SonataExt\Utils\TokenGenerator
 
@@ -167,9 +187,6 @@ services:
     MKebza\SonataExt\Form\Type\TemplateType:
         tags:
             - { name: form.type }
-
-    Payum\Core\Payum:
-        alias: payum
 
     MKebza\SonataExt\EventListener\Sluggable\SluggableSubscriber:
         arguments:

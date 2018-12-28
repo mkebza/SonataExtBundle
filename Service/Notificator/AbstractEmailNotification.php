@@ -28,6 +28,7 @@ abstract class AbstractEmailNotification implements NotificationInterface
 
     /**
      * AbstractEmailNotification constructor.
+     *
      * @param EngineInterface $templating
      */
     public function __construct(EngineInterface $templating)
@@ -53,7 +54,7 @@ abstract class AbstractEmailNotification implements NotificationInterface
         return $notification->setContent($this->emailBuildMessage($notification, $options));
     }
 
-    protected function emailBuildMessage(Notification $notification, array $options): \Swift_Message
+    protected function emailBuildMessage(Notification $notification, array $options): Swift_Message
     {
         $body = $this->emailBody($notification, $options);
 

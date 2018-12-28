@@ -9,6 +9,7 @@
 
 namespace MKebza\SonataExt\EventListener\Timestampable;
 
+use Carbon\Carbon;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
@@ -33,7 +34,7 @@ class TimestampableSubscriber implements EventSubscriber
 
         $object = $event->getObject();
         if (null === $object->getCreated()) {
-            $now = new \DateTime();
+            $now = Carbon::now();
             $object->setCreated($now);
             $object->setUpdated($now);
         }
@@ -45,7 +46,7 @@ class TimestampableSubscriber implements EventSubscriber
             return;
         }
 
-        $now = new \DateTime();
+        $now = Carbon::now();
         $object = $event->getObject()->setUpdated($now);
     }
 }

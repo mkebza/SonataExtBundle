@@ -42,6 +42,7 @@ trait EntityActive
     public function activate(): self
     {
         $this->setActive(true);
+
         return $this;
     }
 

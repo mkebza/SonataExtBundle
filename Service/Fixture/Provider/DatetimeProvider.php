@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mkebza
- * Date: 2018-12-06
- * Time: 19:03
+
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace MKebza\SonataExt\Service\Fixture\Provider;
@@ -14,7 +15,6 @@ use Faker\Provider\Base;
 
 final class DatetimeProvider extends Base
 {
-
     /**
      * DateIntervalProvider constructor.
      */

@@ -70,8 +70,6 @@ class CronAdmin extends AbstractAdmin
                 ->end()
             ->end()
         ;
-
-        $this->addActionLogTab($form);
     }
 
     protected function configureListFields(ListMapper $list)

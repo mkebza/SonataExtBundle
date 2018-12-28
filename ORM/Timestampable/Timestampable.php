@@ -9,38 +9,39 @@
 
 namespace MKebza\SonataExt\ORM\Timestampable;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 
 trait Timestampable
 {
     /**
-     * @var null|\DateTime
+     * @var null|Carbon
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $created;
 
     /**
-     * @var null|\DateTime
+     * @var null|Carbon
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
     protected $updated;
 
     /**
-     * @return \DateTime
+     * @return null|Carbon
      */
-    public function getCreated(): ?\DateTime
+    public function getCreated(): ?Carbon
     {
         return $this->created;
     }
 
     /**
-     * @param \DateTime $created
+     * @param null|Carbon $created
      *
-     * @return TimestampableProperties
+     * @return Timestampable
      */
-    public function setCreated(\DateTime $created): self
+    public function setCreated(?Carbon $created): self
     {
         $this->created = $created;
 
@@ -48,18 +49,22 @@ trait Timestampable
     }
 
     /**
-     * @return null|\DateTime
+     * @return null|Carbon
      */
-    public function getUpdated(): ?\DateTime
+    public function getUpdated(): ?Carbon
     {
         return $this->updated;
     }
 
     /**
-     * @param null|\DateTime $updated
+     * @param null|Carbon $updated
+     *
+     * @return Timestampable
      */
-    public function setUpdated(?\DateTime $updated): void
+    public function setUpdated(?Carbon $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
     }
 }

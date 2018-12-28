@@ -1,10 +1,15 @@
 <?php
 
+/*
+ * Author: (c) Marek Kebza <marek@kebza.cz>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 declare(strict_types=1);
 
-
 namespace MKebza\SonataExt\Service\Workflow;
-
 
 use Elao\Enum\EnumInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -36,7 +41,7 @@ class EnumMarkingStore implements MarkingStoreInterface
             return new Marking();
         }
 
-        return new Marking(array($placeName->getValue() => 1));
+        return new Marking([$placeName->getValue() => 1]);
     }
 
     /**
@@ -52,7 +57,7 @@ class EnumMarkingStore implements MarkingStoreInterface
         }
 
         if ($refClass->getMethod($methodName)->getNumberOfParameters() < 0) {
-            throw new \LogicException(sprintf("Function %s in %s must have at least one parameter", $methodName, $refClass->getName()));
+            throw new \LogicException(sprintf('Function %s in %s must have at least one parameter', $methodName, $refClass->getName()));
         }
 
         $firstParam = $refClass->getMethod($methodName)->getParameters()[0];
@@ -62,7 +67,7 @@ class EnumMarkingStore implements MarkingStoreInterface
 
         $refParam = new \ReflectionClass($firstParam->getType()->getName());
         if (!$refParam->implementsInterface(EnumInterface::class)) {
-            throw new \LogicException(sprintf("Type hinted parameter in %s::%s have to implement %s", $refClass->getName(), $methodName, EnumInterface::class));
+            throw new \LogicException(sprintf('Type hinted parameter in %s::%s have to implement %s', $refClass->getName(), $methodName, EnumInterface::class));
         }
 
         $value = $firstParam->getType()->getName()::get(key($marking->getPlaces()));
