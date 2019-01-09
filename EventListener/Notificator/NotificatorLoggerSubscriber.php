@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace MKebza\SonataExt\EventListener\Notificator;
 
 use MKebza\Notificator\Event\PostNotificationHandleEvent;
+use MKebza\Notificator\NotifiableInterface;
 use MKebza\Notificator\Notification;
 use MKebza\Notificator\NotificationInterface;
 use MKebza\SonataExt\ORM\Logger\LoggableInterface;
@@ -48,7 +49,7 @@ class NotificatorLoggerSubscriber implements EventSubscriberInterface
             sprintf(
                 "Send notification '%s' to '%s' via '%s' with target '%s'",
                 $this->getNotificationName($event->getNotificationHandler()),
-                (string) $event->getTarget(),
+                method_exists($event->getTarget(), '__toString') ? (string) $event->getTarget() : 'General target',
                 $event->getNotification()->getChannel(),
                 $event->getNotification()->getTarget()
             ),
