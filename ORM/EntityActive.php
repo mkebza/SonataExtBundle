@@ -39,6 +39,11 @@ trait EntityActive
         return $this;
     }
 
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
     public function activate(): self
     {
         $this->setActive(true);
