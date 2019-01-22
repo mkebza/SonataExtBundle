@@ -37,6 +37,7 @@ class CreateLoggableRelationSubscriber implements EventSubscriber
 
         if (
             $metadata->isMappedSuperclass ||
+            null === $metadata->getReflectionClass() ||
             !$metadata->getReflectionClass()->implementsInterface(LoggableInterface::class)
         ) {
             return;
