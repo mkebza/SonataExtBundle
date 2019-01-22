@@ -1,0 +1,11 @@
+services:
+    MKebza\SonataExt\Service\Fixture\Provider\PhoneNumberProvider:
+        arguments:
+            $phoneNumberUtil: '@libphonenumber.phone_number_util'
+        tags: ['nelmio_alice.faker.provider']
+
+    MKebza\SonataExt\DataFixture\Processor\UserProcessor:
+        arguments:
+            $encoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
+        tags:
+            - { name: 'fidry_alice_data_fixtures.processor' }

@@ -66,11 +66,6 @@ services:
 
     MKebza\SonataExt\Utils\TokenGenerator: ~
 
-    MKebza\SonataExt\Service\Fixture\Provider\PhoneNumberProvider:
-        arguments:
-            $phoneNumberUtil: '@libphonenumber.phone_number_util'
-        tags: ['nelmio_alice.faker.provider']
-
     MKebza\SonataExt\Service\Fixture\Provider\MoneyProvider:
         tags: ['nelmio_alice.faker.provider']
 
@@ -100,11 +95,6 @@ services:
 
     ####################################################################################################################
     # Security
-    MKebza\SonataExt\DataFixture\Processor\UserProcessor:
-        arguments:
-            $encoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
-        tags:
-            - { name: 'fidry_alice_data_fixtures.processor' }
 
     MKebza\SonataExt\EventListener\Security\AuthenticationLoggerSubscriber:
         arguments:

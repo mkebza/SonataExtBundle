@@ -106,6 +106,10 @@ class MKebzaSonataExtExtension extends Extension implements PrependExtensionInte
         $loader->load('services.yaml');
         $loader->load('dashboard.yaml');
 
+        if ($container->getParameter('kernel.environment') !== 'prod') {
+            $loader->load('services_dev.yaml');
+        }
+
         // Include registered admins
         foreach ($config['admin'] as $name => $enabled) {
             if ($enabled) {
